@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+
+% Packages for formatting
+\usepackage[margin=1in]{geometry} % 1-inch margins
+\usepackage{times} % Times New Roman font
+\usepackage{setspace} % For double spacing
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{titlesec} % For section numbering
+\usepackage{booktabs} % For professional-looking tables
+\usepackage[style=apa, backend=biber]{biblatex} % APA 7th edition references
+% \addbibresource{references.bib} % Reference file
+
+% Set double spacing
+\doublespacing
+
+% Indent paragraphs by 0.5 inch
+\setlength{\parindent}{0.5in}
+
+% Page numbering setup
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage} % Page number in the bottom-right corner
+\renewcommand{\headrulewidth}{0pt} % Remove the header rule
+
+% Section formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+
+\begin{document}
+\pagenumbering{roman}
+\section*{Abstract} % maximum 150 words
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ac dolor eget placerat. Quisque placerat mattis dui congue rhoncus. Morbi lobortis libero eget arcu condimentum commodo. Maecenas a velit enim. Pellentesque eget libero eget massa porta dictum. Mauris luctus justo a turpis molestie aliquam. Maecenas cursus ipsum non tincidunt euismod. Phasellus non urna ut tortor viverra fermentum eu non justo. Maecenas vestibulum, tellus a gravida egestas, odio purus facilisis mi, sit amet dapibus velit arcu quis nulla. 
+
+\section*{Keywords} % maximum 10 keywords
+List of relevant keywords here. For example: keyword1, keyword2, keyword3.
+
+\newpage
+\tableofcontents % índice
+\newpage
+
+\pagenumbering{arabic} % Switch to Arabic numerals for the main content
+
+\section{Introduction}
+This is a sample section to demonstrate the formatting. Each paragraph is indented by half an inch. The text is double spaced, and all margins are set to 1 inch.
+
+Here is a new paragraph to showcase the indentation. Notice how the formatting is consistent throughout the document.
+
+
+\section{Body of the text with different sections}
+ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ac dolor eget placerat. Quisque placerat mattis dui congue rhoncus. Morbi lobortis libero eget arcu condimentum commodo. Maecenas a velit enim. Pellentesque eget libero eget massa porta dictum. Mauris luctus justo a turpis molestie aliquam. Maecenas cursus ipsum non tincidunt euismod. Phasellus non urna ut tortor viverra fermentum eu non justo. Maecenas vestibulum, tellus a gravida egestas, odio purus facilisis mi, sit amet dapibus velit arcu quis nulla.
+
+Nulla faucibus, enim rutrum iaculis venenatis, sem nisi imperdiet tortor, in accumsan metus nibh eget neque. Nulla in posuere lectus. Ut rhoncus sem nec neque interdum, non gravida urna fringilla. Mauris et leo eu elit ullamcorper varius at tempor tortor. Phasellus ultrices, nulla laoreet vestibulum luctus, massa leo luctus mi, non interdum velit sapien ac ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non lorem erat. Ut malesuada cursus erat nec hendrerit. Mauris id posuere augue. In facilisis justo nec imperdiet tempor. Proin a porta magna. Vivamus id orci vel dolor varius pharetra non in lacus. Morbi ullamcorper risus tincidunt, imperdiet ipsum sed, molestie diam.
+
+ 
+\subsection{Subsection}
+
+Integer lobortis auctor nulla, vel finibus ipsum pretium quis. Aliquam erat volutpat. Nulla elementum odio augue, sit amet sollicitudin turpis finibus in. Nulla pharetra, diam vel finibus lacinia, nisl odio ornare eros, quis vulputate erat nulla et felis. Donec rhoncus nunc lacus, in luctus ligula ornare id. Quisque tincidunt venenatis ipsum quis varius. Quisque imperdiet porttitor erat, sollicitudin faucibus purus mollis eget. Vestibulum faucibus magna sem, ut porta dui fermentum a. Curabitur tempor mi convallis orci vehicula porta. Proin rutrum varius ex et auctor. Nullam in orci sed risus aliquam suscipit in non leo.
+
+Curabitur nisl nunc, laoreet nec purus eget, porta tincidunt lorem. Integer at lobortis eros. Etiam dapibus, leo vitae laoreet convallis, leo libero pulvinar odio, faucibus hendrerit urna arcu id ex. Donec neque leo, tempor in risus eu, accumsan molestie leo. Cras suscipit sit amet nisi sit amet facilisis. Sed congue velit sed augue ultrices, sit amet venenatis est eleifend. Sed diam nunc, ultrices id tempus sit amet, imperdiet sit amet ligula. Nulla tristique, nunc vel vulputate posuere, diam quam aliquam orci, pellentesque imperdiet ipsum arcu et dui. Aliquam porttitor enim ac dui consectetur rhoncus. Ut gravida augue id accumsan interdum. Aenean ac lacus neque. Ut sed turpis aliquet, elementum libero luctus, mollis ante. Nunc scelerisque elementum augue ut euismod. Nam condimentum dui sapien, quis pellentesque urna imperdiet ut. Cras id aliquet justo. Sed eget hendrerit ligula, ut egestas metus. 
+
+\section{Table example}
+Below is a sample table:
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lcr}
+        \toprule
+        Column 1 & Column 2 & Column 3 \\
+        \midrule
+        Data 1   & Data 2   & Data 3   \\
+        Data 4   & Data 5   & Data 6   \\
+        \bottomrule
+    \end{tabular}
+    \caption{Sample Table}
+    \label{tab:sample}
+\end{table}
+
+\section{Conclusion}
+
+% Print bibliography
+\printbibliography
+
+\end{document}
