@@ -1,0 +1,58 @@
+\documentclass[12pt, a4paper]{article}
+
+% Packages for formatting
+\usepackage[utf8]{inputenc} % UTF-8 encoding
+\usepackage[margin=1in]{geometry} % 1-inch margins
+\usepackage{times} % Times New Roman font
+\usepackage{setspace} % For double spacing
+\usepackage[american]{babel}
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{titlesec} % For section numbering
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage{csquotes}
+\usepackage{caption}
+\usepackage{booktabs} % For professional-looking tables
+\usepackage[style=apa, backend=biber]{biblatex} % APA 7th edition references
+% \addbibresource{references.bib} % Reference file
+
+% Set double spacing
+\doublespacing
+
+% Indent paragraphs by 0.5 inch
+\setlength{\parindent}{0.5in}
+
+% Page numbering setup
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage} % Page number in the bottom-right corner
+\renewcommand{\headrulewidth}{0pt} % Remove the header rule
+
+% Section formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+
+\begin{document}
+\pagenumbering{roman}
+\section*{Abstract} % maximum 150 words
+.
+
+\section*{Keywords} % maximum 10 keywords
+.
+
+\newpage
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic} % Switch to Arabic numerals for the main content
+
+\section{Introduction}
+.
+
+\section{Research question}
+.
+
+\section{Methodology}
+.
+
+% \printbibliography
+
+\end{document}
