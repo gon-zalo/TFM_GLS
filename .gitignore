@@ -1,1 +1,11 @@
 .venv
+latex/tfm.aux
+latex/tfm.bbl
+latex/tfm.bcf
+latex/tfm.blg
+latex/tfm.fdb_latexmk
+latex/tfm.fls
+latex/tfm.log
+latex/tfm.run.xml
+latex/tfm.synctex.gz
+latex/tfm.toc
