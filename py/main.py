@@ -10,19 +10,13 @@ from gensim.models import KeyedVectors
 
 # EMBEDDINGS
 ft_embeddings = "py/embeddings/cc.es.300.bin"
-word2vec_embeddings = "py/embeddings/SBW/sbw_vectors.bin"
+word2vec_embeddings = "py/embeddings/sbw_vectors.bin"
 bert_embeddings = ""
 
 # DATASETS
 triplets_data = pd.read_csv("py/datasets/50_triplets.csv", sep=",") # small data for testing
 
 # -----------------------------------------------------
-
-# check if fasttext embeddings exist
-# if not os.path.exists(ft_embeddings):
-#     fasttext.util.download_model('es', if_exists='ignore')  # Download Spanish vectors if not available
-
-# fasttext_model = fasttext.load_model(ft_embeddings)  # loads embeddings
 
 chosen_model = False
 while chosen_model == False:
