@@ -1,0 +1,62 @@
+\documentclass[12pt, a4paper]{article}
+
+% Packages for formatting
+\usepackage[utf8]{inputenc} % UTF-8 encoding
+\usepackage[margin=1in]{geometry} % 1-inch margins
+\usepackage{times} % Times New Roman font
+\usepackage{setspace} % For double spacing
+\usepackage[american]{babel}
+\usepackage{fancyhdr} % For headers and footers
+\usepackage{titlesec} % For section numbering
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage{csquotes}
+\usepackage{caption}
+\usepackage{booktabs} % For professional-looking tables
+\usepackage[style=apa, backend=biber]{biblatex} % APA 7th edition references
+% \addbibresource{references.bib} % Reference file
+
+% Set double spacing
+\doublespacing
+
+% Indent paragraphs by 0.5 inch
+\setlength{\parindent}{0.5in}
+
+% Page numbering setup
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage} % Page number in the bottom-right corner
+\renewcommand{\headrulewidth}{0pt} % Remove the header rule
+
+% Section formatting
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+
+\begin{document}
+\pagenumbering{roman}
+\section*{Abstract} % maximum 150 words
+.
+
+\section*{Keywords} % maximum 10 keywords
+.
+
+\newpage
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic} % Switch to Arabic numerals for the main content
+
+\section{Introduction}
+.
+
+\section{Methodology}
+How do different word embedding models (Word2Vec, FastText, and BERT) capture the distinction between inflection and derivation in vector space representations?
+To what extent can morphological inflection be automatically distinguished from derivation?
+Do inflection and derivation behave similarly across different languages in word embedding spaces?
+Does inflection preserve semantic similarity more than derivation in word embedding models?
+Can word embeddings reliably classify word relations as inflectional or derivational based on vector offsets? 
+Is the semantic shift caused by derivation more variable than the shift caused by inflection?
+
+This project will be done using a distributional semantics model (FastText). It focuses on two morphologically rich languages, Spanish and Polish and will examin differences in semantic regularity alsmo among various types of inflection/derivation (aspect).
+
+% \printbibliography
+
+\end{document}
