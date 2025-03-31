@@ -19,7 +19,7 @@ triplets_data = pd.read_csv("py/datasets/50_triplets.csv", sep=",") # small data
 spa_VV = pd.read_csv("py/datasets/spa.txt", sep="\t", header=None, names=["verb", "inflection", "category"])
 
 # -----------------------------------------------------
-
+#
 chosen_model = False
 while chosen_model == False:
     embeddings = input("Choose which embeddings to use: SBW (s) or FastText (f) or Multilingual BERT (b): ")
