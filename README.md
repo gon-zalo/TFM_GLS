@@ -2,13 +2,12 @@ py: archivos de python
   filter_unimorph para extraer categorías específicas de archivos de UniMorph.
   main_triplets/biplets.py: código principal. Triplets es para analizar archivos de tripletes, biplets para archivos de parejas (base+construct/verbo+flexión)
   
-  datasets: # derinet debería estar en esta carpeta
+  datasets:
     spa:
       spa.txt: archivo de unimorph
       filtered: solo los tiempos presente, pasado imperfecto y futuro.
       _small: dataset pequeño para testear el código.
       50_triplets.csv: archivo de tripletes que hice para el trabajo de clase de NLP.
-      
     pol:
       pol.txt: archivo de unimorph
       filtered:
