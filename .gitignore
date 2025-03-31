@@ -10,4 +10,5 @@ latex/tfm.run.xml
 latex/tfm.synctex.gz
 latex/tfm.toc
 /py/derinet
+py/main_triplets.py
 *.bin
