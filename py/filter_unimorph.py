@@ -21,9 +21,9 @@ def filter_unimorph(data):
         ]
     elif name == "pol":
         filtered_df = df[
-            df["category"].str.contains("V;PRS") | # present (czas teraźniejszy)
-            df["category"].str.contains("V;PST") | # pret. impf.
-            df["category"].str.contains("V;FUT") # futuro simple
+            df["category"].str.contains("V;PRS") | # czas teraźniejszy
+            df["category"].str.contains("V;PST") | # czas przeszły
+            df["category"].str.contains("V;FUT") # czas przyszły
         ]
 
     print(filtered_df.describe())
@@ -32,6 +32,5 @@ def filter_unimorph(data):
     filtered_df.to_csv(f"py/datasets/filtered_{name}.txt", sep="\t", index=False, header=False)
     print("Filtered data saved!")
 
-# running the function for spanish and polish data
 filter_unimorph(esp_data)
 filter_unimorph(pol_data)
