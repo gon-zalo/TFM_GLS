@@ -4,104 +4,112 @@ import fasttext.util
 import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cosine
-from gensim.models import KeyedVectors
-import transformers
 import torch
+from gensim.models import  KeyedVectors
+import transformers
+
 # -----------------------------------------------------
 
 # EMBEDDINGS/MODELS
-ft_embeddings = "py/embeddings/cc.es.300.bin"
-word2vec_embeddings = "py/embeddings/sbw_vectors.bin"
-bert_embeddings = "bert-base-multilingual-cased"
+ft_spa = "py/embeddings/cc.es.300.bin" # spanish fasttext embeddings
+w2v_spa = "py/embeddings/sbw_vectors.bin" # spanish word2vec (SBW) embeddings
+mult_bert = "bert-base-multilingual-cased" # multilingual BERT language model
 
 # DATASETS
-spa_VV = pd.read_csv("py/datasets/filtered_spa.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+um_filtered_spa = pd.read_csv("py/datasets/filtered_spa.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
 # -----------------------------------------------------
 
-chosen_model = False
-while chosen_model == False:
-    embeddings = input("Choose which embeddings to use: SBW (s), FastText (f) or Multilingual BERT (b): ")
-    if embeddings.lower() in ["sbw", "s"]:
-        print('Loading Spanish Billion Words (Word2Vec) embeddings...')
-        embeddings = KeyedVectors.load_word2vec_format(word2vec_embeddings, binary=True, limit=50000) # limit is for testing purposes
-        emb_name = "SBW" 
-        chosen_model=True
-    elif embeddings.lower() in ["fasttext", "f"]:
-        print('Loading FastText embeddings...')
-        if not os.path.exists(ft_embeddings):
-            fasttext.util.download_model('es', if_exists='ignore')  # Download Spanish vectors if not available
-        embeddings = fasttext.load_model(ft_embeddings)  # loads embeddings
-        emb_name = "FastText"
-        chosen_model=True
-    elif embeddings.lower() in ["bert", "b"]:
-        print('Loading BERT embeddings...')
-        tokenizer = transformers.AutoTokenizer.from_pretrained(bert_embeddings)
-        model = transformers.AutoModel.from_pretrained(bert_embeddings)
-        emb_name = "BERT"
-        chosen_model = True
+def choose_embeddings(model_name):
 
+    # WORD2VEC SPANISH EMBEDDINGS
+    if model_name.lower() in ["word2vec", "w"]:
+        print('\nLoading Spanish Billion Words (Word2Vec) embeddings...')
+        # load the SBW embeddings
+        model = KeyedVectors.load_word2vec_format(w2v_spa, binary=True, limit=50000) # limit is for testing purposes
+        return model, "Word2Vec", None
+
+    # FASTTEXT SPANISH EMBEDDINGS
+    if model_name.lower() in ["fasttext", "f"]:
+        print('\nLoading FastText embeddings...')
+        # check if they exist, if they don't, download them
+        if not os.path.exists(ft_spa):
+            fasttext.util.download_model('es', if_exists='ignore')
+        model = fasttext.load_model(ft_spa)
+        return model, "FastText", None
+
+    # MULTILINGUAL BERT MODEL
+    if model_name.lower() in ["bert", "b"]:
+        print('\nLoading Multilingual BERT embeddings...')
+        # load BERT embeddings
+        tokenizer = transformers.AutoTokenizer.from_pretrained(mult_bert)
+        model = transformers.AutoModel.from_pretrained(mult_bert)
         if torch.cuda.is_available():
             device='cuda'
         else:
             device='cpu'
         model.to(device)
+        return model, "BERT", tokenizer
 
-    elif embeddings.lower() == "exit":
+    elif model_name.lower() == "exit":
         exit()
+
     else:
-        print("Invalid choice. Please choose 'SBW', 'fastText' or 'BERT'.")
-  
-def calculate_sims(embeddings, data):
+        raise ValueError("Invalid model name.")
+
+def calculate_sims(model, model_name, tokenizer,  data):
     # calculate cosine similarities between pivot and inflection/derivation
     print("Calculating similarities...")
     results = []
+    not_found = 0 # for SBW embeddings
     for _, row in data.iterrows():
         pivot, inflection = row["pivot"], row["inflection"]
 
-        if emb_name == "FastText":
-            vec_pivot = embeddings.get_word_vector(pivot) # vector of the pivot
-            vec_inflection = embeddings.get_word_vector(inflection) # vector of the inflection
+        if model_name == "FastText":
+            vec_pivot = model.get_word_vector(pivot) # vector of the pivot
+            vec_inflection = model.get_word_vector(inflection) # vector of the inflection
 
-        elif emb_name == "SBW":
-            # check if the words are in the model since it does not use subwords
-            if pivot in embeddings and inflection in embeddings: # need to check since w2v does not use subwords
-                vec_pivot = embeddings[pivot]
-                vec_inflection = embeddings[inflection]  # Vector of the inflection
+        elif model_name == "SBW":
+            
+            if pivot in model and inflection in model: # need to check since w2v does not use subwords
+                vec_pivot = model[pivot]
+                vec_inflection = model[inflection]  # Vector of the inflection
 
             else:
-                print(f"Word not found: {pivot}, {inflection}")
+                not_found += 1
 
-        elif emb_name == "BERT":
-            # tokenize and encode inputs
+        elif model_name == "BERT" and tokenizer is not None:
+
             inputs = tokenizer([pivot, inflection], return_tensors="pt", padding=True, truncation=True)
             with torch.no_grad():
                 outputs = model(**inputs)
-            # use the [CLS] token embedding as the sentence/word representation
+            # use the [CLS] token embedding as the sentence/word representation 
             vec_pivot = outputs.last_hidden_state[0][0].numpy()
             vec_inflection = outputs.last_hidden_state[1][0].numpy()
-        
-        # calculate similarity between pivot inflection/derivation
-        # need 1 - cosine because cosine alone just measures distance, not similarity
-        sim_inflection = 1 - cosine(vec_pivot, vec_inflection)
+            
+        # calculate similarity between pivot and inflection
+        sim_inflection = 1 - cosine(vec_pivot, vec_inflection) # need 1 - cosine because cosine alone just measures distance, not similarity
 
         # append everything to the list
         results.append((pivot, inflection, sim_inflection))
 
-    # print results in a table format
-    # print(f"{'Pivot':<15}{'Inflection':<15}{'P-I similarity':<15}")
-    # for result in results:
-    #     print(f"{result[0]:<15}{result[1]:<15}{result[2]:<15}")
+    # can be deleted at some point, in the end the intention is to use the whole sbw model (now it's limited to 50k words)
+    if model_name == "SBW":
+        print(f"Number of words not found: {not_found}")
 
+    # create a df with the results table
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"py/results/{emb_name}_results.csv", index=False, header=["pivot", "inflection", "P-I similarity"])
+    results_df.to_csv(f"py/results/{model_name}_results.csv", index=False, header=["pivot", "inflection", "P-I similarity"])
 
-    print(f"\n------ RESULTS OF {emb_name.upper()} EMBEDDINGS ------\n")
+    print(f"\n------ RESULTS OF {model_name.upper()} EMBEDDINGS ------\n")
 
     # similarities for mean
     sim_inflection_values = [r[2] for r in results]
     print(f"    Inflection mean similarity to pivot: {np.mean(sim_inflection_values):2f}")
 
-print(f'{emb_name} embeddings loaded!')
+# -------------------------------------------------------
+# where functions are called
 
-calculate_sims(embeddings, spa_VV)
+model, model_name, tokenizer = choose_embeddings()  #  change the model here: fasttext (f), word2vec (w) or bert (b)
+
+calculate_sims(model, model_name, tokenizer, data=um_filtered_spa) # change the data here
