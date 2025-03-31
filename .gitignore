@@ -11,3 +11,5 @@ latex/tfm.synctex.gz
 latex/tfm.toc
 /py/derinet
 *.bin
+py/embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.txt
+py/__pycache__/embeddings.cpython-312.pyc
