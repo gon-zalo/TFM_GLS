@@ -8,6 +8,9 @@ import torch
 from gensim.models import  KeyedVectors
 import transformers
 
+from bert_embeddings import bert_text_preparation, get_bert_embeddings
+from collections import OrderedDict
+
 # -----------------------------------------------------
 
 # EMBEDDINGS/MODELS
@@ -25,6 +28,7 @@ mult_bert = "bert-base-multilingual-cased"
 
 # DATASETS
 um_spa = pd.read_csv("py/datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+um_spa_small = pd.read_csv("py/datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 um_pol = pd.read_csv("py/datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"], encoding="utf-8")
 
 # -----------------------------------------------------
@@ -35,10 +39,12 @@ def choose_embeddings(model_name, language):
         "spa": {
             "word2vec": spa_w2v,
             "fasttext": spa_ft,
+            "bert": mult_bert,
         },
         "pol": {
             "word2vec": pol_w2v,
             "fasttext": pol_ft,
+            "bert": mult_bert,
         }
     }
 
@@ -67,10 +73,11 @@ def choose_embeddings(model_name, language):
 
     # MULTILINGUAL BERT MODEL. NEEDS CHANGES!
     if model_name.lower() in ["bert", "b"]:
-        print('\nLoading Multilingual BERT embeddings...')
+        print('\nLoading Multilingual BERT model...')
         # load BERT embeddings
         tokenizer = transformers.AutoTokenizer.from_pretrained(mult_bert)
-        model = transformers.AutoModel.from_pretrained(mult_bert)
+        model = transformers.AutoModel.from_pretrained(mult_bert, output_hidden_states=True)
+
         if torch.cuda.is_available():
             device='cuda'
         else:
@@ -114,9 +121,16 @@ def calculate_sims(model, model_name, tokenizer, language, data):
             inputs = tokenizer([pivot, inflection], return_tensors="pt", padding=True, truncation=True)
             with torch.no_grad():
                 outputs = model(**inputs)
-            # use the [CLS] token embedding as the sentence/word representation 
-            vec_pivot = outputs.last_hidden_state[0][0].numpy()
-            vec_inflection = outputs.last_hidden_state[1][0].numpy()
+            
+            # extract all hidden states
+            hidden_states = outputs.hidden_states  # a tuple containing the hidden states for all the layers, each hidden state is a tensor of shape (batch_size, sequence_length, hidden_size)
+
+            token_embeddings = torch.stack(hidden_states[-4:])  # take the last 4 layers and stack them into a single tensor of shape (4, batch_size, sequence_length, hidden_size)
+            token_embeddings = torch.sum(token_embeddings, dim=0)  # sum the embeddings across the 4 layers resulting in 1 tensor of shape (batch_size, sequence_length, hidden_size)
+
+            # extract embeddings and convert them to np arrays
+            vec_pivot = token_embeddings[0][0].numpy() # get the embedding of the first token (CLS) of the first element (pivot)
+            vec_inflection = token_embeddings[1][0].numpy()
             
         # calculate similarity between pivot and inflection
         sim_inflection = 1 - cosine(vec_pivot, vec_inflection) # need 1 - cosine because cosine alone just measures distance, not similarity
@@ -146,16 +160,21 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
 
-# FASTTEXT
-model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
-calculate_sims(model, model_name, tokenizer, language, data=um_spa)
+# # FASTTEXT
+# model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
+# calculate_sims(model, model_name, tokenizer, language, data=um_spa)
 
-model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
-calculate_sims(model, model_name, tokenizer, language, um_pol)
+# model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
+# calculate_sims(model, model_name, tokenizer, language, um_pol)
 
-# WORD2VEC
-model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
-calculate_sims(model, model_name, tokenizer, language, um_spa)
+# # WORD2VEC
+# model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
+# calculate_sims(model, model_name, tokenizer, language, um_spa)
 
-model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
-calculate_sims(model, model_name, tokenizer, language, um_pol)
+# model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
+# calculate_sims(model, model_name, tokenizer, language, um_pol)
+
+# MULTILINGUAL BERT
+# bert takes a really long time
+model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
+calculate_sims(model, model_name, tokenizer, language, um_spa_small)
