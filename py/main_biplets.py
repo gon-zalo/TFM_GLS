@@ -124,19 +124,18 @@ def calculate_sims(model, model_name, tokenizer, language, data):
         # append everything to the list
         results.append((pivot, inflection, sim_inflection))
 
-    # can be deleted at some point, in the end the intention is to use the whole sbw model (now it's limited to 50k words)
-    if model_name == "SBW":
-        print(f"Number of words not found: {not_found}")
+    if model_name == "Word2Vec":
+        print(f"Number of words not found in Word2Vec model: {not_found}")
 
-    # create a df with the results table
+    # create a df with the results list
     results_df = pd.DataFrame(results)
     results_df.to_csv(f"py/results/{language}/{language}_{model_name.lower()}_results.csv", index=False, header=["pivot", "inflection", "P-I similarity"])
     print("Results by row saved!")
 
     # similarities for mean
     sim_inflection_values = [r[2] for r in results]
-    print(f"{model_name.upper()} EMBEDDINGS IN {language.upper()}")
-    print(f"MEAN SIMILARITY (VERB-INFLECTION): {np.mean(sim_inflection_values):2f}")
+    print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
+    print(f"    MEAN SIMILARITY (VERB-INFLECTION): {np.mean(sim_inflection_values):2f}")
 
 # -------------------------------------------------------
 # where functions are called
@@ -146,16 +145,17 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
-# # FASTTEXT
-# model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
-# calculate_sims(model, model_name, tokenizer, language, data=um_spa)
 
-# model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
-# calculate_sims(model, model_name, tokenizer, language, um_pol)
+# FASTTEXT
+model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
+calculate_sims(model, model_name, tokenizer, language, data=um_spa)
 
-# # WORD2VEC
-# model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
-# calculate_sims(model, model_name, tokenizer, language, um_spa)
+model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
+calculate_sims(model, model_name, tokenizer, language, um_pol)
+
+# WORD2VEC
+model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
+calculate_sims(model, model_name, tokenizer, language, um_spa)
 
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
 calculate_sims(model, model_name, tokenizer, language, um_pol)
