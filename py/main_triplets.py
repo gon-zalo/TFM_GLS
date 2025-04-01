@@ -9,6 +9,23 @@ import transformers
 import torch
 # -----------------------------------------------------
 
+
+
+
+'''
+
+
+OLD CODE, NEEDS UPDATING IF I WORK WITH TRIPLETS!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+'''
+
+
+
+
+
+# -----------------------------------------------------
+
 # EMBEDDINGS/MODELS
 ft_embeddings = "py/embeddings/cc.es.300.bin"
 word2vec_embeddings = "py/embeddings/sbw_vectors.bin"
