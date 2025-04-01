@@ -11,20 +11,21 @@ import transformers
 # -----------------------------------------------------
 
 # EMBEDDINGS/MODELS
-# Spanish word vectors
-spa_w2v = "py/embeddings/spa/sbw_vectors.bin" # spanish word2vec (SBW) embeddings
-spa_ft = "py/embeddings/spa/cc.es.300.bin" # spanish fasttext embeddings
+# FASTTEXT
 
-# Polish word vectors
-pol_w2v = "py/embeddings/pol/nkjp+wiki-forms-all-100-skipg-ns"
-pol_ft = "py/embeddings/pol/cc.pl.300.bin"
+spa_ft = "py/embeddings/spa/cc.es.300.bin" # spanish
+pol_ft = "py/embeddings/pol/cc.pl.300.bin" # polish
+
+# WORD2VEC
+spa_w2v = "py/embeddings/spa/sbw_vectors.bin" # spanish (SBW)
+pol_w2v = "py/embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 
 # Multilingual BERT model
 mult_bert = "bert-base-multilingual-cased"
 
 # DATASETS
 um_spa = pd.read_csv("py/datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-um_pol = pd.read_csv("py/datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"], encoding="utf-8") # utf-8 does not work for polish
+um_pol = pd.read_csv("py/datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"], encoding="utf-8")
 
 # -----------------------------------------------------
 
@@ -64,7 +65,7 @@ def choose_embeddings(model_name, language):
         model = fasttext.load_model(embeddings)
         return model, "FastText", None, language
 
-    # MULTILINGUAL BERT MODEL
+    # MULTILINGUAL BERT MODEL. NEEDS CHANGES!
     if model_name.lower() in ["bert", "b"]:
         print('\nLoading Multilingual BERT embeddings...')
         # load BERT embeddings
