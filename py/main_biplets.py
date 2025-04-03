@@ -15,7 +15,6 @@ from collections import OrderedDict
 
 # EMBEDDINGS/MODELS
 # FASTTEXT
-
 spa_ft = "py/embeddings/spa/cc.es.300.bin" # spanish
 pol_ft = "py/embeddings/pol/cc.pl.300.bin" # polish
 
@@ -29,7 +28,7 @@ mult_bert = "bert-base-multilingual-cased"
 # DATASETS
 um_spa = pd.read_csv("py/datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 um_spa_small = pd.read_csv("py/datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-um_pol = pd.read_csv("py/datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"], encoding="utf-8")
+um_pol = pd.read_csv("py/datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
 # -----------------------------------------------------
 
@@ -100,26 +99,20 @@ def calculate_sims(model, model_name, tokenizer, language, data):
     # calculate cosine similarities between pivot and inflection/derivation
     print("Calculating similarities...")
     results = []
-    not_found = 0 # for Word2Vec embeddings
-    for _, row in data.iterrows():
-        pivot, inflection = row["pivot"], row["inflection"]
+    
+    if model_name == "BERT" and tokenizer is not None:
+        batch_size = 16
+        for i in range(0, len(data), batch_size): # iterate over the data in batches (more efficient for BERT)
+            batch = data.iloc[i:i+batch_size]
+            pivots = batch["pivot"].tolist()
+            inflections = batch["inflection"].tolist()
 
-        if model_name == "FastText":
-            vec_pivot = model.get_word_vector(pivot) # vector of the pivot
-            vec_inflection = model.get_word_vector(inflection) # vector of the inflection
+            # tokenize and encode inputs (pivots and inflections)
+            inputs = tokenizer(pivots + inflections, return_tensors="pt", padding=True, truncation=True) # tokenizer returns a dictionary with input_ids, attention_mask...
+            inputs = {key: value.to(model.device) for key, value in inputs.items()}
 
-        elif model_name == "Word2Vec":
-            if pivot in model and inflection in model: # need to check since w2v does not use subwords
-                vec_pivot = model[pivot]
-                vec_inflection = model[inflection]  # Vector of the inflection
-            else:
-                not_found += 1
-                continue
-
-        elif model_name == "BERT" and tokenizer is not None:
-
-            inputs = tokenizer([pivot, inflection], return_tensors="pt", padding=True, truncation=True)
-            with torch.no_grad():
+            # pass the inputs through the model
+            with torch.no_grad(): # no grad because we are not training the model
                 outputs = model(**inputs)
             
             # extract all hidden states
@@ -128,17 +121,39 @@ def calculate_sims(model, model_name, tokenizer, language, data):
             token_embeddings = torch.stack(hidden_states[-4:])  # take the last 4 layers and stack them into a single tensor of shape (4, batch_size, sequence_length, hidden_size)
             token_embeddings = torch.sum(token_embeddings, dim=0)  # sum the embeddings across the 4 layers resulting in 1 tensor of shape (batch_size, sequence_length, hidden_size)
 
+            batch_size = len(pivots)
             # extract embeddings and convert them to np arrays
-            vec_pivot = token_embeddings[0][0].numpy() # get the embedding of the first token (CLS) of the first element (pivot)
-            vec_inflection = token_embeddings[1][0].numpy()
-            
-        # calculate similarity between pivot and inflection
-        sim_inflection = 1 - cosine(vec_pivot, vec_inflection) # need 1 - cosine because cosine alone just measures distance, not similarity
+            pivot_embeddings = token_embeddings[:batch_size, 0].cpu().numpy() # get the embedding of the first token (CLS) of the first element (pivot)
+            inflection_embeddings = token_embeddings[:batch_size, 0].cpu().numpy()
 
-        # append everything to the list
-        results.append((pivot, inflection, sim_inflection))
+            # calculate similarities
+            for pivot, inflection, pivot_embedding, inflection_embedding in zip(pivot, inflections, pivot_embeddings, inflection_embeddings):
+                sim_inflection = 1 - cosine(pivot_embedding, inflection_embedding)
+                results.append(pivot, inflection, sim_inflection)
+    else:
+        not_found = 0 # for Word2Vec embeddings
+        for _, row in data.iterrows():
+            pivot, inflection = row["pivot"], row["inflection"]
 
-    if model_name == "Word2Vec":
+            if model_name == "FastText":
+                pivot_embedding = model.get_word_vector(pivot) # vector of the pivot
+                inflection_embedding = model.get_word_vector(inflection) # vector of the inflection
+
+            elif model_name == "Word2Vec":
+                if pivot in model and inflection in model: # need to check since w2v does not use subwords
+                    pivot_embedding = model[pivot]
+                    inflection_embedding = model[inflection]  # Vector of the inflection
+                else:
+                    not_found += 1
+                    continue
+
+            # calculate similarity between pivot and inflection
+            sim_inflection = 1 - cosine(pivot_embedding, inflection_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+
+            # append everything to the results list
+            results.append((pivot, inflection, sim_inflection))
+
+        if model_name == "Word2Vec":
         print(f"Number of words not found in Word2Vec model: {not_found}")
 
     # create a df with the results list
