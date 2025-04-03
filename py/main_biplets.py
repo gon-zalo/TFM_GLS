@@ -154,7 +154,7 @@ def calculate_sims(model, model_name, tokenizer, language, data):
             results.append((pivot, inflection, sim_inflection))
 
         if model_name == "Word2Vec":
-        print(f"Number of words not found in Word2Vec model: {not_found}")
+            print(f"Number of words not found in Word2Vec model: {not_found}")
 
     # create a df with the results list
     results_df = pd.DataFrame(results)
