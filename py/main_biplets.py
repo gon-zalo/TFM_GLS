@@ -8,9 +8,6 @@ import torch
 from gensim.models import  KeyedVectors
 import transformers
 
-from bert_embeddings import bert_text_preparation, get_bert_embeddings
-from collections import OrderedDict
-
 # -----------------------------------------------------
 
 # EMBEDDINGS/MODELS
@@ -22,8 +19,10 @@ pol_ft = "py/embeddings/pol/cc.pl.300.bin" # polish
 spa_w2v = "py/embeddings/spa/sbw_vectors.bin" # spanish (SBW)
 pol_w2v = "py/embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 
-# Multilingual BERT model
-mult_bert = "bert-base-multilingual-cased"
+# BERT models
+mult_bert = "bert-base-multilingual-cased" # multilingual bert
+herbert = "allegro/herbert-base-cased"
+polbert = "dkleczek/bert-base-polish-cased-v1"
 
 # DATASETS
 um_spa = pd.read_csv("py/datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
@@ -54,12 +53,14 @@ def choose_embeddings(model_name, language):
     elif language == "pol":
         language = "Polish"
 
+    #  WORD2VEC
     if model_name.lower() == "word2vec":
         print(f'\nLoading {language} Word2Vec embeddings...')
         # load the SBW embeddings
         model = KeyedVectors.load_word2vec_format(embeddings, binary=True)
         return model, "Word2Vec", None, language
 
+    # FASTTEXT
     if model_name.lower() == "fasttext":
         print(f'\nLoading {language} FastText embeddings...')
         # check if they exist, if they don't, download them
@@ -70,22 +71,20 @@ def choose_embeddings(model_name, language):
         model = fasttext.load_model(embeddings)
         return model, "FastText", None, language
 
-    # MULTILINGUAL BERT MODEL. NEEDS CHANGES!
-    if model_name.lower() in ["bert", "b"]:
+    # BERT
+    if model_name.lower() == "bert":
         print('\nLoading Multilingual BERT model...')
         # load BERT embeddings
-        tokenizer = transformers.AutoTokenizer.from_pretrained(mult_bert)
-        model = transformers.AutoModel.from_pretrained(mult_bert, output_hidden_states=True)
+        tokenizer = transformers.AutoTokenizer.from_pretrained(embeddings) # and
+        model = transformers.AutoModel.from_pretrained(embeddings, output_hidden_states=True)
 
         if torch.cuda.is_available():
             device='cuda'
         else:
             device='cpu'
         model.to(device)
-        return model, "BERT", tokenizer, language
 
-    elif model_name.lower() == "exit":
-        exit()
+        return model, "BERT", tokenizer, language
 
     else:
         raise ValueError("Invalid model name.")
@@ -120,16 +119,17 @@ def calculate_sims(model, model_name, tokenizer, language, data):
 
             token_embeddings = torch.stack(hidden_states[-4:])  # take the last 4 layers and stack them into a single tensor of shape (4, batch_size, sequence_length, hidden_size)
             token_embeddings = torch.sum(token_embeddings, dim=0)  # sum the embeddings across the 4 layers resulting in 1 tensor of shape (batch_size, sequence_length, hidden_size)
-
+            
+            # split token_embeddings into pivot and inflection batches
             batch_size = len(pivots)
             # extract embeddings and convert them to np arrays
             pivot_embeddings = token_embeddings[:batch_size, 0].cpu().numpy() # get the embedding of the first token (CLS) of the first element (pivot)
-            inflection_embeddings = token_embeddings[:batch_size, 0].cpu().numpy()
+            inflection_embeddings = token_embeddings[batch_size:, 0].cpu().numpy()
 
             # calculate similarities
-            for pivot, inflection, pivot_embedding, inflection_embedding in zip(pivot, inflections, pivot_embeddings, inflection_embeddings):
+            for pivot, inflection, pivot_embedding, inflection_embedding in zip(pivots, inflections, pivot_embeddings, inflection_embeddings):
                 sim_inflection = 1 - cosine(pivot_embedding, inflection_embedding)
-                results.append(pivot, inflection, sim_inflection)
+                results.append((pivot, inflection, sim_inflection))
     else:
         not_found = 0 # for Word2Vec embeddings
         for _, row in data.iterrows():
@@ -189,7 +189,7 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 # model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
 # calculate_sims(model, model_name, tokenizer, language, um_pol)
 
-# MULTILINGUAL BERT
+# BERT
 # bert takes a really long time
 model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
 calculate_sims(model, model_name, tokenizer, language, um_spa_small)
