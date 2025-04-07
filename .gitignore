@@ -16,3 +16,4 @@ py/__pycache__/embeddings.cpython-312.pyc
 py/embeddings/pol/nkjp+wiki-forms-all-100-skipg-ns
 py/embeddings/pol/nkjp+wiki-forms-all-100-skipg-ns.syn1neg.npy
 py/embeddings/pol/nkjp+wiki-forms-all-100-skipg-ns.syn0.npy
+/py/datasets/spa/velespa
