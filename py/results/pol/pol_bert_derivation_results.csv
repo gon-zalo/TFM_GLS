@@ -1,4 +1,4 @@
-0,1,2,3,4
+pivot,derivation,similarity,category,affix
 słowo,słownik,0.9398842,N:N,-nik
 mata,matka,0.8957286,N:N,-ka
 dziewczyna,dziewczynka,0.9837844,N:N,-ka

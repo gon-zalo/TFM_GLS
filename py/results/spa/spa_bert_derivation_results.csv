@@ -1,4 +1,4 @@
-0,1,2,3,4
+pivot,derivation,similarity,category,affix
 axial,abaxial,0.93029916,ADJ:ADJ,ab-
 Chiapas,chiapaneco,0.8485282,N:ADJ,-eco
 moral,amoral,0.9135646,ADJ:ADJ,a-
