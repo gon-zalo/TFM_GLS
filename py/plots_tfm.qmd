@@ -4,6 +4,7 @@ format:
     html:
         code-fold: true
 embed-resources: true
+date: today
 ---
 # Derivation similarity by category.
 
