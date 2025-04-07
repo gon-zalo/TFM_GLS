@@ -29,9 +29,15 @@ mult_bert = "bert-base-multilingual-cased" # multilingual bert
 # polbert = "dkleczek/bert-base-polish-cased-v1"
 
 # DATASETS
+    # INFLECTION
 um_spa = pd.read_csv("datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 um_pol = pd.read_csv("datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+
+    # DERIVATION
+um_spa_der = pd.read_csv("datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+um_pol_der = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
 
 # -----------------------------------------------------
 
@@ -93,7 +99,7 @@ def choose_embeddings(model_name, language):
     else:
         raise ValueError("Invalid model name.")
 
-def calculate_sims(model, model_name, tokenizer, language, data):
+def sim_inflection(model, model_name, tokenizer, language, data):
     if language == "Spanish":
         language = "spa"
     elif language == "Polish":
@@ -163,13 +169,94 @@ def calculate_sims(model, model_name, tokenizer, language, data):
 
     # create a df with the results list
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_results.csv", index=False, header=["pivot", "inflection", "P-I similarity", "category"])
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
     print("Results by row saved!")
 
     # similarities for mean
-    sim_inflection_values = [r[2] for r in results]
+    similarity_values = [r[2] for r in results]
     print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
-    print(f"    MEAN SIMILARITY (VERB-INFLECTION): {np.mean(sim_inflection_values):2f}")
+    print(f"    MEAN SIMILARITY (PIVOT-INFLECTION): {np.mean(similarity_values):2f}")
+
+# same as sim_inflection but adapted for the derivations dataset
+def sim_derivation(model, model_name, tokenizer, language, data):
+    if language == "Spanish":
+        language = "spa"
+    elif language == "Polish":
+        language = "pol"
+
+    # calculate cosine similarities between pivot and derivation
+    print("Calculating similarities...")
+    results = []
+    
+    if model_name == "BERT" and tokenizer is not None:
+        batch_size = 16
+        for i in range(0, len(data), batch_size): # iterate over the data in batches (more efficient for BERT)
+            batch = data.iloc[i:i+batch_size]
+            pivots = batch["pivot"].tolist()
+            derivations = batch["derivation"].tolist()
+            categories = batch["category"].tolist()
+            affixes = batch["affix"].tolist()
+
+            # tokenize and encode inputs (pivots and derivations)
+            inputs = tokenizer(pivots + derivations, return_tensors="pt", padding=True, truncation=True) # tokenizer returns a dictionary with input_ids, attention_mask...
+            inputs = {key: value.to(model.device) for key, value in inputs.items()}
+
+            # pass the inputs through the model
+            with torch.no_grad(): # no grad because we are not training the model
+                outputs = model(**inputs)
+            
+            # extract all hidden states
+            hidden_states = outputs.hidden_states  # a tuple containing the hidden states for all the layers, each hidden state is a tensor of shape (batch_size, sequence_length, hidden_size)
+
+            token_embeddings = torch.stack(hidden_states[-4:])  # take the last 4 layers and stack them into a single tensor of shape (4, batch_size, sequence_length, hidden_size)
+            token_embeddings = torch.sum(token_embeddings, dim=0)  # sum the embeddings across the 4 layers resulting in 1 tensor of shape (batch_size, sequence_length, hidden_size)
+            
+            # split token_embeddings into pivot and inflection batches
+            batch_size = len(pivots)
+            # extract embeddings and convert them to np arrays
+            pivot_embeddings = token_embeddings[:batch_size, 0].cpu().numpy() # get the embedding of the first token (CLS) of the first element (pivot)
+            derivation_embeddings = token_embeddings[batch_size:, 0].cpu().numpy()
+
+            # calculate similarities
+            for pivot, derivation, pivot_embedding, derivation_embedding, category, affix in zip(pivots, derivations, pivot_embeddings, derivation_embeddings, categories, affixes):
+                sim_inflection = 1 - cosine(pivot_embedding, derivation_embedding)
+                results.append((pivot, derivation, sim_inflection, category, affix))
+    else:
+        not_found = 0 # for Word2Vec embeddings
+        for _, row in data.iterrows():
+            pivot, derivation, category, affix = row["pivot"], row["derivation"], row["category"], row["affix"]
+
+            if model_name == "FastText":
+                pivot_embedding = model.get_word_vector(pivot) # vector of the pivot
+                derivation_embedding = model.get_word_vector(derivation) # vector of the inflection
+
+            elif model_name == "Word2Vec":
+                if pivot in model and derivation in model: # need to check since w2v does not use subwords
+                    pivot_embedding = model[pivot]
+                    derivation_embedding = model[derivation]  # Vector of the inflection
+                else:
+                    not_found += 1
+                    continue
+
+            # calculate similarity between pivot and inflection
+            sim_inflection = 1 - cosine(pivot_embedding, derivation_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+
+            # append everything to the results list
+            results.append((pivot, derivation, sim_inflection, category, affix))
+
+        if model_name == "Word2Vec":
+            print(f"Number of words not found in Word2Vec model: {not_found}")
+
+    # create a df with the results list
+    results_df = pd.DataFrame(results)
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
+    print("Results by row saved!")
+
+    # similarities for mean
+    similarity_values = [r[2] for r in results]
+    print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
+    print(f"    MEAN SIMILARITY (PIVOT-DERIVATION): {np.mean(similarity_values):2f}")
+
 
 # -------------------------------------------------------
 # where functions are called
@@ -179,22 +266,36 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
-
+###### INFLECTION ######
 # # FASTTEXT
 # model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
-# calculate_sims(model, model_name, tokenizer, language, data=um_spa)
+# sim_inflection(model, model_name, tokenizer, language, data=um_spa)
 
 # model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
-# calculate_sims(model, model_name, tokenizer, language, um_pol)
+# sim_inflection(model, model_name, tokenizer, language, um_pol)
 
 # # WORD2VEC
 # model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
-# calculate_sims(model, model_name, tokenizer, language, um_spa)
+# sim_inflection(model, model_name, tokenizer, language, um_spa)
 
 # model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
-# calculate_sims(model, model_name, tokenizer, language, um_pol)
+# sim_inflection(model, model_name, tokenizer, language, um_pol)
 
 # BERT
 # bert takes a really long time
-model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
-calculate_sims(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
+# model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
+# sim_inflection(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
+
+
+###### DERIVATION ######
+# model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
+# sim_derivation(model, model_name, tokenizer, language, um_spa_der)
+
+model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol")
+sim_derivation(model, model_name, tokenizer, language, um_pol_der)
+
+model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa")
+sim_derivation(model, model_name, tokenizer, language, um_spa_der)
+
+model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol")
+sim_derivation(model, model_name, tokenizer, language, um_pol_der)
