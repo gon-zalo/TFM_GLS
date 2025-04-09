@@ -12,13 +12,6 @@ warning: false
 error: false
 ---
 
-
-Gráficos:   
-- diferencias entre **same-category** vs **diff-category** (across inflection and derivation)  
-- entre **diferentes frecuencias relevantes** (type and/or token frequency of occurrence)  
-
-## Derivation similarity by category.
-
 ```{r}
 #| echo: false
 # set working directory
@@ -28,7 +21,6 @@ Gráficos:
 ```
 
 ```{r}
-#| warning: false
 #| echo: false
 library(ggplot2)
 library(dplyr)
@@ -96,25 +88,66 @@ pol_bert_der <- pol_bert_der %>%
 
 ```
 
+## Same category vs. different category in derivation.
 ```{r}
 #| column: body
 #| fig-format: svg
 #| out-width: 100%
+#| fig-width: 15
+#| fig-height: 15
 # first plot
+
+# group all the dataframes into one
 all_derivation <- bind_rows(spa_ft_der, pol_ft_der, spa_w2v_der, 
 pol_w2v_der, spa_bert_der, pol_bert_der)
 
+# group by category, model and language and get the mean similarity of each 
+# i.e.:       category   model   language      mean_similarity
+#              ADJ:ADJ    FasText   Polish        0.6197
 mean_by_category <- all_derivation %>%
   group_by(category, model, language) %>%
   summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = 'drop')
 
-ggplot(mean_by_category, aes(x = category, y = mean_similarity, 
-color = model, shape = language)) +
-  geom_point(size = 2, position = position_dodge(width = 0.5), na.rm = TRUE) +
+# add a new column with "same category" or "different cattegory" 
+mean_by_category <- mean_by_category %>%
+  mutate(category_group = ifelse(gsub(":.*", "", category) == gsub(".*:", "", category), "Same category", "Different category"))
+
+# plot the df
+plot1 <- ggplot(mean_by_category, aes(x = category, y = mean_similarity, 
+color = model)) +
+  geom_point(size = 3, position = position_dodge(width = 0.5), na.rm = TRUE) +
   labs(x = "Category", y = "Mean similarity", 
   color = "Embeddings model", shape = "Language") +
+  facet_wrap(language ~ category_group, scales = "free_x") +
+  scale_x_discrete(drop = TRUE) +
   theme_light() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot1
+```
+
+## Same category in inflection
+```{r}
+#| column: body
+#| fig-format: svg
+#| out-width: 100%
+all_inflection <- bind_rows(spa_ft_inf, pol_ft_inf, spa_w2v_inf, 
+pol_w2v_inf, spa_bert_inf, pol_bert_inf)
+
+mean_by_category <- all_inflection  %>% 
+  group_by(category, model, language) %>% 
+  summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = "drop")
+
+plot2 <- ggplot(mean_by_category, aes(x = category, y = mean_similarity, color = model)) +
+  geom_point(size = 3, position = position_dodge(width = 0.5), na.rm = TRUE) +
+  labs(x = "Category", y = "Mean similarity", 
+  color = "Embeddings model", shape = "Language") +
+  facet_wrap(~language, scales = "free_x") +
+  scale_x_discrete(drop = TRUE) +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot2
+
+
 ```
 
 ## Derivation and inflection similarity by category.
