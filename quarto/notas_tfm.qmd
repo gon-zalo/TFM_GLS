@@ -14,34 +14,46 @@ warning: false
 error: false
 ---
 
-# **Research question**:
+# Introduction
+
+# Research question
 Can we use vector representation of words to detect the difference between inflection and derivation?
   
-# **Methodology**  
-* Using word embedding models (static vs. contextual) to identify the distinction between inflection and derivation in Polish and Spanish.   
-	* Implemented:   
-		* Word2Vec (Spanish: Spanish Billion Words, Polish: IPIPAN model [nkjp+wiki-forms-all-300-skipg-ns](https://dsmodels.nlp.ipipan.waw.pl/))  
-			* The polish model is similar to SBW it was trained on NKJP and Wikipedia, contains forms, all PoS, vectors have 300 dimensions and it was trained using skipgram and negative sampling. The file was .txt and i converted it to .bin.  
-		* FastText (Spanish, Polish)   
-		* BERT models:  
-			* Multilingual BERT  
-* Datasets:  
-	* **INFLECTION**: UniMorph **Base/Inflection (2)** **V:V**.  
-		* Filtered **Spanish** to create a Base/Inflection dataset of V:V in present, past imperfect and future.  
-			* **PRESENT** V;IND;PRS  
-			* **PAST IMPERFECT** V;IND;PST;IPFV  
-			* **FUTURE** V;IND;FUT  
-			* *TO DO: PARTICIPIOS AND GERUNDIOS*  
-			* Result: 148051 rows (Base/Inflection/Category)  
-		* Filtered **Polish** data:  
-			* **PRESENT** V;PRS  
-			* **PAST** V;PST  
-			* **FUTURE** V;FUT  
-			* Result: 23615 rows (Base/Inflection/Category)  
-	* **DERIVATION**: UniMorph.  
+# Methodology
+This study explores the distinction between inflection and derivation in Polish and Spanish using various word embedding models, both static and contextual.
+
+To achieve this, we implemented several models. For static embeddings, we used Word2Vec and FastText, and for contextual embeddings, we utilized the Multilingual BERT model. The Word2Vec model for Spanish was based on the Spanish Billion Words corpus. For Polish, we used the IPIPAN Word2Vec model (nkjp+wiki-forms-all-300-skipg-ns), which is comparable in quality to SBW. It was trained on the National Corpus of Polish (NKJP) and Wikipedia, includes all parts of speech and word forms, and produces 300-dimensional vectors using the skip-gram algorithm with negative sampling.
+
+In addition, we applied FastText embeddings for both Spanish and Polish to incorporate subword-level information. For contextual representation, we used Multilingual BERT (mBERT) to capture context-sensitive nuances in the morphological structures.
+
+In order to conduct an initial analysis we constructed two separate datasets, using data from UniMorph, one for inflection and another one for derivation.
+
+## Inflection Dataset
+For the inflection analysis, we constructed a Pivot/Inflection dataset limited to verb-to-verb (V:V) transformations, since no other category is possible.
+
+* We filtered the data to include the following verb tenses in Spanish:
+  * Present Indicative. UniMorph category: V;IND;PRS.
+  * Past Imperfect. UniMorph category: V;IND;PST;IPFV
+  * Future Indicative. UniMorph category: V;IND;FUT
+
+This resulted in a dataset of 148,051 rows, each consisting of a base form, its inflected variant, and the morphological category. Additional forms such as participles and gerunds are planned for future inclusion.
+
+* In Polish the filtering included:
+  * Present. UniMorph category: V;PRS.
+  * Past. UniMorph category:V;PST.
+  * Future. UniMorph category:V;FUT.
+
+The resulting dataset contains 23,615 rows, structured similarly to the Spanish set with base, inflected form, and category.
+
+<!-- ejemplito de dataset por aqui -->
+
+## Derivation Dataset
+For derivational morphology, we also used UniMorph as the primary data source. The selection and preprocessing steps for this dataset are ongoing and will be aligned with the methodology applied to the inflection dataset to ensure consistency in the analysis.
 
 ## Tables
-**MEAN SIMILARITY** biplets dataset (pivot+inflection)  
+The initial results are shown in the following tables. 
+
+Mean similarity between pivot and inflection.  
 
 | INFLECTION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
 | ---------- | -------- | -------- | ----------------- |
@@ -50,7 +62,7 @@ Can we use vector representation of words to detect the difference between infle
 |            |          |          | *POLBERT 0.84*    |
 |            |          |          | *HERBERT 0.89*    |
 
-**MEAN SIMILARITY** pivot+derivation
+Mean similarity between pivot and derivation.
 
 | DERIVATION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
 | ---------- | -------- | -------- | ----------------- |
@@ -60,6 +72,8 @@ Can we use vector representation of words to detect the difference between infle
 |            |          |          | *HERBERT 0.92*    |
 
 # Code and plots
+In this section we plot the initial results. Mean similarity of the category (V:V, ADJ:N, ADV:ADJ...) by type (inflection, derivation between the same categories and derivation between different categories), separated by embeddings model and language.
+
 ```{r}
 #| echo: false
 # set working directory
@@ -136,19 +150,18 @@ pol_bert_der <- pol_bert_der %>%
 
 ```
 
-## Mean similarity of pivot-form in derivation and inflection by model and language
 ```{r}
-#| column: page
-#| fig-format: svg
-#| out-width: 100%
-#| fig-width: 12
-#| fig-height: 18
+#| echo: false
 
-# first plot
+# spa_ft_inf %>% filter(!grepl("ás", inflection) & grepl("PRS;2;SG", category), 0, ifelse(grepl("FORM", category), 0, 1)))
+# spa_ft_der %>% filter (category == "ADJ:ADJ")
+# sample
 
 # inflection and derivation datasets
 all_inflection <- bind_rows(spa_ft_inf, pol_ft_inf, spa_w2v_inf,
  pol_w2v_inf, spa_bert_inf, pol_bert_inf,)
+
+all_inflection_spa <- bind_rows(spa_ft_inf, spa_w2v_inf, spa_bert_inf)
 
 all_derivation <- bind_rows(spa_ft_der, pol_ft_der, spa_w2v_der,
  pol_w2v_der, spa_bert_der, pol_bert_der)
@@ -162,6 +175,7 @@ all_derivation <- all_derivation %>%
 # factoring data (type: inflection, derivation same, derivation diff) on both datasets
 all_derivation$type <- as.factor(all_derivation$type)
 all_inflection$type <- as.factor(all_inflection$type)
+all_inflection_spa$category <- as.factor(all_inflection_spa$category)
 # join both datasets
 all_df <- bind_rows(all_derivation, all_inflection)
 
@@ -177,76 +191,52 @@ all_df_plot <- all_df %>%
   group_by(category, model, language, type) %>%
   summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = 'drop')
 
-plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, color = type)) +
-  geom_point(size = 5, na.rm = TRUE, alpha = 0.5) +
-  labs(x = "", y = "Mean similarity") +
-  facet_grid(model ~ language) +
-  stat_summary(fun.data = "mean_cl_boot", 
-    color = "black", size = 0.8, 
-    position = position_dodge(0.85)) +
-  theme(
-    plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
-    axis.text.y = element_text(size = 16),
-    strip.text = element_text(size = 18)) +
-  scale_color_brewer(palette = "Dark2") +
-  guides(color = "none")
-plot1
+# plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, color = type)) +
+#   geom_point(size = 5, na.rm = TRUE, alpha = 0.5) +
+#   labs(x = "", y = "Mean similarity") +
+#   facet_grid(language ~ model) +
+#   stat_summary(fun.data = "mean_cl_boot", 
+#     color = "black", size = 0.8, 
+#     position = position_dodge(0.85)) +
+#   theme(
+#     plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
+#     axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
+#     axis.text.y = element_text(size = 16),
+#     strip.text = element_text(size = 18)) +
+#   scale_color_brewer(palette = "Dark2") +
+#   guides(color = "none")
+# plot1
 ```
 
-## Jitter
+## Mean similarity between pivot-form in derivation and inflection by model and language
 ```{r}
 #| column: page
 #| fig-format: svg
-#| out-width: 100%
-#| fig-width: 12
-#| fig-height: 18
-#| echo: false
-
-plot2 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, color = type)) +
-  geom_jitter(size = 5, na.rm = TRUE, alpha = 0.8) +
-  labs(x = "", y = "Mean similarity") +
-  facet_grid(model ~ language) +
-  stat_summary(fun.data = "mean_cl_boot", color = "black", size = 0.8, position = position_dodge(0.85)) +
-  theme(
-    plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
-    axis.text.y = element_text(size = 16),
-    strip.text = element_text(size = 18)) +
-  scale_color_brewer(palette = "Dark2") +
-  guides(color = "none")
-plot2
-```
-
-## Dotplot (ChatGPT transformed the first one into this one, I had some issues)
-```{r}
-#| column: page
-#| fig-format: svg
-#| out-width: 100%
-#| fig-width: 12
-#| fig-height: 18
-plot3 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
+#| out-width: 90%
+#| fig-width: 22
+#| fig-height: 14
+plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
   geom_dotplot(
     binaxis = "y", stackdir = "center", 
     dotsize = 3, binwidth = 0.01, 
     na.rm = TRUE, alpha = 0.8
   ) +
   labs(x = "", y = "Mean similarity") +
-  facet_grid(model ~ language) +
+  facet_grid(language ~ model) +
   stat_summary(
     fun.data = "mean_cl_boot", 
     color = "black", size = 1, 
     position = position_dodge(0.85)
   ) +
   theme(
-    plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
+    plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
     axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
     axis.text.y = element_text(size = 16),
     strip.text = element_text(size = 18)
   ) +
   scale_fill_brewer(palette = "Dark2") +
   guides(fill = "none")
-plot3
+plot1
 ```
 
 ```{r}
