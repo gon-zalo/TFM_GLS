@@ -28,7 +28,9 @@ In addition, we applied FastText embeddings for both Spanish and Polish to incor
 
 In order to conduct an initial analysis we constructed two separate datasets, using data from UniMorph, one for inflection and another one for derivation.
 
-## Inflection Dataset
+## Initial analysis
+
+### Datasets
 For the inflection analysis, we constructed a Pivot/Inflection dataset limited to verb-to-verb (V:V) transformations, since no other category is possible.
 
 * We filtered the data to include the following verb tenses in Spanish:
@@ -45,12 +47,11 @@ This resulted in a dataset of 148,051 rows, each consisting of a base form, its 
 
 The resulting dataset contains 23,615 rows, structured similarly to the Spanish set with base, inflected form, and category.
 
+For the derivation analysis the data provided by UniMorph was used without changes.
+
 <!-- ejemplito de dataset por aqui -->
 
-## Derivation Dataset
-For derivational morphology, we also used UniMorph as the primary data source. The selection and preprocessing steps for this dataset are ongoing and will be aligned with the methodology applied to the inflection dataset to ensure consistency in the analysis.
-
-## Tables
+### Tables
 The initial results are shown in the following tables. 
 
 Mean similarity between pivot and inflection.  
@@ -71,7 +72,7 @@ Mean similarity between pivot and derivation.
 |            |          |          | *POLBERT 0.89*    |
 |            |          |          | *HERBERT 0.92*    |
 
-# Code and plots
+### Plotting the results of the initial analysis
 In this section we plot the initial results. Mean similarity of the category (V:V, ADJ:N, ADV:ADJ...) by type (inflection, derivation between the same categories and derivation between different categories), separated by embeddings model and language.
 
 ```{r}
@@ -190,31 +191,17 @@ all_df$category <- as.factor(all_df$category)
 all_df_plot <- all_df %>%
   group_by(category, model, language, type) %>%
   summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = 'drop')
-
-# plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, color = type)) +
-#   geom_point(size = 5, na.rm = TRUE, alpha = 0.5) +
-#   labs(x = "", y = "Mean similarity") +
-#   facet_grid(language ~ model) +
-#   stat_summary(fun.data = "mean_cl_boot", 
-#     color = "black", size = 0.8, 
-#     position = position_dodge(0.85)) +
-#   theme(
-#     plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
-#     axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
-#     axis.text.y = element_text(size = 16),
-#     strip.text = element_text(size = 18)) +
-#   scale_color_brewer(palette = "Dark2") +
-#   guides(color = "none")
-# plot1
 ```
 
-## Mean similarity between pivot-form in derivation and inflection by model and language
 ```{r}
 #| column: page
 #| fig-format: svg
 #| out-width: 90%
 #| fig-width: 22
 #| fig-height: 14
+#| label: fig-initial-plot
+#| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language"
+#| 
 plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
   geom_dotplot(
     binaxis = "y", stackdir = "center", 
@@ -239,47 +226,57 @@ plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
 plot1
 ```
 
-```{r}
-#| echo: false
-# all_derivation_plot <- all_derivation %>%
-#   group_by(category, model, language, type) %>%
-#   summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = 'drop')
+We can see in @fig-initial-plot some weird outliers in FastText and Word2Vec. These outliers correspond to different instances of U:U, X:U or U:X (X being any label). This unknown category is messing with the means so the data needs to be cleaned a bit.
 
-# plot2 <- ggplot(all_derivation_plot, aes(x = type, y = mean_similarity)) +
-#   geom_point(size = 5, na.rm = TRUE, alpha = 0.5) +
-#   labs(x = "", y = "Mean similarity") +
-#   facet_wrap(~category, scales = "free_x") +
-#   scale_x_discrete(drop = TRUE) +
-#   stat_summary(fun.data = "mean_cl_boot", color = "black", size = 0.8, position = position_dodge(0.85)) +
-#   theme(
-#     plot.margin = margin(t = 10, r = 40, b = 10, l = 60),
-#     axis.text.x = element_text(angle = 5, hjust = 1, size = 14),
-#     strip.text = element_text(size = 18)) +
-#   guides(x = "none")
-# plot2
+### Cleaning the datasets
+
+The first analysis revealed some errors in both datasets. In the derivations dataset the label U (that *possibly* means unspecified or unknown) presented some issues. The goal is to eliminate all instances of unknown categories, to get rid of this noise and have cleaner results and means.
+
+* In Spanish there are 20 rows that contain a derivation that results in U (i.e. N:U or V:U) and 107 in Polish. 
+* On the other hand, there are even more derivations which pivot is tagged with U (U:N, U:ADJ...), 36 in Spanish and 253 in Polish. 
+
+When it comes to Spanish, the number is not too high, so it is something that is worth fixing in order to get rid of this label so it does not mess with the means shown in @fig-initial-plot. Fixing the first group seems fairly easy since we can just look at the affix and the label it is assigned in other rows. The second group cannot be easily fixed with Python so it would probably need to be fixed manually.
+
+```{python}
+#| echo: false
+#| output: false
+
+import pandas as pd
+
+df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
+df[df["category"].str.endswith(":U")]
 ```
 
+In order to clean the Spanish derivations dataset we assign a new category according to the affix. We change all the affixes that end in *-ero*, *-ez*, *-ismo*,*-í* and *-illa* to :N. We also assign :V to those that contain the affixes *-ar* and *-ear*
 
-```{r}
-#| column: body
-#| echo: false
-#| fig-format: svg
-#| out-width: 100%
-# all_inflection <- bind_rows(spa_ft_inf, pol_ft_inf, spa_w2v_inf, 
-# pol_w2v_inf, spa_bert_inf, pol_bert_inf)
+```{python}
 
-# mean_by_category <- all_inflection  %>% 
-#   group_by(category, model, language) %>% 
-#   summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = "drop")
+affixes = ["-ero", "-ez", "-ismo", "-í", "-illa"]
+condition = df['category'].str.endswith(':U') & df['affix'].isin(affixes)
+df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':N', regex=False)
 
-# plot2 <- ggplot(mean_by_category, aes(x = category, y = mean_similarity, color = model)) +
-#   geom_point(size = 3, position = position_dodge(width = 0.5), na.rm = TRUE) +
-#   labs(x = "Category", y = "Mean similarity", 
-#   color = "Embeddings model", shape = "Language") +
-#   facet_wrap(~language, scales = "free_x") +
-#   scale_x_discrete(drop = TRUE) +
-#   theme_light() +
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# plot2
+verb_endings = ["-ear", "-ar"]
+condition = df['category'].str.endswith(':U') & df['affix'].isin(verb_endings)
+df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':V', regex=False)
 
+df[df["category"].str.endswith(":U")]
 ```
+
+As a result we obtain 6 rows that can be eliminated from the final dataset because of all the mistakes they contain.
+
+For the Polish data we do a very similar thing. Affixes such as *-any*, *-ony*, *-ty*, *-y*, or *-ący*, *-ęty* take the label ADJ, because they are all endings that participles take. Some of these affixes are wrong, for example *-ty* and *-y*, UniMorph cannot decide if the suffix takes the 't' or not, but we will ignore this for now.
+
+```{python}
+#| echo: false
+df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+```
+
+```{python}
+
+affixes = ["-any", "-ony", "-ty", "-y", "-ący", "-ęty"]
+condition = df['category'].str.endswith(':U') & df['affix'].isin(affixes)
+df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':ADJ', regex=False)
+```
+
+We can also see some formatting issues. Some rows contain the pivot and the derived form joined together in the pivot cell (i.e. mylićpomylić	pomylić). This can be fixed as well just removing the form from the pivot cell and assigning to them the correct categories. Some errors can be removed as well, like the appearance of *co*, *kto*, *jaki*.. which are relative pronouns. Everything ending in -ś and -ż or -że are not nouns or adjectives or adverbs or verbs so they can be removed.
