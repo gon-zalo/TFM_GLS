@@ -1,13 +1,23 @@
+# Makes the current directory the path of the .py file
+import os
+import sys
+os.chdir(sys.path[0])
+
 import pandas as pd
 
-esp_data = "py/datasets/spa.txt"
-pol_data = "py/datasets/pol.txt"
+# UNFILTERED INFLECTION DATASETS
+spa_inf = "datasets/spa/spa.txt"
+pol_inf = "datasets/pol/pol.txt"
 
-def filter_unimorph(data):
-    if data == esp_data:
+# DERIVATION
+um_spa_der = pd.read_csv("datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+um_pol_der = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
+def filter_inflections(data):
+    if data == spa_inf:
         name = "spa"
         print("Filtering Spanish data...")
-    elif data == pol_data:
+    elif data == pol_inf:
         name = "pol"
         print("Filtering Polish data...")
 
@@ -32,5 +42,12 @@ def filter_unimorph(data):
     filtered_df.to_csv(f"py/datasets/filtered_{name}.txt", sep="\t", index=False, header=False)
     print("Filtered data saved!")
 
-filter_unimorph(esp_data)
-filter_unimorph(pol_data)
+
+# def process_derivations(data):
+
+
+
+# print(um_spa_der[um_spa_der["category"].str.endswith(":U")])
+
+# filter_inflections(spa_inf)
+# filter_inflections(pol_inf)
