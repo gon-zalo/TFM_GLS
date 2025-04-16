@@ -3,7 +3,7 @@ title: Notas TFM
 date: today
 
 format:
-    html: default
+  html: default
 
 toc: true
 toc-title: Content
@@ -195,40 +195,46 @@ all_df_plot <- all_df %>%
 
 ```{r}
 #| column: page
+#| echo: false
 #| fig-format: svg
 #| out-width: 90%
 #| fig-width: 22
 #| fig-height: 14
 #| label: fig-initial-plot
 #| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language"
-#| 
-plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
-  geom_dotplot(
-    binaxis = "y", stackdir = "center", 
-    dotsize = 3, binwidth = 0.01, 
-    na.rm = TRUE, alpha = 0.8
-  ) +
-  labs(x = "", y = "Mean similarity") +
-  facet_grid(language ~ model) +
-  stat_summary(
-    fun.data = "mean_cl_boot", 
-    color = "black", size = 1, 
-    position = position_dodge(0.85)
-  ) +
-  theme(
-    plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
-    axis.text.y = element_text(size = 16),
-    strip.text = element_text(size = 18)
-  ) +
-  scale_fill_brewer(palette = "Dark2") +
-  guides(fill = "none")
-plot1
+
+# plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
+#   geom_dotplot(
+#     binaxis = "y", stackdir = "center", 
+#     dotsize = 3, binwidth = 0.01, 
+#     na.rm = TRUE, alpha = 0.8
+#   ) +
+#   labs(x = "", y = "Mean similarity") +
+#   facet_grid(language ~ model) +
+#   stat_summary(
+#     fun.data = "mean_cl_boot", 
+#     color = "black", size = 1, 
+#     position = position_dodge(0.85)
+#   ) +
+#   theme(
+#     plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
+#     axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
+#     axis.text.y = element_text(size = 16),
+#     strip.text = element_text(size = 18)
+#   ) +
+#   scale_fill_brewer(palette = "Dark2") +
+#   guides(fill = "none")
+# plot1
+
+# ggsave("C:/PythonCode/TFM_GLS/py/fig-initial-plot.svg", plot = plot1, width = 22, height = 14, units = "in")
 ```
+
+![Mean similarity between pivot-form in derivation and inflection by model and language](C:/PythonCode/TFM_GLS/py/fig-initial-plot.svg){#fig-initial-plot}
+
 
 We can see in @fig-initial-plot some weird outliers in FastText and Word2Vec. These outliers correspond to different instances of U:U, X:U or U:X (X being any label). This unknown category is messing with the means so the data needs to be cleaned a bit.
 
-### Cleaning the datasets
+## Cleaning the datasets
 
 The first analysis revealed some errors in both datasets. In the derivations dataset the label U (that *possibly* means unspecified or unknown) presented some issues. The goal is to eliminate all instances of unknown categories, to get rid of this noise and have cleaner results and means.
 
