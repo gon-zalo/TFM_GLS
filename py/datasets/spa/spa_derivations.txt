@@ -227,7 +227,6 @@ quemar	quemadura	V:N	-dura
 quemar	quemazón	V:N	-zón
 queso	quesería	N:N	-ería
 Quijote	quijotesco	N:ADJ	-sco
-quince	quinceavo	U:N	-avo
 social	antisocial	ADJ:ADJ	anti-
 φαίνω	quirófano	N:N	quiro-
 quirúrgico	quirúrgicamente	ADJ:ADV	-mente
@@ -491,8 +490,6 @@ pantorra	pantorrilla	N:N	-illa
 botar	rebotar	V:V	re-
 gota	gotear	N:V	-ear
 asbesto	asbestosis	N:N	-osis
-tú	tutear	U:V	-ear
-vos	vosear	U:V	-ear
 coño	coñazo	N:N	-azo
 tonto	tontería	ADJ:N	-ería
 meninge	meningitis	N:N	-itis
@@ -563,7 +560,6 @@ vaporizar	vaporizador	V:N	-dor
 vara	varilla	N:N	-illa
 varón	varonil	N:ADJ	-il
 vecino	vecindad	ADJ:N	-dad
-veinte	veinteavo	U:ADJ	-avo
 veleidad	veleidoso	N:ADJ	-oso
 vela	velero	N:N	-ero
 velloso	vellosidad	ADJ:N	-idad
@@ -826,7 +822,6 @@ anexo	anexar	N:V	-ar
 percibir	apercibir	V:V	a-
 apostilla	apostillar	N:V	-ar
 quejar	aquejar	V:V	a-
-archivo	archivar	U:V	-ar
 arpón	arponear	N:V	-ear
 arco	arquear	N:V	-ear
 rastrar	arrastrar	V:V	a-
@@ -1525,7 +1520,6 @@ metro	kilómetro	N:N	kilo-
 preciso	precisamente	ADJ:ADV	-mente
 entrenar	entrenamiento	V:N	-miento
 entrenar	entrenador	V:N	-dor
-cierto	ciertamente	U:ADV	-mente
 posible	posiblemente	ADJ:ADV	-mente
 claro	claramente	ADJ:ADV	-mente
 vengar	venganza	V:N	-anza
@@ -1718,7 +1712,6 @@ asentar	asentamiento	V:N	-miento
 regular	regularmente	ADJ:ADV	-mente
 comandante	comandancia	N:N	-ancia
 gobernar	gobernación	V:N	-ción
-cierto	certeza	U:N	-eza
 ensayo	ensayista	N:N	-ista
 debido	debidamente	ADJ:ADV	-mente
 parar	paradero	V:N	-dero
@@ -2628,7 +2621,6 @@ cargar	cargador	V:ADJ	-ador
 cuidado	cuidadoso	N:ADJ	-oso
 sucio	suciedad	ADJ:N	-edad
 entendido	malentendido	ADJ:N	mal-
-cuarenta	cuarentena	U:N	-ena
 agresivo	agresividad	ADJ:N	-dad
 congelante	anticongelante	ADJ:N	anti-
 doping	antidoping	N:N	anti-
@@ -3415,7 +3407,6 @@ forraje	forrajero	ADJ:ADJ	-ero
 Pitágoras	pitagórico	N:ADJ	-ico
 extenso	extensamente	ADJ:ADV	-mente
 exhausto	exhaustivo	ADJ:ADJ	-ivo
-Líbano	libanés	U:ADJ	-és
 regional	regionalmente	ADJ:ADV	-mente
 bosón	bosónico	N:ADJ	-ico
 fenomenología	fenomenológico	N:ADJ	-ico
@@ -3847,7 +3838,6 @@ cosechar	cosechador	V:N	-dor
 tímido	tímidamente	ADJ:ADV	-mente
 masivo	masivamente	ADJ:ADV	-mente
 droga	antidrogas	N:ADJ	anti-
-aúpa	aupar	U:V	-ar
 avispa	avispero	N:N	-ero
 bombón	bombonería	N:N	-ería
 adecuada	adecuadamente	ADJ:ADV	-mente
@@ -4478,7 +4468,6 @@ Castro	castrista	N:ADJ	-ista
 rizoma	rizomatoso	N:ADJ	-oso
 canceroso	precanceroso	ADJ:ADJ	pre-
 compendioso	compendiosamente	ADJ:ADV	-mente
-adiós	adiosito	U:N	-ito
 corazón	corazoncito	N:N	-cito
 mono	monada	N:N	-ada
 fervor	fervoroso	N:ADJ	-oso
@@ -4665,7 +4654,6 @@ coco	coquito	N:N	-ito
 filatelia	filatelista	N:N	-ista
 sinfonía	sinfonista	N:N	-ista
 durar	duradero	V:ADJ	-dero
-humidificar	humidificador	U:N	-dor
 organizar	desorganizar	V:V	des-
 erradicar	erradicación	V:N	-ción
 costal	subcostal	ADJ:ADJ	sub-
@@ -5825,7 +5813,6 @@ culo	culón	N:N	-ón
 ñaña	ñañita	N:N	-ita
 mujer	mujerona	N:N	-ona
 cincuenta	cincuentón	N:N	-ón
-cuarenta	cuarentón	U:N	-ón
 puta	putita	N:N	-ita
 cubano	cubanito	ADJ:N	-ito
 playa	playón	N:N	-ón
@@ -10142,7 +10129,6 @@ talismán	talismánico	N:ADJ	-ico
 programático	programáticamente	ADJ:ADV	-mente
 Miranda	mirandino	N:ADJ	-ino
 Lara	larense	N:ADJ	-ense
-Falcón	falconiano	U:ADJ	-iano
 depuración	autodepuración	N:N	auto-
 vecino	circunvecino	ADJ:ADJ	circun-
 errático	erráticamente	ADJ:ADV	-mente
@@ -10965,7 +10951,6 @@ atornillar	desatornillar	V:V	des-
 orgásmico	multiorgásmico	ADJ:ADJ	multi-
 marinero	marinería	ADJ:N	-ía
 recado	recadero	ADJ:N	-ero
-tanto	tantito	U:ADJ	-ito
 hurgar	hurgón	V:N	-ón
 panqueque	panquequería	N:N	-ería
 esófago	esofagitis	N:N	-itis
@@ -11547,7 +11532,6 @@ yeso	yesería	N:N	-ería
 borracho	borrachón	ADJ:N	-ón
 miocardio	miocarditis	N:N	-itis
 humorístico	humorísticamente	ADJ:ADV	-mente
-archivo	archivístico	U:ADJ	-ístico
 urbanístico	urbanísticamente	ADJ:ADV	-mente
 concierto	concertístico	N:ADJ	-ístico
 audición	audicionar	N:V	-ar
@@ -12447,7 +12431,6 @@ olor	olorcito	N:N	-cito
 Tolosa	tolosano	N:ADJ	-ano
 administración	autoadministración	N:N	auto-
 estimulación	sobreestimulación	N:N	sobre-
-humidificar	humidificación	U:N	-ación
 laicizar	laicización	V:N	-ción
 vascón	vasconización	ADJ:N	-ización
 alcalinizar	alcalinización	V:N	-ción
@@ -13454,7 +13437,6 @@ mioma	miomatoso	N:ADJ	-oso
 neurología	otoneurología	N:N	oto-
 epéndimo	ependimoma	N:N	-oma
 olote	olotera	N:N	-era
-arrecho	arrechera	U:N	-era
 extemporáneo	extemporaneidad	ADJ:N	-idad
 fenecer	fenecimiento	V:N	-miento
 piña	piñazo	N:N	-azo
@@ -14023,7 +14005,6 @@ aceptado	inaceptado	V:ADJ	in-
 agradable	agradabilidad	ADJ:N	-idad
 prolongar	prolongador	V:N	-dor
 seis	seisavo	N:ADJ	-avo
-arrecho	arrechar	U:V	-ar
 aliso	alisal	N:N	-al
 prejuicio	prejuiciar	N:V	-ar
 llorar	llorería	V:N	-ería
@@ -14057,7 +14038,6 @@ enaltecer	enaltecedor	V:ADJ	-dor
 santificar	santificable	V:ADJ	-able
 Gaspar	Gasparilla	N:N	-illa
 Gaspar	Gasparillo	N:N	-illo
-dinámica	biodinámica	U:N	bio-
 entretenido	entretenidillo	ADJ:ADJ	-illo
 mellar	amellar	V:V	a-
 pipa	pipeño	N:N	-eño
@@ -14140,7 +14120,6 @@ cabo	acabar	N:V	a-
 caricia	acariciar	N:V	a-
 aceite	aceitar	N:V	-ar
 acelerar	acelerador	V:ADJ	-ador
-cierto	acertar	U:V	a-
 contecer	acontecer	V:V	a-
 crédito	acreditar	N:V	a-
 crisol	acrisolar	N:V	a-
@@ -16901,7 +16880,6 @@ borracho	borrachín	N:N	-ín
 vivir	viviente	V:ADJ	-nte
 vivir	vividor	V:ADJ	-dor
 pedorro	pedorrear	N:V	-ar
-vos	voseo	U:N	-eo
 aretalogía	aretalógico	N:ADJ	-́ico
 carril	carrilearse	N:V	-ear
 tabla	tablacho	N:N	-acho
@@ -17056,7 +17034,6 @@ seguir	conseguir	V:V	con-
 biogénesis	abiogénesis	N:N	a-
 abitar	abitadura	V:N	-dura
 abogado	abogacía	N:N	-ía
-once	onceno	U:N	-eno
 China	chinesco	N:ADJ	-sco
 vigor	vigorexia	N:N	-orexia
 encantar	encantamiento	V:N	-miento
@@ -17258,7 +17235,6 @@ gañir	desgañitarse	V:V	des-
 probable	probablemente	ADJ:ADJ	-mente
 cama	camada	N:N	-ada
 garante	garantía	ADJ:N	-ía
-quince	quincena	U:N	-ena
 desinhibir	desinhibido	V:ADJ	-ido
 inhibir	desinhibir	V:V	des-
 pergeño	pergeñar	N:V	-ar
@@ -18468,7 +18444,6 @@ arraigar	arraigamiento	V:N	-miento
 crear	creativo	V:ADJ	-ivo
 sugo	sugoso	N:ADJ	-oso
 inútil	inútilmente	ADJ:ADV	-mente
-mucho	muchísimo	U:ADV	-ísimo
 muchacho	muchachada	N:N	-ada
 eutropelia	eutropélico	N:ADJ	-ico
 eutrapelia	eutrapélico	N:ADJ	-ico
@@ -18595,12 +18570,9 @@ vándalo	vandalaje	N:N	-aje
 Módena	modenés	N:ADJ	-és
 Pamplona	pamplonica	N:ADJ	-ica
 adivinar	adivinación	V:N	-ción
-trece	treceavo	U:ADJ	-avo
 catorce	catorceavo	N:N	-avo
-dieciséis	dieciseisavo	U:N	-avo
 diecisiete	diecisieteavo	N:N	-avo
 diecinueve	diecinueveavo	N:N	-avo
-veinte	veinteavo	U:N	-avo
 dieciocho	dieciochoavo	N:N	-avo
 decágono	heptadecágono	N:N	hepta-
 exilio	exiliar	N:V	-ar
@@ -20593,7 +20565,6 @@ zurriaga	zurriagar	N:V	-ar
 zurriaga	zurriagazo	N:N	-azo
 correa	correazo	N:N	-azo
 fusta	fustazo	N:N	-azo
-quince	quinceno	U:N	-eno
 flagelar	flagelador	V:ADJ	-dor
 zulaque	zulaquear	N:V	-ear
 jarra	jarrazo	N:N	-azo
@@ -22928,7 +22899,6 @@ frisol	frisuelo	N:N	-uelo
 frijol	frijolear	N:V	-ear
 Maule	maulino	N:ADJ	-ino
 treinta	treintón	N:ADJ	-ón
-cuarenta	cuarentón	U:ADJ	-ón
 cuarenta	cuarentavo	N:ADJ	-avo
 cuarenta	cuarenteno	N:N	-eno
 cuarentena	cuarentenal	N:ADJ	-al
@@ -23141,7 +23111,6 @@ bola	bolado	N:N	-do
 yodo	yódico	N:ADJ	-ico
 tarugo	taruguear	N:V	-ear
 miar	mion	V:N	-ón
-guagua	guagüero	U:N	-ero
 caca	caquis	N:N	-is
 puta	putiar	N:V	-iar
 censurable	censurabilísimo	ADJ:ADJ	-bilísimo
@@ -23958,7 +23927,6 @@ uterino	intrauterino	ADJ:ADJ	intra-
 irritar	irritante	V:ADJ	-ante
 cámara	recámara	N:ADJ	re-
 exportar	exportable	V:ADJ	-able
-más	demás	U:ADJ	de-
 epigastrio	epigastralgia	N:ADJ	-algia
 sociable	sociabilidad	ADJ:N	-idad
 Alsacia	alsaciano	N:ADJ	-ano
@@ -24334,7 +24302,6 @@ virtual	virtualidad	ADJ:ADJ	-idad
 cicatrizar	cicatrización	V:ADJ	-ción
 comerciar	comerciable	V:ADJ	-able
 maleable	maleabilidad	ADJ:N	-idad
-adiós	adiosito	U:ADJ	-ito
 reanimar	reanimación	V:N	-ción
 de gorra	gorrón	ADV:N	-ón
 vascular	endovascular	ADJ:ADJ	endo-
@@ -25716,7 +25683,6 @@ vasco	vascófilo	ADJ:ADJ	-filo
 clase media	clasemediero	N:N	-ero
 salón	salonero	N:N	-ero
 pachuco	pachuquismo	ADJ:ADJ	-ismo
-que	queísmo	U:N	-ismo
 mimbre	mimbrero	N:N	-ero
 función	multifunción	N:ADJ	multi-
 presión	sobrepresión	N:ADJ	sobre-
@@ -27040,7 +27006,6 @@ moldurar	molduración	V:N	-ción
 concretizar	concretización	V:ADJ	-ción
 administración	autoadministración	N:ADJ	auto-
 estimulación	sobreestimulación	N:ADJ	sobre-
-humidificar	humidificación	U:ADJ	-ación
 radiación	antirradiación	N:ADJ	anti-
 vascón	vasconización	ADJ:ADJ	-ización
 infección	sobreinfección	N:ADJ	sobre-
