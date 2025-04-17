@@ -9,10 +9,6 @@ import pandas as pd
 spa_inf = "datasets/spa/spa.txt"
 pol_inf = "datasets/pol/pol.txt"
 
-# DERIVATION
-um_spa_der = pd.read_csv("datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-um_pol_der = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-
 def filter_inflections(data):
     if data == spa_inf:
         language = "spa"
@@ -50,4 +46,4 @@ def filter_inflections(data):
     print("Filtered data saved!")
 
 filter_inflections(spa_inf)
-# filter_inflections(pol_inf)
+filter_inflections(pol_inf)
