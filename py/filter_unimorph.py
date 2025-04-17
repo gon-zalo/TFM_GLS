@@ -46,7 +46,7 @@ def filter_inflections(data):
     print(df.describe())
 
     # save filtered dataframe
-    df.to_csv(f"datasets/{language}/{language}_filtered.txt", sep="\t", index=False, header=False)
+    df.to_csv(f"datasets/{language}/{language}_inflections.txt", sep="\t", index=False, header=False)
     print("Filtered data saved!")
 
 filter_inflections(spa_inf)
