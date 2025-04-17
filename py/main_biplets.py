@@ -30,10 +30,10 @@ mult_bert = "bert-base-multilingual-cased" # multilingual bert
 
 # DATASETS
     # INFLECTION
-um_spa = pd.read_csv("datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-um_pol = pd.read_csv("datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+um_spa = pd.read_csv("datasets/spa/spa_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+um_pol = pd.read_csv("datasets/pol/pol_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
-um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"]) # to test stuff
+# um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"]) # to test stuff
 
     # DERIVATION
 um_spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
@@ -170,7 +170,7 @@ def sim_inflection(model, model_name, tokenizer, language, data):
 
     # create a df with the results list
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_inflection_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
     print("Results by row saved!")
 
     # similarities for mean
@@ -268,35 +268,36 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
 ###### INFLECTION ######
-# # FASTTEXT
-# model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
-# sim_inflection(model, model_name, tokenizer, language, data=um_spa)
+# FASTTEXT
+model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
+sim_inflection(model, model_name, tokenizer, language, data=um_spa)
 
-# model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
-# sim_inflection(model, model_name, tokenizer, language, um_pol)
+model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
+sim_inflection(model, model_name, tokenizer, language, um_pol)
 
-# # WORD2VEC
-# model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
-# sim_inflection(model, model_name, tokenizer, language, um_spa)
+# WORD2VEC
+model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
+sim_inflection(model, model_name, tokenizer, language, um_spa)
 
-# model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
-# sim_inflection(model, model_name, tokenizer, language, um_pol)
-
-# # BERT
-# # bert takes a really long time
-# model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
-# sim_inflection(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
-
+model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
+sim_inflection(model, model_name, tokenizer, language, um_pol)
 
 ###### DERIVATION ######
+# FASTTEXT
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
 sim_derivation(model, model_name, tokenizer, language, um_spa_der)
 
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol")
 sim_derivation(model, model_name, tokenizer, language, um_pol_der)
 
+# WORD2VEC
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa")
 sim_derivation(model, model_name, tokenizer, language, um_spa_der)
 
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol")
 sim_derivation(model, model_name, tokenizer, language, um_pol_der)
+
+# # BERT (better in google colab)
+# # bert takes a really long time
+# model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
+# sim_inflection(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
