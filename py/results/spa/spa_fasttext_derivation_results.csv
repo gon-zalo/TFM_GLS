@@ -142,7 +142,7 @@ zapato,zapatilla,0.6746568799975745,N:N,-illa
 zigzag,zigzaguear,0.5703708760842691,N:V,-ear
 zorro,zorrillo,0.5304688456664981,ADJ:N,-illo
 zoología,zoológico,0.433477950461965,N:ADJ,-ico
-vaca,vaquero,0.33480192061612746,N:U,-ero
+vaca,vaquero,0.33480192061612746,N:N,-ero
 vaca,vaquera,0.43280129018764146,N:N,-era
 Yucatán,yucateco,0.6626568905512847,N:ADJ,-eco
 muro,mural,0.47921956224761475,N:ADJ,-al
@@ -228,7 +228,6 @@ quemar,quemadura,0.32386253415252364,V:N,-dura
 quemar,quemazón,0.2987270397873749,V:N,-zón
 queso,quesería,0.480022385973772,N:N,-ería
 Quijote,quijotesco,0.6062066376075941,N:ADJ,-sco
-quince,quinceavo,0.33402820280838186,U:N,-avo
 social,antisocial,0.4187437515301413,ADJ:ADJ,anti-
 φαίνω,quirófano,0.11333741144594012,N:N,quiro-
 quirúrgico,quirúrgicamente,0.4862419816611354,ADJ:ADV,-mente
@@ -492,8 +491,6 @@ pantorra,pantorrilla,0.40504278401922633,N:N,-illa
 botar,rebotar,0.49758537811165604,V:V,re-
 gota,gotear,0.4046989286670801,N:V,-ear
 asbesto,asbestosis,0.6751792240354995,N:N,-osis
-tú,tutear,0.17742003796372063,U:V,-ear
-vos,vosear,0.27431797210085895,U:V,-ear
 coño,coñazo,0.4419689786642511,N:N,-azo
 tonto,tontería,0.5266340916495421,ADJ:N,-ería
 meninge,meningitis,0.3822135219457856,N:N,-itis
@@ -564,7 +561,6 @@ vaporizar,vaporizador,0.639448904653154,V:N,-dor
 vara,varilla,0.54197700604653,N:N,-illa
 varón,varonil,0.43016360338648063,N:ADJ,-il
 vecino,vecindad,0.525810672611142,ADJ:N,-dad
-veinte,veinteavo,0.31113489532828253,U:ADJ,-avo
 veleidad,veleidoso,0.5248675336329708,N:ADJ,-oso
 vela,velero,0.5092905440834892,N:N,-ero
 velloso,vellosidad,0.5321669197461065,ADJ:N,-idad
@@ -827,7 +823,6 @@ anexo,anexar,0.35939216162256993,N:V,-ar
 percibir,apercibir,0.6187866541693908,V:V,a-
 apostilla,apostillar,0.703453168421045,N:V,-ar
 quejar,aquejar,0.37058630302561213,V:V,a-
-archivo,archivar,0.4039074148664086,U:V,-ar
 arpón,arponear,0.6121213751656122,N:V,-ear
 arco,arquear,0.27422823991407963,N:V,-ear
 rastrar,arrastrar,0.49661475125168153,V:V,a-
@@ -1280,7 +1275,6 @@ nazi,nazista,0.8203256793325683,ADJ:ADJ,-ista
 nacer,nacimiento,0.5688884319488127,V:N,-miento
 triste,tristemente,0.535592215009507,ADJ:ADV,-mente
 raro,raramente,0.40052313295604247,ADJ:ADV,-mente
-demasía,demasiado,0.5456817036433315,N:U,-ado
 pato,patito,0.5449510883022198,N:N,-ito
 conquistar,conquistador,0.46291117780144253,V:ADJ,-dor
 caño,cañón,0.4486417945273614,N:N,-ón
@@ -1513,7 +1507,7 @@ campar,campamento,0.2262815464200818,V:N,-mento
 verdadero,verdaderamente,0.4988477131200193,ADJ:ADV,-mente
 perfecto,perfectamente,0.5249998911301008,ADJ:ADV,-mente
 perfección,perfeccionista,0.4290005151824958,N:ADJ,-ista
-perfección,perfeccionismo,0.5103507589830707,N:U,-ismo
+perfección,perfeccionismo,0.5103507589830707,N:N,-ismo
 inteligente,inteligentemente,0.5920977106654068,ADJ:ADV,-mente
 inteligible,inteligibilidad,0.55015015346945,ADJ:N,-idad
 conexión,conexionar,0.5678217522304183,N:V,-ar
@@ -1527,7 +1521,6 @@ metro,kilómetro,0.491834662871911,N:N,kilo-
 preciso,precisamente,0.4398779773199697,ADJ:ADV,-mente
 entrenar,entrenamiento,0.6835427299265272,V:N,-miento
 entrenar,entrenador,0.5485110900581507,V:N,-dor
-cierto,ciertamente,0.6555808143752154,U:ADV,-mente
 posible,posiblemente,0.4805133863505413,ADJ:ADV,-mente
 claro,claramente,0.5715328339381958,ADJ:ADV,-mente
 vengar,venganza,0.652033002623518,V:N,-anza
@@ -1594,7 +1587,6 @@ abierto,abertura,0.2905441391180634,ADJ:N,-ura
 natural,sobrenatural,0.4994132478841813,ADJ:ADJ,sobre-
 honesto,honestamente,0.6489475200945443,ADJ:ADV,-mente
 Soria,soriano,0.5705807642710687,N:ADJ,-ano
-mucho,muchísimo,0.8901183243831151,U:U,-ísimo
 puerco,porquería,0.28107050812069456,N:N,-ería
 técnica,técnicamente,0.5362234013877489,N:ADV,-mente
 usual,usualmente,0.561582705049335,ADJ:ADV,-mente
@@ -1721,7 +1713,6 @@ asentar,asentamiento,0.45604667630053597,V:N,-miento
 regular,regularmente,0.5044726311024817,ADJ:ADV,-mente
 comandante,comandancia,0.6870587210396806,N:N,-ancia
 gobernar,gobernación,0.439865165266498,V:N,-ción
-cierto,certeza,0.30972398186770556,U:N,-eza
 ensayo,ensayista,0.329796567793881,N:N,-ista
 debido,debidamente,0.2754812345461821,ADJ:ADV,-mente
 parar,paradero,0.1707482255370929,V:N,-dero
@@ -1884,7 +1875,6 @@ regar,regador,0.5160837596669826,V:ADJ,-dor
 planta,plantera,0.575491842862918,N:N,-era
 torcer,retorcer,0.6420770237076657,V:V,re-
 reina,reinona,0.6065419929554028,N:N,-ona
-rueda,rodaja,0.3205720377345016,N:U,-aja
 batear,bateador,0.7239972722250769,V:N,-dor
 hormigo,hormigón,0.5716720156811521,N:N,-ón
 semanal,semanalmente,0.6583212253812882,ADJ:ADV,-mente
@@ -2632,7 +2622,6 @@ cargar,cargador,0.47250395916639176,V:ADJ,-ador
 cuidado,cuidadoso,0.6364380164115327,N:ADJ,-oso
 sucio,suciedad,0.5002190130785675,ADJ:N,-edad
 entendido,malentendido,0.46996514749794327,ADJ:N,mal-
-cuarenta,cuarentena,0.35947215143079747,U:N,-ena
 agresivo,agresividad,0.5745490333551916,ADJ:N,-dad
 congelante,anticongelante,0.4448782469229591,ADJ:N,anti-
 doping,antidoping,0.7152573073952109,N:N,anti-
@@ -3419,7 +3408,6 @@ forraje,forrajero,0.6925894004226265,ADJ:ADJ,-ero
 Pitágoras,pitagórico,0.7125532769992506,N:ADJ,-ico
 extenso,extensamente,0.44785193324090633,ADJ:ADV,-mente
 exhausto,exhaustivo,0.24577826743754194,ADJ:ADJ,-ivo
-Líbano,libanés,0.5973207209453694,U:ADJ,-és
 regional,regionalmente,0.5085339439216259,ADJ:ADV,-mente
 bosón,bosónico,0.6544090491264271,N:ADJ,-ico
 fenomenología,fenomenológico,0.6892882132516854,N:ADJ,-ico
@@ -3677,7 +3665,7 @@ araucanizar,araucanización,0.6745056517845831,V:N,-ción
 patrocinar,patrocinador,0.6375764578869655,V:N,-dor
 caballo,caballito,0.6033000729929691,N:N,-ito
 hijo,hijito,0.723556586554472,N:N,-ito
-Gonzalo,González,0.6157510954475327,N:U,-ez
+Gonzalo,González,0.6157510954475327,N:N,-ez
 abordar,abordable,0.3871722362284755,V:ADJ,-able
 orfebre,orfebrería,0.6591853626281077,N:N,-ería
 desembocar,desembocadura,0.45589386598575754,V:N,-dura
@@ -3851,7 +3839,6 @@ cosechar,cosechador,0.4982554773361788,V:N,-dor
 tímido,tímidamente,0.5189301763828512,ADJ:ADV,-mente
 masivo,masivamente,0.4925182609553804,ADJ:ADV,-mente
 droga,antidrogas,0.4593572245986126,N:ADJ,anti-
-aúpa,aupar,0.42540022241555453,U:V,-ar
 avispa,avispero,0.42654941718593165,N:N,-ero
 bombón,bombonería,0.3974078886708834,N:N,-ería
 adecuada,adecuadamente,0.5726192054258903,ADJ:ADV,-mente
@@ -3925,7 +3912,7 @@ avión,hidroavión,0.597389470824626,N:N,hidro-
 ajustar,ajustable,0.5003537106170388,V:ADJ,-able
 americano,americanizar,0.43827887049896663,N:V,-izar
 Hernán,Hernández,0.518140273968838,N:N,-ez
-Martín,Martínez,0.6358852345501256,N:U,-ez
+Martín,Martínez,0.6358852345501256,N:N,-ez
 Ramiro,Ramírez,0.6013752334020463,N:N,-ez
 americanizar,americanización,0.6786624809237675,V:N,-ción
 comentario,comentarista,0.47723229190081007,N:N,-ista
@@ -4073,7 +4060,6 @@ imposible,imposiblemente,0.4645561999968374,ADJ:ADV,-mente
 estatal,interestatal,0.5268379750259493,ADJ:ADJ,inter-
 sismo,sismología,0.5497596500916953,N:N,-logía
 pico,piquete,0.32300614731963306,N:N,-ete
--és,-esa,0.42122326982367,ADJ:U,-a
 durazno,duraznero,0.6324958811970098,N:N,-ero
 Burkina Faso,burkinés,0.3458920649607087,N:ADJ,-és
 epígrafe,epigrafista,0.1775725852163743,N:N,-ista
@@ -4483,7 +4469,6 @@ Castro,castrista,0.4996961615538642,N:ADJ,-ista
 rizoma,rizomatoso,0.6181606522861494,N:ADJ,-oso
 canceroso,precanceroso,0.6555985971628061,ADJ:ADJ,pre-
 compendioso,compendiosamente,0.567453211629824,ADJ:ADV,-mente
-adiós,adiosito,0.39594706493335197,U:N,-ito
 corazón,corazoncito,0.6569997137717897,N:N,-cito
 mono,monada,0.41588773139152524,N:N,-ada
 fervor,fervoroso,0.7070611064822302,N:ADJ,-oso
@@ -4670,7 +4655,6 @@ coco,coquito,0.5532075602801338,N:N,-ito
 filatelia,filatelista,0.6527780013395886,N:N,-ista
 sinfonía,sinfonista,0.5707221905724639,N:N,-ista
 durar,duradero,0.42423676182716474,V:ADJ,-dero
-humidificar,humidificador,0.7247179728944749,U:N,-dor
 organizar,desorganizar,0.629707364193919,V:V,des-
 erradicar,erradicación,0.7319801790337942,V:N,-ción
 costal,subcostal,0.39776936970067267,ADJ:ADJ,sub-
@@ -5075,7 +5059,7 @@ serrar,aserrar,0.7289098008512123,V:V,a-
 Álvaro,Álvarez,0.5471575298702583,N:N,-ez
 Fernando,Fernández,0.5802778476967144,N:N,-ez
 Íñigo,Íñiguez,0.47527339371782307,N:N,-ez
-Gutierre,Gutiérrez,0.4037506995502771,N:U,-ez
+Gutierre,Gutiérrez,0.4037506995502771,N:N,-ez
 Domingo,Domínguez,0.41186837013872823,N:N,-ez
 Jimeno,Jiménez,0.5829956534029304,N:N,-ez
 Nuño,Núñez,0.4937508285328399,N:N,-ez
@@ -5830,7 +5814,6 @@ culo,culón,0.3797812796932044,N:N,-ón
 ñaña,ñañita,0.16209189942222357,N:N,-ita
 mujer,mujerona,0.5482433377451347,N:N,-ona
 cincuenta,cincuentón,0.39482028670299296,N:N,-ón
-cuarenta,cuarentón,0.4105802741591855,U:N,-ón
 puta,putita,0.6055676393404829,N:N,-ita
 cubano,cubanito,0.6390291866822013,ADJ:N,-ito
 playa,playón,0.3724308323571348,N:N,-ón
@@ -6079,7 +6062,7 @@ absorber,absorbencia,0.4108204840355931,V:N,-encia
 accesible,accesibilidad,0.4816048850874851,ADJ:N,-idad
 cromático,acromático,0.5636738026436063,ADJ:ADJ,a-
 cabeza,cabezal,0.3143660967577796,N:N,-al
-muleta,muletilla,0.43670806988024513,N:U,-illa
+muleta,muletilla,0.43670806988024513,N:N,-illa
 rejuvenecer,rejuvenecimiento,0.6358486794505097,V:N,-miento
 tozudo,tozudamente,0.5081607288266269,ADJ:ADV,-mente
 regocijado,regocijadamente,0.6722183393924486,ADJ:ADV,-mente
@@ -7328,7 +7311,7 @@ etarra,proetarra,0.7390806580567187,N:ADJ,pro-
 bronquio,bronquitis,0.32436050324290955,N:N,-itis
 facturar,facturación,0.6062206376778297,V:N,-ción
 alevoso,alevosía,0.517192244352467,ADJ:N,-ía
-rock,rockero,0.7190057295900057,N:U,-ero
+rock,rockero,0.7190057295900057,N:N,-ero
 hervir,hervidero,0.20769056236152506,V:N,-dero
 actividad,hiperactividad,0.3754270531877354,N:N,hiper-
 Marbella,marbellí,0.6565633228761539,N:ADJ,-í
@@ -9457,7 +9440,6 @@ judicializar,desjudicializar,0.6930108946597227,V:V,des-
 accidental,accidentalidad,0.33850786169526215,ADJ:N,-idad
 abarcar,abarcador,0.5227076002030135,V:ADJ,-dor
 desmoronar,desmoronamiento,0.5419566177400943,V:N,-miento
-andar,ándale,0.34164728626710184,V:U,-le
 parado,paradón,0.28653107437280556,ADJ:N,-ón
 aprobar,aprobatorio,0.40199580470362095,V:ADJ,-torio
 juramento,juramentar,0.629118492570394,N:V,-ar
@@ -10148,7 +10130,6 @@ talismán,talismánico,0.6505733038825936,N:ADJ,-ico
 programático,programáticamente,0.5331731596206356,ADJ:ADV,-mente
 Miranda,mirandino,0.5517672270129682,N:ADJ,-ino
 Lara,larense,0.4307046882980601,N:ADJ,-ense
-Falcón,falconiano,0.5557146013790779,U:ADJ,-iano
 depuración,autodepuración,0.6324870216380027,N:N,auto-
 vecino,circunvecino,0.416883367220515,ADJ:ADJ,circun-
 errático,erráticamente,0.5578770482369497,ADJ:ADV,-mente
@@ -10508,7 +10489,7 @@ túnel,narcotúnel,0.5309571135647133,N:N,narco-
 Aller,allerano,0.3977174118909841,N:ADJ,-ano
 piscina,piscinazo,0.3200452984223221,N:N,-azo
 argumentar,contraargumentar,0.7594871628274812,V:V,contra-
-Pakistán,pakistaní,0.6723913969367309,N:U,-í
+Pakistán,pakistaní,0.6723913969367309,N:N,-í
 perverso,perversamente,0.5806370836661936,ADJ:ADV,-mente
 campeón,campeonar,0.5978466367434448,N:V,-ar
 familiarizar,familiarización,0.6093703760287367,V:N,-ción
@@ -10971,7 +10952,6 @@ atornillar,desatornillar,0.7713443433309463,V:V,des-
 orgásmico,multiorgásmico,0.652162826587561,ADJ:ADJ,multi-
 marinero,marinería,0.5485057493617861,ADJ:N,-ía
 recado,recadero,0.49067887357259543,ADJ:N,-ero
-tanto,tantito,0.3566015666263749,U:ADJ,-ito
 hurgar,hurgón,0.4113979356685328,V:N,-ón
 panqueque,panquequería,0.4954689871252542,N:N,-ería
 esófago,esofagitis,0.5387809367688945,N:N,-itis
@@ -11553,7 +11533,6 @@ yeso,yesería,0.40097463197202954,N:N,-ería
 borracho,borrachón,0.762835464161463,ADJ:N,-ón
 miocardio,miocarditis,0.5679978857320797,N:N,-itis
 humorístico,humorísticamente,0.502096700954954,ADJ:ADV,-mente
-archivo,archivístico,0.4760187318518887,U:ADJ,-ístico
 urbanístico,urbanísticamente,0.6549538138933353,ADJ:ADV,-mente
 concierto,concertístico,0.40653527536356415,N:ADJ,-ístico
 audición,audicionar,0.5475020152606754,N:V,-ar
@@ -12453,7 +12432,6 @@ olor,olorcito,0.7538222533890183,N:N,-cito
 Tolosa,tolosano,0.48777318385760715,N:ADJ,-ano
 administración,autoadministración,0.5122266323465431,N:N,auto-
 estimulación,sobreestimulación,0.685074615776415,N:N,sobre-
-humidificar,humidificación,0.6901165313025546,U:N,-ación
 laicizar,laicización,0.7076929206940403,V:N,-ción
 vascón,vasconización,0.4912888374594031,ADJ:N,-ización
 alcalinizar,alcalinización,0.6842652843607827,V:N,-ción
@@ -13460,7 +13438,6 @@ mioma,miomatoso,0.5812299576311103,N:ADJ,-oso
 neurología,otoneurología,0.47230056254867314,N:N,oto-
 epéndimo,ependimoma,0.4077491851746122,N:N,-oma
 olote,olotera,0.38943951813310895,N:N,-era
-arrecho,arrechera,0.6523353285678878,U:N,-era
 extemporáneo,extemporaneidad,0.6553146214128168,ADJ:N,-idad
 fenecer,fenecimiento,0.6414679205940192,V:N,-miento
 piña,piñazo,0.31927900210994586,N:N,-azo
@@ -13622,7 +13599,7 @@ Seattle,seatleita,0.23640406903883626,N:ADJ,-ita
 herpetología,herpetológico,0.7995996825904003,N:ADJ,-ico
 huerta,huertero,0.5254814813191692,N:N,-ero
 cerebro,cerebrito,0.5845944622104763,N:N,-ito
-chorizo,chorizar,0.574904331391843,N:U,-ar
+chorizo,chorizar,0.574904331391843,N:V,-ar
 Timbu,timbuense,0.08361673157011673,N:ADJ,-ense
 cabizbajo,cabizbajar,0.4632672516828851,ADJ:V,-ar
 badajo,badajear,0.3605035897414066,N:V,-ear
@@ -13820,7 +13797,6 @@ todo,todólogo,0.18008893112696622,N:N,-logo
 humanístico,neohumanístico,0.6136282673947945,ADJ:ADJ,neo-
 café,cafelito,0.5978625685000902,N:N,-lito
 religioso,ultrarreligioso,0.5618609257680014,ADJ:ADJ,ultra-
-demasía,demasié,0.31438408652260474,N:U,-é
 carajo,carajote,0.49818127248087696,N:N,-ote
 Bratislava,bratislavo,0.4130741202334317,N:ADJ,-o
 Estiria,estiriano,0.3157604216706962,N:ADJ,-ano
@@ -13974,7 +13950,7 @@ Río Negro,rionegrense,0.2583828561466902,N:ADJ,-ense
 Soriano,sorianense,0.5012242833695606,N:ADJ,-ense
 aturdir,aturdidor,0.47844908045221946,V:ADJ,-idor
 comisionar,recomisionar,0.4426308842745219,V:V,re-
-chorizo,choricear,0.5269791888416654,N:U,-ear
+chorizo,choricear,0.5269791888416654,N:V,-ear
 Portuguesa,portugueseño,0.4167697042776253,N:ADJ,-eño
 Cojedes,cojedeño,0.5981828324367336,N:ADJ,-eño
 burujón,rebujar,0.18307089243646746,V:V,re-
@@ -14030,7 +14006,6 @@ aceptado,inaceptado,0.49495539216184925,V:ADJ,in-
 agradable,agradabilidad,0.49050554816614,ADJ:N,-idad
 prolongar,prolongador,0.3015362892890019,V:N,-dor
 seis,seisavo,0.2755818639437404,N:ADJ,-avo
-arrecho,arrechar,0.6249329525859049,U:V,-ar
 aliso,alisal,0.3631155158324261,N:N,-al
 prejuicio,prejuiciar,0.5759317016956476,N:V,-ar
 llorar,llorería,0.33240860538127626,V:N,-ería
@@ -14064,7 +14039,6 @@ enaltecer,enaltecedor,0.5818525467366757,V:ADJ,-dor
 santificar,santificable,0.4360720851186788,V:ADJ,-able
 Gaspar,Gasparilla,0.41006130999221235,N:N,-illa
 Gaspar,Gasparillo,0.4734990540222672,N:N,-illo
-dinámica,biodinámica,0.27034415115612576,U:N,bio-
 entretenido,entretenidillo,0.6689235304444004,ADJ:ADJ,-illo
 mellar,amellar,0.49768153925700886,V:V,a-
 pipa,pipeño,0.24388431106546893,N:N,-eño
@@ -14147,7 +14121,6 @@ cabo,acabar,0.3418553971772543,N:V,a-
 caricia,acariciar,0.5671835546588059,N:V,a-
 aceite,aceitar,0.3021513038827268,N:V,-ar
 acelerar,acelerador,0.4474361749911864,V:ADJ,-ador
-cierto,acertar,0.2831431867703894,U:V,a-
 contecer,acontecer,0.4868032134173518,V:V,a-
 crédito,acreditar,0.33209011339811356,N:V,a-
 crisol,acrisolar,0.4919706463682749,N:V,a-
@@ -16908,7 +16881,6 @@ borracho,borrachín,0.7067713932318285,N:N,-ín
 vivir,viviente,0.2986670699679139,V:ADJ,-nte
 vivir,vividor,0.32021757500433656,V:ADJ,-dor
 pedorro,pedorrear,0.4596868348132087,N:V,-ar
-vos,voseo,0.29530354308837337,U:N,-eo
 aretalogía,aretalógico,0.7426479336519853,N:ADJ,-́ico
 carril,carrilearse,0.39459939987445436,N:V,-ear
 tabla,tablacho,0.3775719329667113,N:N,-acho
@@ -17063,7 +17035,6 @@ seguir,conseguir,0.43093219408796646,V:V,con-
 biogénesis,abiogénesis,0.744780997731457,N:N,a-
 abitar,abitadura,0.3920874149824338,V:N,-dura
 abogado,abogacía,0.5810432335813849,N:N,-ía
-once,onceno,0.39055634268590955,U:N,-eno
 China,chinesco,0.2372586880038352,N:ADJ,-sco
 vigor,vigorexia,0.21558538486604184,N:N,-orexia
 encantar,encantamiento,0.301674075077516,V:N,-miento
@@ -17265,7 +17236,6 @@ gañir,desgañitarse,0.42146478832320766,V:V,des-
 probable,probablemente,0.7500823534425596,ADJ:ADJ,-mente
 cama,camada,0.2260888183513785,N:N,-ada
 garante,garantía,0.5411588169983967,ADJ:N,-ía
-quince,quincena,0.32589269707997737,U:N,-ena
 desinhibir,desinhibido,0.5793862437638597,V:ADJ,-ido
 inhibir,desinhibir,0.583310478028375,V:V,des-
 pergeño,pergeñar,0.5898586096370197,N:V,-ar
@@ -18475,7 +18445,6 @@ arraigar,arraigamiento,0.4983643726684778,V:N,-miento
 crear,creativo,0.36094417528769074,V:ADJ,-ivo
 sugo,sugoso,0.11311683239923453,N:ADJ,-oso
 inútil,inútilmente,0.5468244888713457,ADJ:ADV,-mente
-mucho,muchísimo,0.8901183243831151,U:ADV,-ísimo
 muchacho,muchachada,0.3593332065412296,N:N,-ada
 eutropelia,eutropélico,0.6636202169445087,N:ADJ,-ico
 eutrapelia,eutrapélico,0.4018615059726789,N:ADJ,-ico
@@ -18602,12 +18571,9 @@ vándalo,vandalaje,0.29045138880090327,N:N,-aje
 Módena,modenés,0.44128674290318837,N:ADJ,-és
 Pamplona,pamplonica,0.5538707665764212,N:ADJ,-ica
 adivinar,adivinación,0.372940007681585,V:N,-ción
-trece,treceavo,0.34653482145185777,U:ADJ,-avo
 catorce,catorceavo,0.34365611135093177,N:N,-avo
-dieciséis,dieciseisavo,0.3491632405977194,U:N,-avo
 diecisiete,diecisieteavo,0.36395465738157884,N:N,-avo
 diecinueve,diecinueveavo,0.40432392779397364,N:N,-avo
-veinte,veinteavo,0.31113489532828253,U:N,-avo
 dieciocho,dieciochoavo,0.5274119588005446,N:N,-avo
 decágono,heptadecágono,0.7933492850539022,N:N,hepta-
 exilio,exiliar,0.6111037976308206,N:V,-ar
@@ -20600,7 +20566,6 @@ zurriaga,zurriagar,0.8173341648255131,N:V,-ar
 zurriaga,zurriagazo,0.658950440388509,N:N,-azo
 correa,correazo,0.41969402621915597,N:N,-azo
 fusta,fustazo,0.6199211667676677,N:N,-azo
-quince,quinceno,0.3049418185163222,U:N,-eno
 flagelar,flagelador,0.42494618379752347,V:ADJ,-dor
 zulaque,zulaquear,0.6322354301593334,N:V,-ear
 jarra,jarrazo,0.4473848604762878,N:N,-azo
@@ -22935,7 +22900,6 @@ frisol,frisuelo,0.5857853162078814,N:N,-uelo
 frijol,frijolear,0.4347283349751718,N:V,-ear
 Maule,maulino,0.508921687067641,N:ADJ,-ino
 treinta,treintón,0.39774751955657983,N:ADJ,-ón
-cuarenta,cuarentón,0.4105802741591855,U:ADJ,-ón
 cuarenta,cuarentavo,0.3720988774599534,N:ADJ,-avo
 cuarenta,cuarenteno,0.34679835184846075,N:N,-eno
 cuarentena,cuarentenal,0.40409571476533035,N:ADJ,-al
@@ -23148,7 +23112,6 @@ bola,bolado,0.5509498481168457,N:N,-do
 yodo,yódico,0.35920740037605237,N:ADJ,-ico
 tarugo,taruguear,0.40236364254128554,N:V,-ear
 miar,mion,0.3935902607625035,V:N,-ón
-guagua,guagüero,0.3754603909865598,U:N,-ero
 caca,caquis,0.22219669064157943,N:N,-is
 puta,putiar,0.461777685788206,N:V,-iar
 censurable,censurabilísimo,0.40906254179505275,ADJ:ADJ,-bilísimo
@@ -23965,7 +23928,6 @@ uterino,intrauterino,0.47870272449868245,ADJ:ADJ,intra-
 irritar,irritante,0.5915425823272522,V:ADJ,-ante
 cámara,recámara,0.33539979629902517,N:ADJ,re-
 exportar,exportable,0.6334423328735287,V:ADJ,-able
-más,demás,0.27265660330606123,U:ADJ,de-
 epigastrio,epigastralgia,0.7083299030483914,N:ADJ,-algia
 sociable,sociabilidad,0.4888705754877485,ADJ:N,-idad
 Alsacia,alsaciano,0.5553356432753441,N:ADJ,-ano
@@ -24341,7 +24303,6 @@ virtual,virtualidad,0.5969957403790328,ADJ:ADJ,-idad
 cicatrizar,cicatrización,0.6787100056739558,V:ADJ,-ción
 comerciar,comerciable,0.42530940824858465,V:ADJ,-able
 maleable,maleabilidad,0.5553403565092937,ADJ:N,-idad
-adiós,adiosito,0.39594706493335197,U:ADJ,-ito
 reanimar,reanimación,0.6295345850856205,V:N,-ción
 de gorra,gorrón,0.09629930057933489,ADV:N,-ón
 vascular,endovascular,0.5577152111160314,ADJ:ADJ,endo-
@@ -25723,7 +25684,6 @@ vasco,vascófilo,0.5962100320576184,ADJ:ADJ,-filo
 clase media,clasemediero,0.26226987635664645,N:N,-ero
 salón,salonero,0.4626715177363825,N:N,-ero
 pachuco,pachuquismo,0.4173750835127481,ADJ:ADJ,-ismo
-que,queísmo,0.10528809186294641,U:N,-ismo
 mimbre,mimbrero,0.43240637588577213,N:N,-ero
 función,multifunción,0.3295690878559363,N:ADJ,multi-
 presión,sobrepresión,0.6038781969755675,N:ADJ,sobre-
@@ -27047,7 +27007,6 @@ moldurar,molduración,0.7130702739674482,V:N,-ción
 concretizar,concretización,0.6677942889248553,V:ADJ,-ción
 administración,autoadministración,0.5122266323465431,N:ADJ,auto-
 estimulación,sobreestimulación,0.685074615776415,N:ADJ,sobre-
-humidificar,humidificación,0.6901165313025546,U:ADJ,-ación
 radiación,antirradiación,0.5774693284705905,N:ADJ,anti-
 vascón,vasconización,0.4912888374594031,ADJ:ADJ,-ización
 infección,sobreinfección,0.7712206456162289,N:ADJ,sobre-
@@ -30027,7 +29986,7 @@ maza,mazo,0.48935637028950296,N:N,-o
 anticoncepcional,anticoncepcionalismo,0.8717760174371385,ADJ:N,-ismo
 marrullero,marrullería,0.6922641961028736,ADJ:N,-ía
 agüitarse,agüite,0.43412212313583787,V:N,-e
-mecapal,mecapalero,0.5703924890604497,N:U,-ero
+mecapal,mecapalero,0.5703924890604497,N:N,-ero
 traqueal,endotraqueal,0.6909165592896133,ADJ:ADJ,endo-
 acampanar,acampanado,0.30424277138692135,V:ADJ,-ado
 avellanar,avellanado,0.6408232554381781,V:V,-ado
@@ -30341,7 +30300,7 @@ bocado,bocadear,0.34084496191339575,N:V,-ear
 caracol,caracola,0.5705440439691855,N:N,-a
 caracol,caracolada,0.399941862573181,N:N,-ada
 caracol,caracoleta,0.351570646074973,N:N,-eta
-caracol,caracolero,0.45243656325149206,N:U,-ero
+caracol,caracolero,0.45243656325149206,N:N,-ero
 casto,castidad,0.45363764821198704,ADJ:N,-idad
 cepo,cepa,0.11238048008336465,N:N,-a
 coadjutor,coadjutoría,0.5845892539018648,N:N,-ía
@@ -30586,7 +30545,7 @@ carretero,carretería,0.49920652008802446,N:N,-ía
 jinete,jineta,0.5375962515053723,N:N,-a
 merced,mercedario,0.2485830190310918,N:ADJ,-ario
 palanca,palanquear,0.513310056775439,N:V,-ear
-palanca,palanquero,0.4417697192137895,N:U,-ero
+palanca,palanquero,0.4417697192137895,N:N,-ero
 escolta,escoltar,0.5857411545277402,N:V,-ar
 asustado,asustadizo,0.6136597351677914,ADJ:ADJ,-izo
 excepcional,excepcionalidad,0.6329280412746401,ADJ:N,-idad
@@ -30724,7 +30683,7 @@ redentor,redentorista,0.4989233750686649,ADJ:N,-ista
 ratonero,ratonera,0.41395857026377936,ADJ:N,-a
 palmero,palmera,0.34388362058233457,ADJ:N,-a
 gomero,gomería,0.49199163410695634,ADJ:N,-ía
-bajel,bajelero,0.496017508391318,N:U,-ero
+bajel,bajelero,0.496017508391318,N:N,-ero
 capucho,capucha,0.5730518195904787,N:N,-a
 birreta,birretina,0.5603153295442198,N:N,-ina
 capellán,capellanía,0.5321423921993464,N:N,-ía
