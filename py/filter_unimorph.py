@@ -15,39 +15,39 @@ um_pol_der = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, 
 
 def filter_inflections(data):
     if data == spa_inf:
-        name = "spa"
+        language = "spa"
         print("Filtering Spanish data...")
     elif data == pol_inf:
-        name = "pol"
+        language = "pol"
         print("Filtering Polish data...")
 
     df = pd.read_csv(data, sep="\t", header=None, names=["pivot", "inflection", "category"])
     # filtering data to only obtain presente, pret. impf. and futuro simple
-    if name == "spa":
-        filtered_df = df[
+    if language == "spa":
+        df = df[
             df["category"].str.contains("V;IND;PRS") | # presente
             df["category"].str.contains("V;IND;PST;IPFV") | # pret. impf.
             df["category"].str.contains("V;IND;FUT") # futuro simple
         ]
-    elif name == "pol":
-        filtered_df = df[
+
+        # removing vos forms
+        df = df[~((df['inflection'].str.endswith('ás') | df['inflection'].str.endswith('és') | df['inflection'].str.endswith('ís')) & df['category'].str.contains('V;IND;PRS'))]
+
+        # removing usted forms
+        df = df[~df['category'].str.contains('FORM')]
+
+    elif language == "pol":
+        df = df[
             df["category"].str.contains("V;PRS") | # czas teraźniejszy
             df["category"].str.contains("V;PST") | # czas przeszły
             df["category"].str.contains("V;FUT") # czas przyszły
         ]
 
-    print(filtered_df.describe())
+    print(df.describe())
 
     # save filtered dataframe
-    filtered_df.to_csv(f"py/datasets/filtered_{name}.txt", sep="\t", index=False, header=False)
+    df.to_csv(f"datasets/{language}/{language}_filtered.txt", sep="\t", index=False, header=False)
     print("Filtered data saved!")
 
-
-# def process_derivations(data):
-
-
-
-# print(um_spa_der[um_spa_der["category"].str.endswith(":U")])
-
-# filter_inflections(spa_inf)
+filter_inflections(spa_inf)
 # filter_inflections(pol_inf)
