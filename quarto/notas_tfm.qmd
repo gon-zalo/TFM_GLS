@@ -229,19 +229,21 @@ all_df_plot <- all_df %>%
 # ggsave("C:/PythonCode/TFM_GLS/py/fig-initial-plot.svg", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
-![Mean similarity between pivot-form in derivation and inflection by model and language](C:/PythonCode/TFM_GLS/py/fig-initial-plot.svg){#fig-initial-plot}
+![Mean similarity between pivot-form in derivation and inflection by model and language](C:/PythonCode/TFM_GLS/py/plots/fig-initial-plot.svg){#fig-initial-plot}
 
 
-We can see in @fig-initial-plot some weird outliers in FastText and Word2Vec. These outliers correspond to different instances of U:U, X:U or U:X (X being any label). This unknown category is messing with the means so the data needs to be cleaned a bit.
+We can see in @fig-initial-plot some weird outliers in FastText and Word2Vec. These outliers correspond to different instances of U:U, X:U or U:X (X being any label). This unknown category is messing with the means so the data needs to be cleaned a bit and we need to keep N, ADJ, ADV and V.
 
 ## Cleaning the datasets
 
+### Cleaning derivations
+
 The first analysis revealed some errors in both datasets. In the derivations dataset the label U (that *possibly* means unspecified or unknown) presented some issues. The goal is to eliminate all instances of unknown categories, to get rid of this noise and have cleaner results and means.
 
-* In Spanish there are 20 rows that contain a derivation that results in U (i.e. N:U or V:U) and 107 in Polish. 
-* On the other hand, there are even more derivations which pivot is tagged with U (U:N, U:ADJ...), 36 in Spanish and 253 in Polish. 
+1. In Spanish there are 20 rows that contain a derivation that results in U (i.e. N:U or V:U) and 107 in Polish. 
+2. On the other hand, there are even more derivations in which the pivot is tagged with U (U:N, U:ADJ...), 36 in Spanish and 253 in Polish. 
 
-When it comes to Spanish, the number is not too high, so it is something that is worth fixing in order to get rid of this label so it does not mess with the means shown in @fig-initial-plot. Fixing the first group seems fairly easy since we can just look at the affix and the label it is assigned in other rows. The second group cannot be easily fixed with Python so it would probably need to be fixed manually.
+Taking a quick look through this data one can see many mistakes such as clear verbs, adjectives or nouns being labeled U and also formatting issues. When it comes to Spanish, the number is not too high, so it is something that is worth fixing in order to get rid of this label so it does not mess with the means shown in @fig-initial-plot. Fixing the first group seems fairly easy since we can just look at the affix and assign the category it gets assigned in other instances. 
 
 ```{python}
 #| echo: false
@@ -254,16 +256,21 @@ df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/spa/spa.derivations", sep="\
 df[df["category"].str.endswith(":U")]
 ```
 
-In order to clean the Spanish derivations dataset we assign a new category according to the affix. We change all the affixes that end in *-ero*, *-ez*, *-ismo*,*-í* and *-illa* to :N. We also assign :V to those that contain the affixes *-ar* and *-ear*
+In order to clean the Spanish derivations dataset we assign a new category according to the affix. We change all the affixes that end in *-ero*, *-ez*, *-ismo*,*-í* and *-illa* to N. We also assign V to those that contain the affixes *-ar* and *-ear*
 
 ```{python}
-
 affixes = ["-ero", "-ez", "-ismo", "-í", "-illa"]
-condition = df['category'].str.endswith(':U') & df['affix'].isin(affixes)
+condition = (
+  df['category'].str.endswith(':U') & 
+  df['affix'].isin(affixes)
+)
 df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':N', regex=False)
 
 verb_endings = ["-ear", "-ar"]
-condition = df['category'].str.endswith(':U') & df['affix'].isin(verb_endings)
+condition = (
+  df['category'].str.endswith(':U') & 
+  df['affix'].isin(verb_endings)
+)
 df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':V', regex=False)
 
 df[df["category"].str.endswith(":U")]
@@ -271,7 +278,7 @@ df[df["category"].str.endswith(":U")]
 
 As a result we obtain 6 rows that can be eliminated from the final dataset because of all the mistakes they contain.
 
-For the Polish data we do a very similar thing. Affixes such as *-any*, *-ony*, *-ty*, *-y*, or *-ący*, *-ęty* take the label ADJ, because they are all endings that participles take. Some of these affixes are wrong, for example *-ty* and *-y*, UniMorph cannot decide if the suffix takes the 't' or not, but we will ignore this for now.
+For the Polish data we do a very similar thing. Affixes such as *-any*, *-ony*, *-ty*, *-y*, or *-ący*, *-ęty* take the label ADJ, because they are all endings that participles take. Some of these affixes are wrong, for example *-ty* and *-y*, UniMorph cannot decide if the suffix takes the *-t* or not, but we will ignore this for now.
 
 ```{python}
 #| echo: false
@@ -281,8 +288,93 @@ df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/pol/pol.derivations", sep="\
 ```{python}
 
 affixes = ["-any", "-ony", "-ty", "-y", "-ący", "-ęty"]
-condition = df['category'].str.endswith(':U') & df['affix'].isin(affixes)
+condition = (
+  df['category'].str.endswith(':U') & 
+  df['affix'].isin(affixes)
+)
 df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace(':U', ':ADJ', regex=False)
 ```
 
-We can also see some formatting issues. Some rows contain the pivot and the derived form joined together in the pivot cell (i.e. mylićpomylić	pomylić). This can be fixed as well just removing the form from the pivot cell and assigning to them the correct categories. Some errors can be removed as well, like the appearance of *co*, *kto*, *jaki*.. which are relative pronouns. Everything ending in -ś and -ż or -że are not nouns or adjectives or adverbs or verbs so they can be removed.
+We can also see some formatting issues. Some rows contain the pivot and the derived form joined together in the pivot cell (i.e. *mylićpomylić	pomylić*). This can be fixed as well just removing the form from the pivot column and assigning to them the correct categories. 
+```{python}
+df["pivot"] = df.apply(lambda row: row['pivot'].replace(row['derivation'], ''), axis=1)
+```
+
+We also fixed certain rows that contained verbs in both columns but were not correctly labeled. This is fairly easy since in Polish verbs in the infinitive form end in *-ć* (most of them) or *-c*. We also labeled three rows incorrectly labeled U:U as ADJ:ADJ since they contained adjectives.
+
+```{python}
+condition = (
+  df["category"].str.endswith(":U") & 
+  df['pivot'].str.endswith("ć") & 
+  df['derivation'].str.endswith('ć')
+)
+df.loc[condition, 'category'] = "V:V"
+
+condition = (
+  df["category"].str.endswith(":U") & 
+  df['pivot'].str.endswith("c") & 
+  df['derivation'].str.endswith('c')
+)
+df.loc[condition, 'category'] = 'V:V'
+
+pivots_to_change = ['zamężny', 'przystawalny', 'pocieszony']
+condition = (
+    df["pivot"].isin(pivots_to_change) &
+    df["category"].str.endswith(":U")
+)
+df.loc[condition, 'category'] = 'ADJ:ADJ'
+
+df_u = df[df["category"].str.endswith(":U")]
+df_u.sample(15)
+```
+
+The rest can be removed as well as they do not contain any nouns, adjectives, adverbs or verbs. Take for instance the appearance of *co*, *kto*, *jaki*.. which are relative pronouns. Everything ending in *-ś* and *-ż* or *-że* are not nouns nor adjectives nor adverbs nor verbs so they can be removed.
+
+The second group of Spanish derivations (:U) cannot be easily fixed with a Python script, it contains many numerals and words that are not N, ADJ, ADV or V. Those rows that do not contain any of such categories can be dropped and the rest probably needs to be fixed manually. It contais some verbs, nouns and adjectives labeled with U, for instance *cuarenta cuanrentóń U:N -ón*. For some reason *cuarenta* is labeled in other rows as N but not in this one. Since numerals can be N or ADJ, alongside all the other issues with this group I think we can just drop all these rows (35). It is a low number that will not affect the results.
+
+In the Polish dataset we can do better because there are many rows (163) that contain verbs ending in *-ć* in both the pivot and the derivation column but are incorrectly labeled as U:V, for example *kręcić skręcic U:V s-* or *paść przepaść U:V prze-*. We can easily change the label to V:V.
+
+```{python}
+# Data we cleaned previously
+df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
+condition = (
+    df["category"].str.startswith("U:") &
+    df['pivot'].str.endswith("ć") & 
+    df['derivation'].str.endswith('ć')
+)
+
+df.loc[condition, 'category'] = 'V:V'
+df[condition]
+```
+
+There are also 27 rows that contain verbs ending in *-c* in both the pivot and the derivation cells, which can be fixed just like previously done on the other group of verbs.
+
+```{python}
+condition = (
+    df["category"].str.startswith("U:") &
+    df['pivot'].str.endswith("c") & 
+    df['derivation'].str.endswith('c')
+)
+
+df.loc[condition, 'category'] = 'V:V'
+```
+
+Finally we can fix some pivots that are verbs, but are not labeled as such, just by looking at the ending, although this needs to be done carefully as some nouns can also end in *-ć* or *-c*.
+
+```{python}
+condition = (
+    df['category'].str.startswith('U:') & 
+    df['pivot'].str.endswith('ć') |
+    df['category'].str.startswith('U:') &
+    df['pivot'].str.endswith('c')
+)
+df.loc[condition, 'category'] = df.loc[condition, 'category'].str.replace('U:', 'V:', regex=False)
+df.loc[condition]
+```
+
+Since we have fixed almost 200 rows, the resulting ones labeled as U:X contain only 21 rows, with some mistakes or words that are not N, ADJ, ADV or V so we can just drop them. Both resulting datasets do not contain any more any row labeled with U, so we should get a cleaner mean.
+
+### Cleaning inflections
+
+The only thing to clean in the inflections dataset is
