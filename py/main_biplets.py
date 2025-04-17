@@ -31,12 +31,13 @@ mult_bert = "bert-base-multilingual-cased" # multilingual bert
 # DATASETS
     # INFLECTION
 um_spa = pd.read_csv("datasets/spa/spa_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 um_pol = pd.read_csv("datasets/pol/pol_filtered.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
+um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"]) # to test stuff
+
     # DERIVATION
-um_spa_der = pd.read_csv("datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-um_pol_der = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+um_spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+um_pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 
 # -----------------------------------------------------
@@ -281,15 +282,15 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 # model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
 # sim_inflection(model, model_name, tokenizer, language, um_pol)
 
-# BERT
-# bert takes a really long time
+# # BERT
+# # bert takes a really long time
 # model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
 # sim_inflection(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
 
 
 ###### DERIVATION ######
-# model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
-# sim_derivation(model, model_name, tokenizer, language, um_spa_der)
+model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
+sim_derivation(model, model_name, tokenizer, language, um_spa_der)
 
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol")
 sim_derivation(model, model_name, tokenizer, language, um_pol_der)
