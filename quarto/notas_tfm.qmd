@@ -59,7 +59,7 @@ The initial results are shown in the following tables.
 | **SPA**    | 0.539277 | 0.555474 | 0.95              |
 | **POL**    | 0.513006 | 0.486620 | 0.91              |
 
-: Mean similarity between pivot and inflection {#tbl-initial-inflection}
+: Mean similarity between pivot and inflection {#tbl-initial-inflection} {.sm}
 
 
 | DERIVATION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
@@ -67,7 +67,7 @@ The initial results are shown in the following tables.
 | **SPA**    | 0.504810 | 0.511147 | 0.927623          |
 | **POL**    | 0.406683 | 0.544072 | 0.931450          |
 
-: Mean similarity between pivot and derivation. {#tbl-initial-derivation}
+: Mean similarity between pivot and derivation. {#tbl-initial-derivation} {.sm}
 
 Now we will plot the initial results. Mean similarity of the category (V:V, ADJ:N, ADV:ADJ...) by type (inflection, derivation between the same categories and derivation between different categories), separated by embeddings model and language.
 
@@ -406,15 +406,65 @@ The lowest category in both FastText and Word2Vec in Polish is V:ADV with a 0.08
 | **SPA**    | 0.530683 | 0.550212 |             0.95  |
 | **POL**    | 0.513006 | 0.486620 |            0.91   |
 
-: Mean similarity between pivot and inflection on the **clean data** {#tbl-clean-inflection}
+: Mean similarity between pivot and inflection on the **clean data** {#tbl-clean-inflection} {.sm}
 
 | DERIVATION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
 | ---------- | -------: | -------: | ----------------: |
 | **SPA**    | 0.504823 | 0.511255 |      0.927637     |
 | **POL**    | 0.406783 | 0.544123 |      0.931497     |
 
-: Mean similarity between pivot and derivation on the **clean data** {#tbl-clean-derivation}
+: Mean similarity between pivot and derivation on the **clean data** {#tbl-clean-derivation} {.sm}
 
 The change in the means is minimal, less than 0.0001 but I guess we should get a cleaner mean by category in the plot.
 
 
+## Subset of the most frequent lemmas and affixes
+
+For this task in Spanish we used the 10000 most frequent lemmas in CREA. We extracted the verbs that appear in both datasets, UniMorph and CREA, and obtained a subset of 1568 lemmas from a total of 6695. 
+
+For the Polish data we used sgjp.pl. We filtered (using the site's implemented filter) the 8500 most common lexemes and took all the verbs from that list which were 1832. After that we compared that list of verbs to the UniMorph data and extracted those that appear in both datasets resulting in 455 lemmas from a total of 844 that appear in the UniMorph data.
+
+To create the subset of affixes, we took the most common affixes in the UniMorph data itself. In Spanish the top 15 affixes are: 
+
+|affix|count|
+|-----|-----|
+|-mente |2997|
+|-dor   |1316|
+|-ar    |1310|
+|-ero   |1123|
+|-miento|913|
+|-ico   |870|
+|des-   |836|
+|-ción  |831|
+|-ear   |676|
+|-ista  |642|
+|-ito   |638|
+|-ismo  |549|
+|-ón    |533|
+|-idad  |499|
+|-al    |491|
+
+: Top affixes in Spanish {#tbl-spa-affixes} {.sm}
+
+
+In Polish, the top 15 affixes are:
+
+|affix|count|
+|-----|-----|
+|-owy |5804|
+|-ka  |5487|
+|-anie|3421|
+|-ość |3287|
+|-ny  |2414|
+|-ie  |2161|
+|-enie|1669|
+|-ek  |1521|
+|-ować|1517|
+|-o   |1393|
+|-ik  |1249|
+|-ski |1212|
+|-ać  |1158|
+|-stwo| 770|
+|za-  | 742|
+
+: Top affixes in Polish {#tbl-pol-affixes} {.sm}
