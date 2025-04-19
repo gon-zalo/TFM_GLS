@@ -54,20 +54,34 @@ For the derivation analysis the data provided by UniMorph was used without chang
 ### Initial results
 The initial results are shown in the following tables. 
   
-| INFLECTION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
-| ---------- | -------: | -------: | --------------: |
-| **SPA**    | 0.539277 | 0.555474 | 0.95              |
-| **POL**    | 0.513006 | 0.486620 | 0.91              |
+  
+::: {#tbl-results-comparison layout-ncol="2"}
 
-: Mean similarity between pivot and inflection {#tbl-initial-inflection} {.sm}
+| Model             | Language | Initial Analysis |
+|-------------------|----------|------------------|
+| **FastText**      | Spanish  | 0.555            |
+|                   | Polish   | 0.486            |
+| **Word2Vec**      | Spanish  | 0.539            |
+|                   | Polish   | 0.513            |
+| **Mult BERT**     | Spanish  | 0.950            |
+|                   | Polish   | 0.910            |
+
+: Mean similarity in inflection {#tbl-initial-inflection} {.sm}
 
 
-| DERIVATION | WORD2VEC | FASTTEXT | MULTILINGUAL BERT |
-| ---------- | -------: | -------: | --------------: |
-| **SPA**    | 0.504810 | 0.511147 | 0.927623          |
-| **POL**    | 0.406683 | 0.544072 | 0.931450          |
+| Model             | Language | Initial Analysis |
+|-------------------|----------|------------------|
+| **FastText**      | Spanish  | 0.511            |
+|                   | Polish   | 0.544            |
+| **Word2Vec**      | Spanish  | 0.504            |
+|                   | Polish   | 0.406            |
+| **Mult BERT**     | Spanish  | 0.927            |
+|                   | Polish   | 0.931            |
 
-: Mean similarity between pivot and derivation. {#tbl-initial-derivation} {.sm}
+: Mean similarity in derivation. {#tbl-initial-derivation} {.sm}
+
+Mean similarity in initial results
+:::
 
 Now we will plot the initial results. Mean similarity of the category (V:V, ADJ:N, ADV:ADJ...) by type (inflection, derivation between the same categories and derivation between different categories), separated by embeddings model and language.
 
@@ -250,10 +264,12 @@ df = df[~df['category'].str.contains('FORM')]
 df.head(10)
 ```
 
-## Clean data results
+### Clean data results
 
 ```{r}
 #| echo: false
+#| 
+# clean data results
 library(ggplot2)
 library(dplyr)
 
@@ -280,6 +296,10 @@ pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_inflecti
 # DERIVATION
 spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_bert_derivation_results.csv")
 pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_derivation_results.csv")
+```
+
+```{r}
+#| echo: false
 
 # adding model, language and type (inf or der) to the dataset in order to plot it
 spa_ft_inf <- spa_ft_inf %>%
@@ -379,6 +399,10 @@ plot1 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
     na.rm = TRUE, alpha = 0.8
   ) +
   labs(x = "", y = "Mean similarity") +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = c(0.25, 0.50, 0.75, 1)
+  ) +
   stat_summary(
     fun.data = "mean_cl_boot", 
     color = "black", size = 1, 
@@ -418,15 +442,17 @@ The lowest category in both FastText and Word2Vec in Polish is V:ADV with a 0.08
 The change in the means is minimal, less than 0.0001 but I guess we should get a cleaner mean by category in the plot.
 
 
-## Subset of the most frequent lemmas and affixes
+## Subset of the most frequent lemmas and affixes (after cleaning)
 
 For this task in Spanish we used the 10000 most frequent lemmas in CREA. We extracted the verbs that appear in both datasets, UniMorph and CREA, and obtained a subset of 1568 lemmas from a total of 6695. 
 
 For the Polish data we used sgjp.pl. We filtered (using the site's implemented filter) the 8500 most common lexemes and took all the verbs from that list which were 1832. After that we compared that list of verbs to the UniMorph data and extracted those that appear in both datasets resulting in 455 lemmas from a total of 844 that appear in the UniMorph data.
 
-To create the subset of affixes, we took the most common affixes in the UniMorph data itself. In Spanish the top 15 affixes are: 
+To create the subset of affixes, we took the most common affixes in the UniMorph data itself.
 
-|affix|count|
+::: {#tbl-affixes layout-ncol="2"}
+
+|Affix|Count|
 |-----|-----|
 |-mente |2997|
 |-dor   |1316|
@@ -444,12 +470,9 @@ To create the subset of affixes, we took the most common affixes in the UniMorph
 |-idad  |499|
 |-al    |491|
 
-: Top affixes in Spanish {#tbl-spa-affixes} {.sm}
+: Spanish {#tbl-spa-affixes} {.sm}
 
-
-In Polish, the top 15 affixes are:
-
-|affix|count|
+|Affix|Count|
 |-----|-----|
 |-owy |5804|
 |-ka  |5487|
@@ -467,4 +490,209 @@ In Polish, the top 15 affixes are:
 |-stwo| 770|
 |za-  | 742|
 
-: Top affixes in Polish {#tbl-pol-affixes} {.sm}
+: Polish {#tbl-pol-affixes} {.sm}
+
+Top 15 affixes in Spanish and Polish in UniMorph data.
+:::
+
+UniMorph derivation data has 31252 rows in Spanish with 709 unique affixes and 58673 in Polish with 443 unique affixes. After creating a subset dataset of only the top 15 affixes in each language, the result is 14224 rows in Spanish and 33805 in Polish.
+
+### Subset data results
+
+Here is presented a comparison of all the previous analysis and the one done on the subset data. Then a plot in @fig-subset-plot showing the mean similarity of each category on the subset data.
+
+::: {#tbl-results-comparison layout-ncol="2"}
+
+| Model             | Language | Initial Analysis | Clean Data | Subset Data |
+|-------------------|----------|--------------------|----------------|-----------------|
+| **FastText**      | Spanish  | 0.555              | 0.550          | 0.497           |
+|                   | Polish   | 0.486              | 0.486          | 0.490           |
+| **Word2Vec**      | Spanish  | 0.539              | 0.530          | 0.504           |
+|                   | Polish   | 0.513              | 0.513          | 0.535           |
+| **Mult BERT**     | Spanish  | 0.950              | 0.950          | 0.936           |
+|                   | Polish   | 0.910              | 0.910          | 0.908           |
+
+: Inflection {#tbl-inflection} {.sm}
+
+
+| Model             | Language | Initial Analysis | Clean Data | Subset Data |
+|-------------------|----------|--------------------|----------------|-----------------|
+| **FastText**      | Spanish  | 0.511              | 0.511          | 0.523           |
+|                   | Polish   | 0.544              | 0.544          | 0.558           |
+| **Word2Vec**      | Spanish  | 0.504              | 0.504          | 0.509           |
+|                   | Polish   | 0.406              | 0.406          | 0.401           |
+| **Mult BERT**     | Spanish  | 0.927              | 0.927          | 0.931           |
+|                   | Polish   | 0.931              | 0.931          | 0.931           |
+
+
+: Derivation {#tbl-derivation} {.sm}
+
+Mean similarity between pivot and form in inflection and derivation by model and language.
+:::
+
+```{r}
+#| echo: false
+#| 
+# subse data results
+library(ggplot2)
+library(dplyr)
+
+# FASTTEXT
+# INFLECTION
+spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_fasttext_inflection_subset_results.csv")
+pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_fasttext_inflection_subset_results.csv")
+# DERIVATION
+spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_fasttext_derivation_subset_results.csv")
+pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_fasttext_derivation_subset_results.csv")
+
+# WORD2VEC
+# INFLECTION
+spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_word2vec_inflection_subset_results.csv")
+pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_word2vec_inflection_subset_results.csv")
+# DERIVATION
+spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_word2vec_derivation_subset_results.csv")
+pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_word2vec_derivation_subset_results.csv")
+
+# BERT
+# INFLECTION
+spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_bert_inflection_subset_results.csv")
+pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_bert_inflection_subset_results.csv")
+# DERIVATION
+spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_bert_derivation_subset_results.csv")
+pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_bert_derivation_subset_results.csv")
+```
+
+```{r}
+#| echo: false
+
+# adding model, language and type (inf or der) to the dataset in order to plot it
+spa_ft_inf <- spa_ft_inf %>%
+  mutate(model = "FastText", language = "Spanish", type = "Inflection")
+
+pol_ft_inf <- pol_ft_inf %>%
+  mutate(model = "FastText", language = "Polish", type = "Inflection")
+
+spa_ft_der <- spa_ft_der %>%
+  mutate(model = "FastText", language = "Spanish", type = "Derivation")
+
+pol_ft_der <- pol_ft_der %>%
+  mutate(model = "FastText", language = "Polish", type = "Derivation")
+
+spa_w2v_inf <- spa_w2v_inf %>%
+  mutate(model = "Word2Vec", language = "Spanish", type = "Inflection")
+
+pol_w2v_inf <- pol_w2v_inf %>%
+  mutate(model = "Word2Vec", language = "Polish", type = "Inflection")
+
+spa_w2v_der <- spa_w2v_der %>%
+  mutate(model = "Word2Vec", language = "Spanish", type = "Derivation")
+
+pol_w2v_der <- pol_w2v_der %>%
+  mutate(model = "Word2Vec", language = "Polish", type = "Derivation")
+
+spa_bert_inf <- spa_bert_inf %>%
+  mutate(model = "Multilingual BERT", language = "Spanish", type = "Inflection")
+
+pol_bert_inf <- pol_bert_inf %>%
+  mutate(model = "Multilingual BERT", language = "Polish", type = "Inflection")
+
+spa_bert_der <- spa_bert_der %>%
+  mutate(model = "Multilingual BERT", language = "Spanish", type = "Derivation")
+
+pol_bert_der <- pol_bert_der %>%
+  mutate(model = "Multilingual BERT", language = "Polish", type = "Derivation")
+
+```
+
+```{r}
+#| echo: false
+
+# spa_ft_inf %>% filter(!grepl("ás", inflection) & grepl("PRS;2;SG", category), 0, ifelse(grepl("FORM", category), 0, 1)))
+# spa_ft_der %>% filter (category == "ADJ:ADJ")
+# sample
+
+# inflection and derivation datasets
+all_inflection <- bind_rows(spa_ft_inf, pol_ft_inf, spa_w2v_inf,
+ pol_w2v_inf, spa_bert_inf, pol_bert_inf,)
+
+all_inflection_spa <- bind_rows(spa_ft_inf, spa_w2v_inf, spa_bert_inf)
+
+all_derivation <- bind_rows(spa_ft_der, pol_ft_der, spa_w2v_der,
+ pol_w2v_der, spa_bert_der, pol_bert_der)
+
+# # add a new column with "same category" or "different cattegory" to the derivations dataset
+all_derivation <- all_derivation %>%
+  mutate(type = ifelse(
+    gsub(":.*", "", category) == gsub(".*:", "", category),
+    "Derivation (same category)", "Derivation (different category)"))
+
+# factoring data (type: inflection, derivation same, derivation diff) on both datasets
+all_derivation$type <- as.factor(all_derivation$type)
+all_inflection$type <- as.factor(all_inflection$type)
+all_inflection_spa$category <- as.factor(all_inflection_spa$category)
+# join both datasets
+all_df <- bind_rows(all_derivation, all_inflection)
+
+# factor model, language and category
+all_df$model <- as.factor(all_df$model)
+all_df$language <- as.factor(all_df$language)
+all_df$category <- as.factor(all_df$category)
+
+# group by category, model and language and get the mean similarity of each, to plot
+# i.e.:       category   model    language   type      mean_similarity
+#              ADJ:ADJ   FasText  Polish   Inflection   0.6197
+all_df_plot <- all_df %>%
+  group_by(category, model, language, type) %>%
+  summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = 'drop')
+
+```
+
+```{r}
+#| column: page
+#| echo: false
+#| fig-format: svg
+#| out-width: 90%
+#| fig-width: 22
+#| fig-height: 14
+#| label: fig-subset-plot
+#| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language on the subset data"
+#| 
+mean_val <- mean(all_df_plot$mean_similarity, na.rm = TRUE)
+sd_val <- sd(all_df_plot$mean_similarity, na.rm = TRUE)
+
+
+plot2 <- ggplot(all_df_plot, aes(x = type, y = mean_similarity, fill = type)) +
+  geom_dotplot(
+    binaxis = "y", stackdir = "center", 
+    dotsize = 3, binwidth = 0.01, 
+    na.rm = TRUE, alpha = 0.8
+  ) +
+  labs(x = "", y = "Mean similarity") +
+  scale_y_continuous(
+    limits = c(0, 1),
+    breaks = c(0.25, 0.50, 0.75, 1)
+  ) +
+  stat_summary(
+    fun.data = "mean_cl_boot", 
+    color = "black", size = 1, 
+    position = position_dodge(0.85)
+  ) +
+  facet_grid(language ~ model) +
+  theme(
+    plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 18),
+    axis.text.y = element_text(size = 16),
+    strip.text = element_text(size = 18)
+  ) +
+  scale_fill_brewer(palette = "Dark") +
+  guides(fill = "none")
+
+plot2
+
+# ggsave("C:/PythonCode/TFM_GLS/py/fig-subset-plot.svg", plot = plot1, width = 22, height = 14, units = "in")
+```
+
+## Random baseline
+
+We made a random baseline in order to see wheter our methodology holds. For this task we randomly shuffled the data and ran the scripts once again. It consisted in maintaining the order of the pivots and shuffling the rest of the data 10 times in order to obtain a random baseline.
+
