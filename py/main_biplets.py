@@ -30,14 +30,29 @@ mult_bert = "bert-base-multilingual-cased" # multilingual bert
 
 # DATASETS
     # INFLECTION
-um_spa = pd.read_csv("datasets/spa/spa_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-um_pol = pd.read_csv("datasets/pol/pol_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+spa_inf = pd.read_csv("datasets/spa/spa_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+pol_inf = pd.read_csv("datasets/pol/pol_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
-# um_spa_small = pd.read_csv("datasets/spa/spa_filtered_small.txt", sep="\t", header=None, names=["pivot", "inflection", "category"]) # to test stuff
+    # SHUFFLED DATA
+spa_inf_shuf = pd.read_csv("datasets/spa/spa_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+pol_inf_shuf = pd.read_csv("datasets/pol/pol_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+
+        # SUBSET INFLECTION
+spa_inf_subs = pd.read_csv("datasets/spa/spa_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+pol_inf_subs = pd.read_csv("datasets/pol/pol_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+
 
     # DERIVATION
-um_spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-um_pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
+    # SHUFFLED DATA
+spa_der_shuf = pd.read_csv("datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+pol_der_shuf = pd.read_csv("datasets/pol/pol_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+
+        # SUBSET DERIVATION
+spa_der_subs = pd.read_csv("datasets/spa/spa_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+pol_der_subs = pd.read_csv("datasets/pol/pol_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 
 # -----------------------------------------------------
@@ -170,7 +185,7 @@ def sim_inflection(model, model_name, tokenizer, language, data):
 
     # create a df with the results list
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_inflection_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_inflection_shuffled_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
     print("Results by row saved!")
 
     # similarities for mean
@@ -250,7 +265,7 @@ def sim_derivation(model, model_name, tokenizer, language, data):
 
     # create a df with the results list
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_shuffled_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
     print("Results by row saved!")
 
     # similarities for mean
@@ -270,32 +285,32 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 ###### INFLECTION ######
 # FASTTEXT
 model, model_name, tokenizer, language = choose_embeddings("fasttext", language="spa") # SPANISH
-sim_inflection(model, model_name, tokenizer, language, data=um_spa)
+sim_inflection(model, model_name, tokenizer, language, data=spa_inf_shuf)
 
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol") # POLISH
-sim_inflection(model, model_name, tokenizer, language, um_pol)
+sim_inflection(model, model_name, tokenizer, language, pol_inf_shuf)
 
 # WORD2VEC
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa") # SPANISH
-sim_inflection(model, model_name, tokenizer, language, um_spa)
+sim_inflection(model, model_name, tokenizer, language, spa_inf_shuf)
 
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol") # POLISH
-sim_inflection(model, model_name, tokenizer, language, um_pol)
+sim_inflection(model, model_name, tokenizer, language, pol_inf_shuf)
 
 ###### DERIVATION ######
 # FASTTEXT
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
-sim_derivation(model, model_name, tokenizer, language, um_spa_der)
+sim_derivation(model, model_name, tokenizer, language, spa_der_shuf)
 
 model, model_name, tokenizer, language = choose_embeddings("fasttext", "pol")
-sim_derivation(model, model_name, tokenizer, language, um_pol_der)
+sim_derivation(model, model_name, tokenizer, language, pol_der_shuf)
 
 # WORD2VEC
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa")
-sim_derivation(model, model_name, tokenizer, language, um_spa_der)
+sim_derivation(model, model_name, tokenizer, language, spa_der_shuf)
 
 model, model_name, tokenizer, language = choose_embeddings("word2vec", "pol")
-sim_derivation(model, model_name, tokenizer, language, um_pol_der)
+sim_derivation(model, model_name, tokenizer, language, pol_der_shuf)
 
 # # BERT (better in google colab)
 # # bert takes a really long time
