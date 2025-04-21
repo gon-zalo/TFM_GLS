@@ -25,7 +25,7 @@ pol_w2v = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 
 # BERT models
 mult_bert = "bert-base-multilingual-cased" # multilingual bert
-# herbert = "allegro/herbert-base-cased" 
+herbert = "allegro/herbert-base-cased" 
 # polbert = "dkleczek/bert-base-polish-cased-v1"
 
 # DATASETS
@@ -155,8 +155,8 @@ def sim_inflection(model, model_name, tokenizer, language, data):
 
             # calculate similarities
             for pivot, inflection, pivot_embedding, inflection_embedding, category in zip(pivots, inflections, pivot_embeddings, inflection_embeddings, categories):
-                sim_inflection = 1 - cosine(pivot_embedding, inflection_embedding)
-                results.append((pivot, inflection, sim_inflection, category))
+                similarity = 1 - cosine(pivot_embedding, inflection_embedding)
+                results.append((pivot, inflection, similarity, category))
     else:
         not_found = 0 # for Word2Vec embeddings
         for _, row in data.iterrows():
@@ -175,10 +175,10 @@ def sim_inflection(model, model_name, tokenizer, language, data):
                     continue
 
             # calculate similarity between pivot and inflection
-            sim_inflection = 1 - cosine(pivot_embedding, inflection_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+            similarity = 1 - cosine(pivot_embedding, inflection_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
 
             # append everything to the results list
-            results.append((pivot, inflection, sim_inflection, category))
+            results.append((pivot, inflection, similarity, category))
 
         if model_name == "Word2Vec":
             print(f"Number of words not found in Word2Vec model: {not_found}")
@@ -235,8 +235,8 @@ def sim_derivation(model, model_name, tokenizer, language, data):
 
             # calculate similarities
             for pivot, derivation, pivot_embedding, derivation_embedding, category, affix in zip(pivots, derivations, pivot_embeddings, derivation_embeddings, categories, affixes):
-                sim_inflection = 1 - cosine(pivot_embedding, derivation_embedding)
-                results.append((pivot, derivation, sim_inflection, category, affix))
+                similarity = 1 - cosine(pivot_embedding, derivation_embedding)
+                results.append((pivot, derivation, similarity, category, affix))
     else:
         not_found = 0 # for Word2Vec embeddings
         for _, row in data.iterrows():
