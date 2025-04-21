@@ -19,3 +19,5 @@ py/embeddings/pol/nkjp+wiki-forms-all-100-skipg-ns.syn0.npy
 /py/datasets/spa/velespa
 py/__pycache__/bert_embeddings.cpython-312.pyc
 /py/datasets/pol/other models
+/py/results/pol/buenos
+/py/results/spa/buenos
