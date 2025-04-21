@@ -9,8 +9,10 @@ import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cosine
 import torch
+from torch.nn.functional import normalize
 from gensim.models import  KeyedVectors
 import transformers
+
 
 # -----------------------------------------------------
 
@@ -115,7 +117,7 @@ def choose_embeddings(model_name, language):
     else:
         raise ValueError("Invalid model name.")
 
-def sim_inflection(model, model_name, tokenizer, language, data):
+def old_sim_inflection(model, model_name, tokenizer, language, data):
     if language == "Spanish":
         language = "spa"
     elif language == "Polish":
@@ -193,8 +195,106 @@ def sim_inflection(model, model_name, tokenizer, language, data):
     print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
     print(f"    MEAN SIMILARITY (PIVOT-INFLECTION): {np.mean(similarity_values):2f}")
 
+def sim_inflection(model, model_name, tokenizer, language, data):
+    if language == "Spanish":
+        language = "spa"
+    elif language == "Polish":
+        language = "pol"
+
+    # Calculate cosine similarities between pivot and inflection
+    print("Calculating similarities...")
+    results = []
+
+    if model_name == "BERT" and tokenizer is not None:
+        batch_size = 16
+        for i in range(0, len(data), batch_size):  # iterate over the data in batches (more efficient for BERT)
+            batch = data.iloc[i:i+batch_size]
+            pivots = batch["pivot"].tolist()
+            inflections = batch["inflection"].tolist()
+            categories = batch["category"].tolist()
+
+            # tokenize and encode inputs (pivots and inflections)
+            inputs = tokenizer(pivots + inflections, return_tensors="pt", padding=True, truncation=True)
+            inputs = {key: value.to(model.device) for key, value in inputs.items()}
+
+            # pass the inputs through the model
+            with torch.no_grad(): # no grad because we are not training the model
+                outputs = model(**inputs)
+
+            # extract all hidden states
+            hidden_states = outputs.hidden_states  # Tuple of hidden states for all layers
+
+            # stack and sum the last 4 layers
+            token_embeddings = torch.stack(hidden_states[-4:], dim=0)  # take the last 4 layers and stack them into a single tensor of shape (4, batch_size, sequence_length, hidden_size
+            token_embeddings = torch.sum(token_embeddings, dim=0)  # sum the embeddings across the 4 layers resulting in 1 tensor of shape (batch_size, sequence_length, hidden_size)
+
+            # split token_embeddings into pivot and inflection batches
+            batch_size = len(pivots)
+            pivot_embeddings = token_embeddings[:batch_size]  # embeddings for pivots
+            inflection_embeddings = token_embeddings[batch_size:]  # embeddings for inflections
+
+            # process each pivot-inflection pair
+            for pivot, inflection, pivot_embedding, inflection_embedding, category in zip(
+                pivots, inflections, pivot_embeddings, inflection_embeddings, categories
+            ):
+                # tokenize pivot and inflection
+                pivot_tokens = tokenizer.tokenize(pivot)
+                inflection_tokens = tokenizer.tokenize(inflection)
+
+                # extract subword embeddings and average them
+                pivot_subword_embeddings = pivot_embedding[1:len(pivot_tokens)+1, :]  # exclude [CLS] and [SEP]
+                inflection_subword_embeddings = inflection_embedding[1:len(inflection_tokens)+1, :]  # exclude [CLS] and [SEP]
+
+                pivot_word_embedding = torch.mean(pivot_subword_embeddings, dim=0)  # average subword embeddings
+                inflection_word_embedding = torch.mean(inflection_subword_embeddings, dim=0)  # average subword embeddings
+
+                # normalize embeddings
+                pivot_word_embedding = normalize(pivot_word_embedding, dim=0)
+                inflection_word_embedding = normalize(inflection_word_embedding, dim=0)
+
+                # calculate cosine similarity
+                similarity = 1 - cosine(pivot_word_embedding.cpu().numpy(), inflection_word_embedding.cpu().numpy())
+                results.append((pivot, inflection, similarity, category))
+
+    else:
+        not_found = 0 # for Word2Vec embeddings
+        for _, row in data.iterrows():
+            pivot, inflection, category = row["pivot"], row["inflection"], row["category"]
+
+            if model_name == "FastText":
+                pivot_embedding = model.get_word_vector(pivot) # vector of the pivot
+                inflection_embedding = model.get_word_vector(inflection) # vector of the inflection
+
+            elif model_name == "Word2Vec":
+                if pivot in model and inflection in model: # need to check since w2v does not use subwords
+                    pivot_embedding = model[pivot]
+                    inflection_embedding = model[inflection]  # Vector of the inflection
+                else:
+                    not_found += 1
+                    continue
+
+            # calculate similarity between pivot and inflection
+            similarity = 1 - cosine(pivot_embedding, inflection_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+
+            # append everything to the results list
+            results.append((pivot, inflection, similarity, category))
+
+        if model_name == "Word2Vec":
+            print(f"Number of words not found in Word2Vec model: {not_found}")
+    # dreate a dataFrame with the results
+    results_df = pd.DataFrame(results)
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_inflection_shuffled_results.csv", index=False, header=["pivot", "inflection", "similarity", "category"])
+    print("Results by row saved!")
+
+    # Calculate and print the mean similarity
+    similarity_values = [r[2] for r in results]
+    print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
+    print(f"    MEAN SIMILARITY (PIVOT-INFLECTION): {np.mean(similarity_values):.2f}")
+
+
+
 # same as sim_inflection but adapted for the derivations dataset
-def sim_derivation(model, model_name, tokenizer, language, data):
+def old_sim_derivation(model, model_name, tokenizer, language, data):
     if language == "Spanish":
         language = "spa"
     elif language == "Polish":
@@ -272,6 +372,102 @@ def sim_derivation(model, model_name, tokenizer, language, data):
     similarity_values = [r[2] for r in results]
     print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
     print(f"    MEAN SIMILARITY (PIVOT-DERIVATION): {np.mean(similarity_values):2f}")
+
+def sim_derivation(model, model_name, tokenizer, language, data):
+    if language == "Spanish":
+        language = "spa"
+    elif language == "Polish":
+        language = "pol"
+
+    # calculate cosine similarities between pivot and derivation
+    print("Calculating similarities...")
+    results = []
+
+    if model_name == "BERT" and tokenizer is not None:
+        batch_size = 16
+        for i in range(0, len(data), batch_size):  # iterate over the data in batches
+            batch = data.iloc[i:i+batch_size]
+            pivots = batch["pivot"].tolist()
+            derivations = batch["derivation"].tolist()
+            categories = batch["category"].tolist()
+            affixes = batch["affix"].tolist()
+
+            # tokenize and encode inputs (pivots and derivations)
+            inputs = tokenizer(pivots + derivations, return_tensors="pt", padding=True, truncation=True)
+            inputs = {key: value.to(model.device) for key, value in inputs.items()}
+
+            # pass the inputs through the model
+            with torch.no_grad():
+                outputs = model(**inputs)
+
+            # extract all hidden states
+            hidden_states = outputs.hidden_states  # tuple of hidden states for all layers
+
+            # Stack and sum the last 4 layers
+            token_embeddings = torch.stack(hidden_states[-4:], dim=0)  # shape: (4, batch_size, seq_length, hidden_size)
+            token_embeddings = torch.sum(token_embeddings, dim=0)  # shape: (batch_size, seq_length, hidden_size)
+
+            # Split token_embeddings into pivot and derivation batches
+            batch_size = len(pivots)
+            pivot_embeddings = token_embeddings[:batch_size]  # Embeddings for pivots
+            derivation_embeddings = token_embeddings[batch_size:]  # Embeddings for derivations
+
+            # Process each pivot-derivation pair
+            for pivot, derivation, pivot_embedding, derivation_embedding, category, affix in zip(
+                pivots, derivations, pivot_embeddings, derivation_embeddings, categories, affixes
+            ):
+                # Tokenize pivot and derivation
+                pivot_tokens = tokenizer.tokenize(pivot)
+                derivation_tokens = tokenizer.tokenize(derivation)
+
+                # Extract subword embeddings and average them
+                pivot_subword_embeddings = pivot_embedding[1:len(pivot_tokens)+1, :]  # Exclude [CLS] and [SEP]
+                derivation_subword_embeddings = derivation_embedding[1:len(derivation_tokens)+1, :]  # Exclude [CLS] and [SEP]
+
+                pivot_word_embedding = torch.mean(pivot_subword_embeddings, dim=0)  # Average subword embeddings
+                derivation_word_embedding = torch.mean(derivation_subword_embeddings, dim=0)  # Average subword embeddings
+
+                # Normalize embeddings
+                pivot_word_embedding = normalize(pivot_word_embedding, dim=0)
+                derivation_word_embedding = normalize(derivation_word_embedding, dim=0)
+
+                # Calculate cosine similarity
+                similarity = 1 - cosine(pivot_word_embedding.cpu().numpy(), derivation_word_embedding.cpu().numpy())
+                results.append((pivot, derivation, similarity, category, affix))
+
+    else:
+        not_found = 0 # for Word2Vec embeddings
+        for _, row in data.iterrows():
+            pivot, derivation, category, affix = row["pivot"], row["derivation"], row["category"], row["affix"]
+
+            if model_name == "FastText":
+                pivot_embedding = model.get_word_vector(pivot) # vector of the pivot
+                derivation_embedding = model.get_word_vector(derivation) # vector of the inflection
+
+            elif model_name == "Word2Vec":
+                if pivot in model and derivation in model: # need to check since w2v does not use subwords
+                    pivot_embedding = model[pivot]
+                    derivation_embedding = model[derivation]  # Vector of the inflection
+                else:
+                    not_found += 1
+                    continue
+
+            # calculate similarity between pivot and inflection
+            sim_inflection = 1 - cosine(pivot_embedding, derivation_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+
+            # append everything to the results list
+            results.append((pivot, derivation, sim_inflection, category, affix))
+
+        if model_name == "Word2Vec":
+            print(f"Number of words not found in Word2Vec model: {not_found}")
+
+    results_df = pd.DataFrame(results)
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_shuffled_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
+
+    # Calculate and print the mean similarity
+    similarity_values = [r[2] for r in results]
+    print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
+    print(f"    MEAN SIMILARITY (PIVOT-DERIVATION): {np.mean(similarity_values):.2f}")
 
 
 # -------------------------------------------------------
