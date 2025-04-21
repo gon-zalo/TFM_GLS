@@ -45,5 +45,5 @@ def filter_inflections(data):
     df.to_csv(f"datasets/{language}/{language}_inflections.txt", sep="\t", index=False, header=False)
     print("Filtered data saved!")
 
-filter_inflections(spa_inf)
-filter_inflections(pol_inf)
+# filter_inflections(spa_inf)
+# filter_inflections(pol_inf)
