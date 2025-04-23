@@ -27,8 +27,8 @@ pol_w2v = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 
 # BERT models
 mult_bert = "bert-base-multilingual-cased" # multilingual bert
-herbert = "allegro/herbert-base-cased" 
-# polbert = "dkleczek/bert-base-polish-cased-v1"
+polbert = "dkleczek/bert-base-polish-cased-v1"
+roberta = "skimai/spanberta-base-cased"
 
 # DATASETS
     # INFLECTION
@@ -99,9 +99,9 @@ def choose_embeddings(model_name, language):
         model = fasttext.load_model(embeddings)
         return model, "FastText", None, language
 
-    # BERT
-    if model_name.lower() == "bert":
-        print('\nLoading Multilingual BERT model...')
+    # BERT models
+    if model_name.lower() == "polbert":
+        print('\nLoading PolBERT model...')
         # load BERT embeddings
         tokenizer = transformers.AutoTokenizer.from_pretrained(embeddings) # and
         model = transformers.AutoModel.from_pretrained(embeddings, output_hidden_states=True)
@@ -112,7 +112,20 @@ def choose_embeddings(model_name, language):
             device='cpu'
         model.to(device)
 
-        return model, "BERT", tokenizer, language
+        return model, "PolBERT", tokenizer, language
+
+    if model_name.lower() == "roberta":
+        print('\nLoading RoBERTa model...')
+        tokenizer = transformers.AutoTokenizer.from_pretrained(embeddings)
+        model = transformers.AutoModelWithLMHead.from_pretrained(embeddings, output_hidden_states = True)
+
+        if torch.cuda.is_available():
+            device='cuda'
+        else:
+            device='cpu'
+        model.to(device)
+
+        return model, "RoBERTa", tokenizer, language
 
     else:
         raise ValueError("Invalid model name.")
@@ -205,7 +218,7 @@ def sim_inflection(model, model_name, tokenizer, language, data):
     print("Calculating similarities...")
     results = []
 
-    if model_name == "BERT" and tokenizer is not None:
+    if model_name == "RoBERTa" or "PolBERT" and tokenizer is not None:
         batch_size = 16
         for i in range(0, len(data), batch_size):  # iterate over the data in batches (more efficient for BERT)
             batch = data.iloc[i:i+batch_size]
@@ -383,7 +396,7 @@ def sim_derivation(model, model_name, tokenizer, language, data):
     print("Calculating similarities...")
     results = []
 
-    if model_name == "BERT" and tokenizer is not None:
+    if model_name == "RoERTa" or "PolBERT" and tokenizer is not None:
         batch_size = 16
         for i in range(0, len(data), batch_size):  # iterate over the data in batches
             batch = data.iloc[i:i+batch_size]
@@ -403,35 +416,35 @@ def sim_derivation(model, model_name, tokenizer, language, data):
             # extract all hidden states
             hidden_states = outputs.hidden_states  # tuple of hidden states for all layers
 
-            # Stack and sum the last 4 layers
+            # stack and sum the last 4 layers
             token_embeddings = torch.stack(hidden_states[-4:], dim=0)  # shape: (4, batch_size, seq_length, hidden_size)
             token_embeddings = torch.sum(token_embeddings, dim=0)  # shape: (batch_size, seq_length, hidden_size)
 
-            # Split token_embeddings into pivot and derivation batches
+            # split token_embeddings into pivot and derivation batches
             batch_size = len(pivots)
-            pivot_embeddings = token_embeddings[:batch_size]  # Embeddings for pivots
-            derivation_embeddings = token_embeddings[batch_size:]  # Embeddings for derivations
+            pivot_embeddings = token_embeddings[:batch_size]  # embeddings for pivots
+            derivation_embeddings = token_embeddings[batch_size:]  # embeddings for derivations
 
-            # Process each pivot-derivation pair
+            # process each pivot-derivation pair
             for pivot, derivation, pivot_embedding, derivation_embedding, category, affix in zip(
                 pivots, derivations, pivot_embeddings, derivation_embeddings, categories, affixes
             ):
-                # Tokenize pivot and derivation
+                # tokenize pivot and derivation
                 pivot_tokens = tokenizer.tokenize(pivot)
                 derivation_tokens = tokenizer.tokenize(derivation)
 
-                # Extract subword embeddings and average them
-                pivot_subword_embeddings = pivot_embedding[1:len(pivot_tokens)+1, :]  # Exclude [CLS] and [SEP]
-                derivation_subword_embeddings = derivation_embedding[1:len(derivation_tokens)+1, :]  # Exclude [CLS] and [SEP]
+                # extract subword embeddings and average them
+                pivot_subword_embeddings = pivot_embedding[1:len(pivot_tokens)+1, :]  # exclude [CLS] and [SEP]
+                derivation_subword_embeddings = derivation_embedding[1:len(derivation_tokens)+1, :]  # exclude [CLS] and [SEP]
 
-                pivot_word_embedding = torch.mean(pivot_subword_embeddings, dim=0)  # Average subword embeddings
-                derivation_word_embedding = torch.mean(derivation_subword_embeddings, dim=0)  # Average subword embeddings
+                pivot_word_embedding = torch.mean(pivot_subword_embeddings, dim=0)  # average subword embeddings
+                derivation_word_embedding = torch.mean(derivation_subword_embeddings, dim=0)  # average subword embeddings
 
-                # Normalize embeddings
+                # normalize embeddings
                 pivot_word_embedding = normalize(pivot_word_embedding, dim=0)
                 derivation_word_embedding = normalize(derivation_word_embedding, dim=0)
 
-                # Calculate cosine similarity
+                # calculate cosine similarity
                 similarity = 1 - cosine(pivot_word_embedding.cpu().numpy(), derivation_word_embedding.cpu().numpy())
                 results.append((pivot, derivation, similarity, category, affix))
 
@@ -462,7 +475,7 @@ def sim_derivation(model, model_name, tokenizer, language, data):
             print(f"Number of words not found in Word2Vec model: {not_found}")
 
     results_df = pd.DataFrame(results)
-    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_shuffled_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_derivation_results.csv", index=False, header=["pivot", "derivation", "similarity", "category", "affix"])
 
     # Calculate and print the mean similarity
     similarity_values = [r[2] for r in results]
