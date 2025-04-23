@@ -55,7 +55,7 @@ The resulting dataset contains 23,615 rows, structured similarly to the Spanish 
 
 For the derivation analysis the data provided by UniMorph was used without changes.
 
-<!-- ejemplito de dataset por aqui -->
+<!-- ejemplo de dataset por aqui -->
 
 ### Initial results
 The initial results are shown in the following tables. 
@@ -91,17 +91,15 @@ Mean similarity between pivot and form in inflection and derivation by model and
 
 The initial results are plotted in the following figure (@fig-initial). Mean similarity of the category (V:V, ADJ:N, ADV:ADJ...) by type (inflection, derivation between the same categories and derivation between different categories), faceted by embeddings model and language.
 
-```{r}
-#| echo: false
-# set working directory
-# print(getwd())
-# setwd("C:/PythonCode/TFM_GLS/")
-# print(getwd())
-```
-
-![Mean similarity between pivot-form in derivation and inflection by model and language](C:/PythonCode/TFM_GLS/py/plots/fig-initial.svg){#fig-initial}
+![Mean similarity between pivot-form in derivation and inflection by model and language](../py/plots/fig-initial.svg){#fig-initial}
 
 In @fig-initial some weird outliers can be seen in FastText and Word2Vec. These outliers correspond to different instances of U:U, X:U or U:X (X being any label). This unknown category is messing with the means so the data needs to be cleaned a bit and N, ADJ, ADV and V need to remain.
+
+```{r}
+#| echo: false
+knitr::opts_knit$set(root.dir = normalizePath("../py"))
+# getwd()
+```
 
 ## Cleaning the datasets
 
@@ -122,7 +120,7 @@ Taking a quick look through this data one can see many mistakes such as clear ve
 
 import pandas as pd
 
-df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+df = pd.read_csv("datasets/spa/spa.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 df[df["category"].str.endswith(":U")]
 ```
@@ -155,7 +153,7 @@ Polish data seems to need more work as there are more incorrect labels, but it c
 ```{python}
 #| echo: false
 import pandas as pd
-df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+df = pd.read_csv("datasets/pol/pol.derivations", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 ```
 
 ```{python}
@@ -243,7 +241,7 @@ Since almost 200 rows have been fixed, the resulting ones labeled as U:X contain
 The only thing to clean in the inflections dataset are the *vos* and *usted* forms. This code was added to the filter_unimorph.py script.
 
 ```{python}
-df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/spa/spa.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+df = pd.read_csv("datasets/spa/spa.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 df = df[
     df["category"].str.contains("V;IND;PRS") | # presente
     df["category"].str.contains("V;IND;PST;IPFV") | # pret. impf.
@@ -273,27 +271,27 @@ library(dplyr)
 
 # FASTTEXT
 # INFLECTION
-spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_inflection_results.csv")
-pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_inflection_results.csv")
+spa_ft_inf <- read.csv("results/spa/spa_fasttext_inflection_results.csv")
+pol_ft_inf <- read.csv("results/pol/pol_fasttext_inflection_results.csv")
 # DERIVATION
-spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_derivation_results.csv")
-pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_derivation_results.csv")
+spa_ft_der <- read.csv("results/spa/spa_fasttext_derivation_results.csv")
+pol_ft_der <- read.csv("results/pol/pol_fasttext_derivation_results.csv")
 
 # WORD2VEC
 # INFLECTION
-spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_inflection_results.csv")
-pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_inflection_results.csv")
+spa_w2v_inf <- read.csv("results/spa/spa_word2vec_inflection_results.csv")
+pol_w2v_inf <- read.csv("results/pol/pol_word2vec_inflection_results.csv")
 # DERIVATION
-spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_derivation_results.csv")
-pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_derivation_results.csv")
+spa_w2v_der <- read.csv("results/spa/spa_word2vec_derivation_results.csv")
+pol_w2v_der <- read.csv("results/pol/pol_word2vec_derivation_results.csv")
 
 # BERT
 # INFLECTION
-spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_bert_inflection_results.csv")
-pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_inflection_results.csv")
+spa_bert_inf <- read.csv("results/spa/spa_bert_inflection_results.csv")
+pol_bert_inf <- read.csv("results/pol/pol_bert_inflection_results.csv")
 # DERIVATION
-spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_bert_derivation_results.csv")
-pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_derivation_results.csv")
+spa_bert_der <- read.csv("results/spa/spa_bert_derivation_results.csv")
+pol_bert_der <- read.csv("results/pol/pol_bert_derivation_results.csv")
 ```
 
 ```{r}
@@ -427,7 +425,7 @@ plot1 <- plot_similarity(all_df_plot)
 
 plot1
 
-# ggsave("C:/PythonCode/TFM_GLS/py/plots/fig-initial-clean.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-initial-clean.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
 The lowest category in both FastText and Word2Vec in Polish is V:ADV with a 0.08 and 0.09 mean similarity respectively.
@@ -562,27 +560,27 @@ library(dplyr)
 
 # FASTTEXT
 # INFLECTION
-spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_fasttext_inflection_subset_results.csv")
-pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_fasttext_inflection_subset_results.csv")
+spa_ft_inf <- read.csv("results/spa/subset/spa_fasttext_inflection_subset_results.csv")
+pol_ft_inf <- read.csv("results/pol/subset/pol_fasttext_inflection_subset_results.csv")
 # DERIVATION
-spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_fasttext_derivation_subset_results.csv")
-pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_fasttext_derivation_subset_results.csv")
+spa_ft_der <- read.csv("results/spa/subset/spa_fasttext_derivation_subset_results.csv")
+pol_ft_der <- read.csv("results/pol/subset/pol_fasttext_derivation_subset_results.csv")
 
 # WORD2VEC
 # INFLECTION
-spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_word2vec_inflection_subset_results.csv")
-pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_word2vec_inflection_subset_results.csv")
+spa_w2v_inf <- read.csv("results/spa/subset/spa_word2vec_inflection_subset_results.csv")
+pol_w2v_inf <- read.csv("results/pol/subset/pol_word2vec_inflection_subset_results.csv")
 # DERIVATION
-spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_word2vec_derivation_subset_results.csv")
-pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_word2vec_derivation_subset_results.csv")
+spa_w2v_der <- read.csv("results/spa/subset/spa_word2vec_derivation_subset_results.csv")
+pol_w2v_der <- read.csv("results/pol/subset/pol_word2vec_derivation_subset_results.csv")
 
 # BERT
 # INFLECTION
-spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_bert_inflection_subset_results.csv")
-pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_bert_inflection_subset_results.csv")
+spa_bert_inf <- read.csv("results/spa/subset/spa_bert_inflection_subset_results.csv")
+pol_bert_inf <- read.csv("results/pol/subset/pol_bert_inflection_subset_results.csv")
 # DERIVATION
-spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/subset/spa_bert_derivation_subset_results.csv")
-pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/subset/pol_bert_derivation_subset_results.csv")
+spa_bert_der <- read.csv("results/spa/subset/spa_bert_derivation_subset_results.csv")
+pol_bert_der <- read.csv("results/pol/subset/pol_bert_derivation_subset_results.csv")
 ```
 
 ```{r}
@@ -643,7 +641,7 @@ plot2 <- plot_similarity(all_df_plot)
 
 plot2
 
-# ggsave("C:/PythonCode/TFM_GLS/py/plots/fig-subset-plot.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-subset-plot.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
 
@@ -686,7 +684,7 @@ In order to properly evaluate the performance a random baseline was implemented.
 ```{python}
 #| fig-cap: "Sample of 10 random rows from one shuffled dataset"
 import pandas as pd
-df = pd.read_csv("C:/PythonCode/TFM_GLS/py/datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+df = pd.read_csv("datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 df.sample(10, random_state=123)
 ```
@@ -695,27 +693,27 @@ df.sample(10, random_state=123)
 
 # FASTTEXT
 # INFLECTION
-spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_inflection_shuffled_results.csv")
-pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_inflection_shuffled_results.csv")
+spa_ft_inf <- read.csv("results/spa/spa_fasttext_inflection_shuffled_results.csv")
+pol_ft_inf <- read.csv("results/pol/pol_fasttext_inflection_shuffled_results.csv")
 # DERIVATION
-spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_derivation_shuffled_results.csv")
-pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_derivation_shuffled_results.csv")
+spa_ft_der <- read.csv("results/spa/spa_fasttext_derivation_shuffled_results.csv")
+pol_ft_der <- read.csv("results/pol/pol_fasttext_derivation_shuffled_results.csv")
 
 # WORD2VEC
 # INFLECTION
-spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_inflection_shuffled_results.csv")
-pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_inflection_shuffled_results.csv")
+spa_w2v_inf <- read.csv("results/spa/spa_word2vec_inflection_shuffled_results.csv")
+pol_w2v_inf <- read.csv("results/pol/pol_word2vec_inflection_shuffled_results.csv")
 # DERIVATION
-spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_derivation_shuffled_results.csv")
-pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_derivation_shuffled_results.csv")
+spa_w2v_der <- read.csv("results/spa/spa_word2vec_derivation_shuffled_results.csv")
+pol_w2v_der <- read.csv("results/pol/pol_word2vec_derivation_shuffled_results.csv")
 
 # BERT
 # INFLECTION
-spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_bert_inflection_shuffled_results.csv")
-pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_inflection_shuffled_results.csv")
+spa_bert_inf <- read.csv("results/spa/spa_bert_inflection_shuffled_results.csv")
+pol_bert_inf <- read.csv("results/pol/pol_bert_inflection_shuffled_results.csv")
 # DERIVATION
-spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_bert_derivation_shuffled_results.csv")
-pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_bert_derivation_shuffled_results.csv")
+spa_bert_der <- read.csv("results/spa/spa_bert_derivation_shuffled_results.csv")
+pol_bert_der <- read.csv("results/pol/pol_bert_derivation_shuffled_results.csv")
 
 ```
 
@@ -773,7 +771,7 @@ plot3 <- plot_similarity(all_df_plot)
 
 plot3
 
-# ggsave("C:/PythonCode/TFM_GLS/py/plots/fig-random-baseline.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-random-baseline.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
 One thing is apparent right away, the Multilingual BERT results do not make any sense. The problem might be that this particular BERT model is trained on many languages and they are interfering with the task. To test this I tested two other BERT based models, one for Polish (PolBERT) and one for Spanish (RoBERTa), the results should be better since these models have only access to a single language.
@@ -795,27 +793,27 @@ The results might still not be the best but at least the mean similarity is lowe
 #| echo: false
 # FASTTEXT
 # INFLECTION
-spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_inflection_results.csv")
-pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_inflection_results.csv")
+spa_ft_inf <- read.csv("results/spa/spa_fasttext_inflection_results.csv")
+pol_ft_inf <- read.csv("results/pol/pol_fasttext_inflection_results.csv")
 # DERIVATION
-spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_derivation_results.csv")
-pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_derivation_results.csv")
+spa_ft_der <- read.csv("results/spa/spa_fasttext_derivation_results.csv")
+pol_ft_der <- read.csv("results/pol/pol_fasttext_derivation_results.csv")
 
 # WORD2VEC
 # INFLECTION
-spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_inflection_results.csv")
-pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_inflection_results.csv")
+spa_w2v_inf <- read.csv("results/spa/spa_word2vec_inflection_results.csv")
+pol_w2v_inf <- read.csv("results/pol/pol_word2vec_inflection_results.csv")
 # DERIVATION
-spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_derivation_results.csv")
-pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_derivation_results.csv")
+spa_w2v_der <- read.csv("results/spa/spa_word2vec_derivation_results.csv")
+pol_w2v_der <- read.csv("results/pol/pol_word2vec_derivation_results.csv")
 
 # BERT
 # INFLECTION
-spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_roberta_inflection_results.csv")
-pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_polbert_inflection_results.csv")
+spa_bert_inf <- read.csv("results/spa/spa_roberta_inflection_results.csv")
+pol_bert_inf <- read.csv("results/pol/pol_polbert_inflection_results.csv")
 # DERIVATION
-spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_roberta_derivation_results.csv")
-pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_polbert_derivation_results.csv")
+spa_bert_der <- read.csv("results/spa/spa_roberta_derivation_results.csv")
+pol_bert_der <- read.csv("results/pol/pol_polbert_derivation_results.csv")
 ```
 
 ```{r}
@@ -874,7 +872,7 @@ plot5 <- plot_similarity(all_df_plot)
 
 plot5
 
-# ggsave("C:/PythonCode/TFM_GLS/py/plots/fig-clean-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-clean-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
 
@@ -885,27 +883,27 @@ plot5
 
 # FASTTEXT
 # INFLECTION
-spa_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_inflection_shuffled_results.csv")
-pol_ft_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_inflection_shuffled_results.csv")
+spa_ft_inf <- read.csv("results/spa/spa_fasttext_inflection_shuffled_results.csv")
+pol_ft_inf <- read.csv("results/pol/pol_fasttext_inflection_shuffled_results.csv")
 # DERIVATION
-spa_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_fasttext_derivation_shuffled_results.csv")
-pol_ft_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_fasttext_derivation_shuffled_results.csv")
+spa_ft_der <- read.csv("results/spa/spa_fasttext_derivation_shuffled_results.csv")
+pol_ft_der <- read.csv("results/pol/pol_fasttext_derivation_shuffled_results.csv")
 
 # WORD2VEC
 # INFLECTION
-spa_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_inflection_shuffled_results.csv")
-pol_w2v_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_inflection_shuffled_results.csv")
+spa_w2v_inf <- read.csv("results/spa/spa_word2vec_inflection_shuffled_results.csv")
+pol_w2v_inf <- read.csv("results/pol/pol_word2vec_inflection_shuffled_results.csv")
 # DERIVATION
-spa_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_word2vec_derivation_shuffled_results.csv")
-pol_w2v_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_word2vec_derivation_shuffled_results.csv")
+spa_w2v_der <- read.csv("results/spa/spa_word2vec_derivation_shuffled_results.csv")
+pol_w2v_der <- read.csv("results/pol/pol_word2vec_derivation_shuffled_results.csv")
 
 # BERT
 # INFLECTION
-spa_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_roberta_inflection_shuffled_results.csv")
-pol_bert_inf <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_polbert_inflection_shuffled_results.csv")
+spa_bert_inf <- read.csv("results/spa/spa_roberta_inflection_shuffled_results.csv")
+pol_bert_inf <- read.csv("results/pol/pol_polbert_inflection_shuffled_results.csv")
 # DERIVATION
-spa_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/spa/spa_roberta_derivation_shuffled_results.csv")
-pol_bert_der <- read.csv("C:/PythonCode/TFM_GLS/py/results/pol/pol_polbert_derivation_shuffled_results.csv")
+spa_bert_der <- read.csv("results/spa/spa_roberta_derivation_shuffled_results.csv")
+pol_bert_der <- read.csv("results/pol/pol_polbert_derivation_shuffled_results.csv")
 
 ```
 
@@ -966,5 +964,5 @@ plot4 <- plot_similarity(all_df_plot)
 
 plot4
 
-# ggsave("C:/PythonCode/TFM_GLS/py/plots/fig-shuffled-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-shuffled-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
