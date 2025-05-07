@@ -619,7 +619,7 @@ Here is presented a comparison of all the previous analysis and the one done on 
 Mean similarity between pivot and form in inflection and derivation by model, language and data.
 :::
 
-## Random baseline
+## Random baseline/Shuffled data
 
 In order to properly evaluate the performance a random baseline was implemented. For this, the data was randomly shuffled 10 times and the scripts were ran once again.
 
@@ -643,20 +643,23 @@ df.sample(10, random_state=123)
 #| label: fig-random-baseline
 #| fig-cap: "Mean similarity on the shuffled data."
 
-shuffled_data <- read.csv("results/shuffled_data.csv")
+random_baseline <- read.csv("results/random_baseline.csv")
 
-shuffled_data <- prepare_dataset(shuffled_data)
+random_baseline <- prepare_dataset(random_baseline)
 
-shuffled_data$model <- factor(shuffled_data$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
+random_baseline$model <- factor(random_baseline$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
 
-plot3 <- plot_similarity(shuffled_data)
+plot3 <- plot_similarity(random_baseline)
 
 plot3
 
 # ggsave("plots/fig-random-baseline.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
-One thing is apparent right away, the Multilingual BERT results do not make any sense. The problem might be that this particular BERT model is trained on many languages and they are interfering with the task. To test this I tested two other BERT based models, one for Polish (PolBERT) and one for Spanish (RoBERTa), the results should be better since these models have only access to a single language.
+
+## Implementing RoBERTa and PolBERT
+
+One thing is apparent right away, the results using Multilingual BERT do not make sense. The problem might be that this particular BERT model is trained on many languages and they are interfering with the task. To test this I tested two other BERT based models, one for Polish (PolBERT) and one for Spanish (RoBERTa), the results should be better since these models have only access to a single language.
 
 
 | Model             | Type | Clean Data | Subset Data | Shuffled Data |
@@ -668,6 +671,7 @@ One thing is apparent right away, the Multilingual BERT results do not make any 
 
 The results might still not be the best but at least the mean similarity is lower in the shuffled data than in the clean data.
 
+The following shows the results of the same scripts, this time using RoBERTa and PolBERT instead of Multilingual BERT.
 
 ### Clean data results using RoBERTa and PolBERT
 
@@ -709,13 +713,13 @@ plot4
 #| label: fig-shuffled-bert2
 #| fig-cap: "Mean similarity using RoBERTa and PolBERT on the shuffled data."
 
-random_baseline <- read.csv("results/random_baseline.csv")
+random_baseline_v2 <- read.csv("results/random_baseline_v2.csv")
 
-random_baseline <- prepare_dataset(random_baseline)
+random_baseline_v2 <- prepare_dataset(random_baseline_v2)
 
-random_baseline$model <- factor(random_baseline$model, levels = c("FastText", "Word2Vec", "BERT"))
+random_baseline_v2$model <- factor(random_baseline_v2$model, levels = c("FastText", "Word2Vec", "BERT"))
 
-plot5 <- plot_similarity(random_baseline)
+plot5 <- plot_similarity(random_baseline_v2)
 
 plot5
 
@@ -724,7 +728,7 @@ plot5
 
 
 
-### Subset results using RoBERTa and PolBERT
+### Subset data results using RoBERTa and PolBERT
 
 ```{r}
 #| echo: false
@@ -819,62 +823,8 @@ plot6
 # ggsave("plots/fig-subset-v2.pdf", plot = plot1, width = 22, height = 14, units = "in")
 ```
 
-<!-- test -->
+## Baseline. Shuffling by category/tense
 
-```{r}
+The previous baseline shuffled the whole data 10 times. In this case a better baseline is implemented. It consists of filtering the data, that is filtering inflections by tense (present, past or future) and derivations by category then shuffling each filter 100 times while extracting the mean similarity of the whole filtered data. That means we are extracting the mean similarity a hundred times by type of morphological process (inflection or derivation), tense/category, model and language.
 
-big_df <- bind_rows(clean_data, shuffled_data, subset_data, random_baseline, clean_data_v2, subset_data_v2)
-
-big_df <- prepare_dataset(big_df)
-
-# write.csv(big_df, "results/random_baseline_v2.csv", row.names=FALSE)
-```
-
-<!-- ```{r}
-
-fasttext_df <- big_df[big_df$model == "FastText", ]
-word2vec_df <- big_df[big_df$model == "Word2Vec", ]
-
-missing_in_word2vec <- fasttext_df[!(fasttext_df$some_id_column %in% word2vec_df$some_id_column), ]
-
-
-anti_join(fasttext_df, word2vec_df, by = c("category"))
-
-```
-
-
-```{r}
-
-fasttext_df <- big_df[big_df$model == "FastText", ]
-word2vec_df <- big_df[big_df$model == "Word2Vec", ]
-
-# missing_in_word2vec <- fasttext_df[!(fasttext_df$category %in% word2vec_df$category), ]
-
-anti_join(fasttext_df, word2vec_df, by = "category")
-
-
-fasttext_df <- unique(fasttext_df)
-word2vec_df <- unique(word2vec_df)
-library(dplyr)
-
-# Filter and keep only unique rows
-fast_unique <- fasttext_df %>% distinct(category)
-word2vec_unique <- word2vec_df %>% distinct(category)
-
-# Now compare
-missing_in_word2vec <- anti_join(fast_unique, word2vec_unique, 
-                                 by = "category")
-
-nrow(missing_in_word2vec)
-
-
-```
-
-```{r}
-fast_pairs <- fasttext_df %>% distinct(category)
-word2vec_pairs <- word2vec_df %>% distinct(category)
-
-missing_pairs <- anti_join(fast_pairs, word2vec_pairs, by = "category")
-nrow(missing_pairs)
-
-``` -->
+Subsequently we are plotting the distribution of the mean similarity.
