@@ -329,7 +329,8 @@ prepare_dataset <- function(data) {
       model = as.factor(model),
       language = as.factor(language),
       category = as.factor(category),
-      type = as.factor(type)
+      type = as.factor(type),
+      version = as.factor(version)
     )
 }
 
@@ -828,3 +829,24 @@ plot6
 The previous baseline shuffled the whole data 10 times. In this case a better baseline is implemented. It consists of filtering the data, that is filtering inflections by tense (present, past or future) and derivations by category then shuffling each filter 100 times while extracting the mean similarity of the whole filtered data. That means we are extracting the mean similarity a hundred times by type of morphological process (inflection or derivation), tense/category, model and language.
 
 Subsequently we are plotting the distribution of the mean similarity.
+
+```{r}
+#| column: page
+#| echo: false
+#| fig-format: svg
+#| out-width: 90%
+#| fig-width: 22
+#| fig-height: 14
+#| label: fig-baseline-v3
+#| fig-cap: "Baseline"
+
+baseline_data <- read.csv("results/random_baseline_v3.csv")
+
+baseline_data <- prepare_dataset(baseline_data)
+
+plot7 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type))+
+  geom_histogram(binwidth = 0.0025, alpha = 0.4, position = "identity") +
+  theme_minimal()
+plot7
+
+```
