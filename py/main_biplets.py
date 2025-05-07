@@ -596,7 +596,7 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 # model, model_name, tokenizer, language = choose_embeddings("bert", "spa") # SPANISH
 # sim_inflection(model, model_name, tokenizer, language, um_spa_small) # small dataset to test
 
-####### BASELINE #######
+####### BASELINE FUNCTIONS #######
 
 # DERIVATION
 # spanish
@@ -604,11 +604,6 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 # model, model_name, tokenizer, language = choose_embeddings("fasttext", "spa")
 # for name, dataframe in filtered_dfs.items():
 #     shuffle_derivation(model, model_name, tokenizer, language, dataframe, name)
-
-filtered_dfs = filter_derivation(spa_der, 'spa')
-model, model_name, tokenizer, language = choose_embeddings("roberta", "spa")
-for name, dataframe in filtered_dfs.items():
-    shuffle_derivation(model, model_name, tokenizer, language, dataframe, name)
 
 # model, model_name, tokenizer, language = choose_embeddings("word2vec", "spa")
 # for name, dataframe in filtered_dfs.items():
