@@ -348,28 +348,33 @@ plot_similarity <- function(data) {
   ggplot(data, aes(x = type, y = mean_similarity, fill = type)) +
     geom_dotplot(
       binaxis = "y", stackdir = "center", 
-      dotsize = 3, binwidth = 0.01, 
+      dotsize = 2.75, binwidth = 0.01, 
       na.rm = TRUE, alpha = 0.8
     ) +
     labs(x = "", y = "Mean similarity") +
     scale_y_continuous(
       limits = c(0, 1),
-      breaks = c(0.25, 0.50, 0.75, 1)
+      breaks = c(0, 0.25, 0.50, 0.75, 1)
     ) +
     stat_summary(
       fun.data = "mean_cl_boot", 
-      color = "black", size = 1, alpha = 0.75,
+      color = "black", size = 0.75, alpha = 0.75,
       position = position_dodge(0.85)
     ) +
     facet_grid(language ~ model) +
+    theme_minimal() +
     theme(
-      axis.title.y = element_text(size = 30),
+      axis.title.y = element_text(size = 14),
       plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 22),
-      axis.text.y = element_text(size = 24),
-      strip.text = element_text(size = 18),
+      axis.text.x = element_text(angle = 45, hjust = 1, size = 14),
+      axis.text.y = element_text(size = 14),
+      strip.text = element_text(size = 14, face= "bold"),
     ) +
-    scale_fill_brewer(palette = "Dark") +
+    scale_fill_manual(values = c(
+      "Derivation (same category)" = "#FFE45E",
+      "Derivation (different category)" = "#ff7f0e",
+      "Inflection" = "#2D93AD"
+    )) +
     guides(fill = "none")
 }
 ```
@@ -419,9 +424,9 @@ all_df_plot <- compute_mean(all_df)
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-initial-clean
 #| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language on the clean data"
 
@@ -564,9 +569,9 @@ Mean similarity between pivot and form in inflection and derivation by model and
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-subset
 #| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language on the subset data"
 
@@ -584,7 +589,7 @@ plot2 <- plot_similarity(subset_data)
 
 plot2
 
-# ggsave("plots/fig-subset-plot.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-subset-plot.pdf", plot = plot2, width = 22, height = 14, units = "in")
 ```
 
 
@@ -638,9 +643,9 @@ df.sample(10, random_state=123)
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-random-baseline
 #| fig-cap: "Mean similarity on the shuffled data."
 
@@ -654,7 +659,7 @@ plot3 <- plot_similarity(random_baseline)
 
 plot3
 
-# ggsave("plots/fig-random-baseline.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-random-baseline.pdf", plot = plot3, width = 22, height = 14, units = "in")
 ```
 
 
@@ -680,9 +685,9 @@ The following shows the results of the same scripts, this time using RoBERTa and
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-clean-bert2
 #| fig-cap: "Mean similarity on the clean data using RoBERTa and PolBERT."
 
@@ -696,7 +701,7 @@ plot4 <- plot_similarity(clean_data_v2)
 
 plot4
 
-# ggsave("plots/fig-clean-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-clean-bert2.pdf", plot = plot4, width = 22, height = 14, units = "in")
 ```
 
 
@@ -708,9 +713,9 @@ plot4
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-shuffled-bert2
 #| fig-cap: "Mean similarity using RoBERTa and PolBERT on the shuffled data."
 
@@ -724,7 +729,7 @@ plot5 <- plot_similarity(random_baseline_v2)
 
 plot5
 
-# ggsave("plots/fig-shuffled-bert2.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-shuffled-bert2.pdf", plot = plot5, width = 22, height = 14, units = "in")
 ```
 
 
@@ -805,9 +810,9 @@ all_df_plot <- compute_mean(all_df)
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 10
 #| label: fig-subset-v2
 #| fig-cap: "Mean similarity on the subset data using RoBERTa and PolBERT"
 
@@ -821,23 +826,21 @@ plot6 <- plot_similarity(subset_data_v2)
 
 plot6
 
-# ggsave("plots/fig-subset-v2.pdf", plot = plot1, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-subset-v2.pdf", plot = plot6, width = 22, height = 14, units = "in")
 ```
 
 ## Baseline. Shuffling by category/tense
 
-The previous baseline shuffled the whole data 10 times. In this case a better baseline is implemented. It consists of filtering the data, that is filtering inflections by tense (present, past or future) and derivations by category then shuffling each filter 100 times while extracting the mean similarity of the whole filtered data. That means we are extracting the mean similarity a hundred times by type of morphological process (inflection or derivation), tense/category, model and language.
-
-Subsequently we are plotting the distribution of the mean similarity.
+The previous baseline shuffled the whole data 10 times. In this case a better baseline is implemented. It consists of filtering the data, that is separately filtering inflections by tense (present, past or future) and derivations by category, then shuffling each filter 100 times while extracting the mean similarity of the whole filtered data. That means we are extracting the mean similarity a hundred times by type of morphological process (inflection or derivation), tense/category, model and language and plotting its distribution.
 
 ```{r}
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 90%
-#| fig-width: 22
-#| fig-height: 14
-#| label: fig-baseline-v3
+#| out-width: 100%
+#| fig-width: 12
+#| fig-height: 12
+#| label: fig-baseline
 #| fig-cap: "Baseline"
 
 baseline_data <- read.csv("results/random_baseline_v3.csv")
@@ -845,8 +848,64 @@ baseline_data <- read.csv("results/random_baseline_v3.csv")
 baseline_data <- prepare_dataset(baseline_data)
 
 plot7 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type))+
-  geom_histogram(binwidth = 0.0025, alpha = 0.4, position = "identity") +
-  theme_minimal()
+  geom_histogram(binwidth = 0.02, alpha = 0.5, position = "identity", color = 'black') +
+  labs(x = "Mean similarity", y = "Count", fill = "Type") +
+  theme_minimal() +
+  theme(
+    # axis.title.y = element_text(size = 30),
+    axis.text.x = element_text(size = 20),
+    axis.title.x = element_text(size = 20),
+    axis.text.y = element_text(size = 20),
+    axis.title.y = element_text(size = 20),
+    legend.title = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    strip.text = element_text(size = 10)
+  ) +
+  scale_fill_manual(values = c(
+      "Derivation (same category)" = "#FFE45E",
+      "Derivation (different category)" = "#ff7f0e",
+      "Inflection" = "#2D93AD"
+    ))
 plot7
+
+# ggsave("plots/fig-baseline.pdf", plot = plot7, width = 22, height = 14, units = "in")
+```
+
+```{r}
+#| column: page
+#| echo: false
+#| fig-format: svg
+#| out-width: 100%
+#| fig-width: 8
+#| fig-height: 14
+#| label: fig-baseline-faceted
+#| fig-cap: "Baseline faceted by model, language and type"
+
+plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
+  geom_histogram(binwidth = 0.02, alpha = 0.5, position = "identity", color = 'black') +
+  labs(x = "Mean similarity", y = "Count", fill = "Type") +
+  facet_grid(type ~ language ~ model) +
+  theme_minimal() +
+  theme(
+    # axis.title.y = element_text(size = 30),
+    legend.position = "none",
+    plot.margin = margin(t = 10, r = 40, b = 10, l = 10),
+    axis.text.x = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    # legend.title = element_text(size = 16),
+    # legend.text = element_text(size = 14),
+    strip.text = element_text(size = 10, face = "bold")
+  ) +
+  scale_fill_manual(values = c(
+      "Derivation (same category)" = "#FFE45E",
+      "Derivation (different category)" = "#ff7f0e",
+      "Inflection" = "#2D93AD"
+    ))
+  
+plot8
+
+# ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 22, height = 14, units = "in")
 
 ```
