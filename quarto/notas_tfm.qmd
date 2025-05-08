@@ -358,7 +358,7 @@ plot_similarity <- function(data) {
     ) +
     stat_summary(
       fun.data = "mean_cl_boot", 
-      color = "black", size = 0.75, alpha = 0.75,
+      color = "black", size = 0.5, alpha = 0.75,
       position = position_dodge(0.85)
     ) +
     facet_grid(language ~ model) +
@@ -366,7 +366,7 @@ plot_similarity <- function(data) {
     theme(
       axis.title.y = element_text(size = 14),
       plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 14),
+      axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
       axis.text.y = element_text(size = 14),
       strip.text = element_text(size = 14, face= "bold"),
     ) +
@@ -417,7 +417,7 @@ all_df <- prepare_dataset(all_df)
 
 all_df_plot <- compute_mean(all_df)
 
-# write.csv(all_df_plot, "results/clean_data.csv", row.names=FALSE)
+# write.csv(all_df_plot, "results/clean_data_v1.csv", row.names=FALSE)
 ```
 
 ```{r}
@@ -430,13 +430,13 @@ all_df_plot <- compute_mean(all_df)
 #| label: fig-initial-clean
 #| fig-cap: "Mean similarity between pivot-form in derivation and inflection by model and language on the clean data"
 
-clean_data <- read.csv("results/clean_data.csv")
+clean_data_v1 <- read.csv("results/baseline/clean_data_v1.csv")
 
-clean_data <- prepare_dataset(clean_data)
+clean_data_v1 <- prepare_dataset(clean_data_v1)
 
-clean_data$model <- factor(clean_data$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
+clean_data_v1$model <- factor(clean_data_v1$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
 
-plot1 <- plot_similarity(clean_data)
+plot1 <- plot_similarity(clean_data_v1)
 
 plot1
 
@@ -579,13 +579,13 @@ Mean similarity between pivot and form in inflection and derivation by model and
 # mean_val <- mean(all_df_plot$mean_similarity, na.rm = TRUE)
 # sd_val <- sd(all_df_plot$mean_similarity, na.rm = TRUE)
 
-subset_data <- read.csv("results/subset_data.csv")
+subset_data_v1 <- read.csv("results/baseline/subset_data_v1.csv")
 
-subset_data <- prepare_dataset(subset_data)
+subset_data_v1 <- prepare_dataset(subset_data_v1)
 
-subset_data$model <- factor(subset_data$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
+subset_data_v1$model <- factor(subset_data_v1$model, levels = c("FastText", "Word2Vec", "Multilingual BERT"))
 
-plot2 <- plot_similarity(subset_data)
+plot2 <- plot_similarity(subset_data_v1)
 
 plot2
 
@@ -649,7 +649,7 @@ df.sample(10, random_state=123)
 #| label: fig-random-baseline
 #| fig-cap: "Mean similarity on the shuffled data."
 
-random_baseline <- read.csv("results/random_baseline.csv")
+random_baseline <- read.csv("results/baseline/random_baseline_v1.csv")
 
 random_baseline <- prepare_dataset(random_baseline)
 
@@ -691,17 +691,17 @@ The following shows the results of the same scripts, this time using RoBERTa and
 #| label: fig-clean-bert2
 #| fig-cap: "Mean similarity on the clean data using RoBERTa and PolBERT."
 
-clean_data_v2 <- read.csv("results/clean_data_v2.csv")
+clean_data <- read.csv("results/clean_data.csv")
 
-clean_data_v2 <- prepare_dataset(clean_data_v2)
+clean_data <- prepare_dataset(clean_data)
 
-clean_data_v2$model <- factor(clean_data_v2$model, levels = c("FastText", "Word2Vec", "BERT"))
+clean_data$model <- factor(clean_data$model, levels = c("FastText", "Word2Vec", "BERT"))
 
-plot4 <- plot_similarity(clean_data_v2)
+plot4 <- plot_similarity(clean_data)
 
 plot4
 
-# ggsave("plots/fig-clean-bert2.pdf", plot = plot4, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-clean.pdf", plot = plot4, width = 10, height = 8, units = "in")
 ```
 
 
@@ -719,7 +719,7 @@ plot4
 #| label: fig-shuffled-bert2
 #| fig-cap: "Mean similarity using RoBERTa and PolBERT on the shuffled data."
 
-random_baseline_v2 <- read.csv("results/random_baseline_v2.csv")
+random_baseline_v2 <- read.csv("results/baseline/random_baseline_v2.csv")
 
 random_baseline_v2 <- prepare_dataset(random_baseline_v2)
 
@@ -802,7 +802,7 @@ all_df <- prepare_dataset(all_df)
 
 all_df_plot <- compute_mean(all_df)
 
-# write.csv(all_df_plot, "results/subset_data_v2.csv", row.names=FALSE)
+# write.csv(all_df_plot, "results/subset_data.csv", row.names=FALSE)
 ```
 
 
@@ -816,17 +816,17 @@ all_df_plot <- compute_mean(all_df)
 #| label: fig-subset-v2
 #| fig-cap: "Mean similarity on the subset data using RoBERTa and PolBERT"
 
-subset_data_v2 <- read.csv("results/subset_data_v2.csv")
+subset_data <- read.csv("results/subset_data.csv")
 
-subset_data_v2 <- prepare_dataset(subset_data_v2)
+subset_data <- prepare_dataset(subset_data)
 
-subset_data_v2$model <- factor(subset_data_v2$model, levels = c("FastText", "Word2Vec", "BERT"))
+subset_data$model <- factor(subset_data$model, levels = c("FastText", "Word2Vec", "BERT"))
 
-plot6 <- plot_similarity(subset_data_v2)
+plot6 <- plot_similarity(subset_data)
 
 plot6
 
-# ggsave("plots/fig-subset-v2.pdf", plot = plot6, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-subset.pdf", plot = plot6, width = 22, height = 14, units = "in")
 ```
 
 ## Baseline. Shuffling by category/tense
@@ -843,7 +843,7 @@ The previous baseline shuffled the whole data 10 times. In this case a better ba
 #| label: fig-baseline
 #| fig-cap: "Baseline"
 
-baseline_data <- read.csv("results/random_baseline_v3.csv")
+baseline_data <- read.csv("results/random_baseline.csv")
 
 baseline_data <- prepare_dataset(baseline_data)
 
@@ -868,7 +868,30 @@ plot7 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type))+
     ))
 plot7
 
-# ggsave("plots/fig-baseline.pdf", plot = plot7, width = 22, height = 14, units = "in")
+# ggsave("plots/fig-baseline.pdf", plot = plot7, width = 12, height = 12, units = "in")
+```
+
+```{r}
+#| echo: false
+
+# function to group by category, model and language and get the mean similarity of each, to plot
+# i.e.:       category   model    language   type      mean_similarity
+#              ADJ:ADJ   FasText  Polish   Inflection   0.6197
+# compute_mean <- function(data) {
+#   data %>%
+#     group_by(category, model, language, type, version) %>%
+#     summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = "drop")
+# }
+
+clean_data <- read.csv("results/clean_data.csv")
+clean_data <- prepare_dataset(clean_data)
+clean_data$model <- factor(clean_data$model, levels = c("FastText", "Word2Vec", "BERT"))
+
+overall_mean_data <- clean_data %>%
+  filter(model == "FastText" | model == "Word2Vec") %>% # remove this when bert data is obtained
+  group_by(model, language, type) %>% 
+  summarise(overall_mean = mean(mean_similarity, na.rm = TRUE), .groups = "drop")
+
 ```
 
 ```{r}
@@ -882,18 +905,21 @@ plot7
 #| fig-cap: "Baseline faceted by model, language and type"
 
 plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
-  geom_histogram(binwidth = 0.015, alpha = 0.7, position = "identity", color = 'black') +
+  geom_histogram(binwidth = 0.01, alpha = 0.7, position = "identity", color = 'black') +
   labs(x = "Mean similarity", y = "Count", fill = "Type") +
   facet_grid(type ~ language ~ model) +
+  geom_vline(data = overall_mean_data, aes(xintercept = overall_mean, linetype = "Threshold"), color = "black", size = 0.5) +
+  scale_linetype_manual(name = "Mean similarity on the clean data", values = c("Threshold" = "dotted")) +
+  # geom_vline(xintercept = 0.5, color = "grey", linetype = "solid", size = 0.5) +
   theme_minimal() +
   theme(
     # axis.title.y = element_text(size = 30),
-    legend.position = "none",
+    # legend.position = "none",
     plot.margin = margin(t = 10, r = 40, b = 10, l = 10),
-    axis.text.x = element_text(size = 14),
-    axis.title.x = element_text(size = 14),
-    axis.text.y = element_text(size = 14),
-    axis.title.y = element_text(size = 14),
+    axis.text.x = element_text(size = 12),
+    axis.title.x = element_text(size = 11),
+    axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(size = 11),
     # legend.title = element_text(size = 16),
     # legend.text = element_text(size = 14),
     strip.text = element_text(size = 10, face = "bold")
@@ -906,6 +932,5 @@ plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
   
 plot8
 
-# ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 22, height = 14, units = "in")
-
+# ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 8, height = 14, units = "in")
 ```
