@@ -1,238 +1,238 @@
 "category","model","language","type","version","mean_similarity"
 "ADJ:ADJ","FastText","Polish","Derivation (same category)","Clean",0.620310725134272
 "ADJ:ADJ","FastText","Spanish","Derivation (same category)","Clean",0.543380297347072
-"ADJ:ADJ","Multilingual BERT","Polish","Derivation (same category)","Clean",0.946743583013972
-"ADJ:ADJ","Multilingual BERT","Spanish","Derivation (same category)","Clean",0.931133620326916
 "ADJ:ADJ","Word2Vec","Polish","Derivation (same category)","Clean",0.477091880485612
 "ADJ:ADJ","Word2Vec","Spanish","Derivation (same category)","Clean",0.51166457430203
+"ADJ:ADJ","BERT","Polish","Derivation (same category)","Clean",0.729036429690619
+"ADJ:ADJ","BERT","Spanish","Derivation (same category)","Clean",0.821828546772612
 "ADJ:ADV","FastText","Polish","Derivation (different category)","Clean",0.603204030794905
 "ADJ:ADV","FastText","Spanish","Derivation (different category)","Clean",0.566103265499136
-"ADJ:ADV","Multilingual BERT","Polish","Derivation (different category)","Clean",0.948607230255968
-"ADJ:ADV","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.922363325717987
 "ADJ:ADV","Word2Vec","Polish","Derivation (different category)","Clean",0.439566694429301
 "ADJ:ADV","Word2Vec","Spanish","Derivation (different category)","Clean",0.526296191697643
+"ADJ:ADV","BERT","Polish","Derivation (different category)","Clean",0.857047528783434
+"ADJ:ADV","BERT","Spanish","Derivation (different category)","Clean",0.844347064803849
 "ADJ:N","FastText","Polish","Derivation (different category)","Clean",0.516577065589309
 "ADJ:N","FastText","Spanish","Derivation (different category)","Clean",0.515373817219143
-"ADJ:N","Multilingual BERT","Polish","Derivation (different category)","Clean",0.927687091349827
-"ADJ:N","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.925374880377261
 "ADJ:N","Word2Vec","Polish","Derivation (different category)","Clean",0.356378696686454
 "ADJ:N","Word2Vec","Spanish","Derivation (different category)","Clean",0.512110473373628
+"ADJ:N","BERT","Polish","Derivation (different category)","Clean",0.824304399921776
+"ADJ:N","BERT","Spanish","Derivation (different category)","Clean",0.810120148578811
 "ADJ:V","FastText","Polish","Derivation (different category)","Clean",0.401586819890489
 "ADJ:V","FastText","Spanish","Derivation (different category)","Clean",0.414893869136886
-"ADJ:V","Multilingual BERT","Polish","Derivation (different category)","Clean",0.929864052660944
-"ADJ:V","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.924349243313725
 "ADJ:V","Word2Vec","Polish","Derivation (different category)","Clean",0.265228671136945
 "ADJ:V","Word2Vec","Spanish","Derivation (different category)","Clean",0.420100985715744
+"ADJ:V","BERT","Polish","Derivation (different category)","Clean",0.732199784935622
+"ADJ:V","BERT","Spanish","Derivation (different category)","Clean",0.755926520019608
 "ADV:ADJ","FastText","Polish","Derivation (different category)","Clean",0.374689174761576
 "ADV:ADJ","FastText","Spanish","Derivation (different category)","Clean",0.415008207304145
-"ADV:ADJ","Multilingual BERT","Polish","Derivation (different category)","Clean",0.921629081153846
-"ADV:ADJ","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.931487593636364
 "ADV:ADJ","Word2Vec","Polish","Derivation (different category)","Clean",0.297800625607858
 "ADV:ADJ","Word2Vec","Spanish","Derivation (different category)","Clean",0.498072579423767
+"ADV:ADJ","BERT","Polish","Derivation (different category)","Clean",0.765523057692308
+"ADV:ADJ","BERT","Spanish","Derivation (different category)","Clean",0.691584744090909
 "ADV:ADV","FastText","Polish","Derivation (same category)","Clean",0.590321606712659
 "ADV:ADV","FastText","Spanish","Derivation (same category)","Clean",0.604473192924864
-"ADV:ADV","Multilingual BERT","Polish","Derivation (same category)","Clean",0.922271951818182
-"ADV:ADV","Multilingual BERT","Spanish","Derivation (same category)","Clean",0.907325878
 "ADV:ADV","Word2Vec","Polish","Derivation (same category)","Clean",0.498304580674275
 "ADV:ADV","Word2Vec","Spanish","Derivation (same category)","Clean",0.576585726125956
+"ADV:ADV","BERT","Polish","Derivation (same category)","Clean",0.728776420454545
+"ADV:ADV","BERT","Spanish","Derivation (same category)","Clean",0.766822274666667
 "ADV:N","FastText","Polish","Derivation (different category)","Clean",0.359489614045357
 "ADV:N","FastText","Spanish","Derivation (different category)","Clean",0.342302553637414
-"ADV:N","Multilingual BERT","Polish","Derivation (different category)","Clean",0.940464888
-"ADV:N","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.908185939333333
 "ADV:N","Word2Vec","Polish","Derivation (different category)","Clean",0.287307773251802
 "ADV:N","Word2Vec","Spanish","Derivation (different category)","Clean",0.406875352506623
+"ADV:N","BERT","Polish","Derivation (different category)","Clean",0.769704460666667
+"ADV:N","BERT","Spanish","Derivation (different category)","Clean",0.659674222
 "ADV:V","FastText","Spanish","Derivation (different category)","Clean",0.375122366441944
-"ADV:V","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.914828098888889
 "ADV:V","Word2Vec","Spanish","Derivation (different category)","Clean",0.418948456690068
+"ADV:V","BERT","Spanish","Derivation (different category)","Clean",0.712038803333333
 "N:ADJ","FastText","Polish","Derivation (different category)","Clean",0.534986068174993
 "N:ADJ","FastText","Spanish","Derivation (different category)","Clean",0.499957896481512
-"N:ADJ","Multilingual BERT","Polish","Derivation (different category)","Clean",0.920620523185366
-"N:ADJ","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.913829644950846
 "N:ADJ","Word2Vec","Polish","Derivation (different category)","Clean",0.400335113037367
 "N:ADJ","Word2Vec","Spanish","Derivation (different category)","Clean",0.523351616801088
+"N:ADJ","BERT","Polish","Derivation (different category)","Clean",0.811942396445528
+"N:ADJ","BERT","Spanish","Derivation (different category)","Clean",0.783991907756587
 "N:ADV","FastText","Polish","Derivation (different category)","Clean",0.411087581371163
 "N:ADV","FastText","Spanish","Derivation (different category)","Clean",0.498176224041078
-"N:ADV","Multilingual BERT","Polish","Derivation (different category)","Clean",0.914758614166667
-"N:ADV","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.904901749622641
 "N:ADV","Word2Vec","Polish","Derivation (different category)","Clean",0.255939845910965
 "N:ADV","Word2Vec","Spanish","Derivation (different category)","Clean",0.486672248546551
+"N:ADV","BERT","Polish","Derivation (different category)","Clean",0.733018968333333
+"N:ADV","BERT","Spanish","Derivation (different category)","Clean",0.797629790943396
 "N:N","FastText","Polish","Derivation (same category)","Clean",0.547448137192624
 "N:N","FastText","Spanish","Derivation (same category)","Clean",0.504843541367483
-"N:N","Multilingual BERT","Polish","Derivation (same category)","Clean",0.934682157860183
-"N:N","Multilingual BERT","Spanish","Derivation (same category)","Clean",0.924653620140015
 "N:N","Word2Vec","Polish","Derivation (same category)","Clean",0.393055844205175
 "N:N","Word2Vec","Spanish","Derivation (same category)","Clean",0.498627480073012
+"N:N","BERT","Polish","Derivation (same category)","Clean",0.816877162491488
+"N:N","BERT","Spanish","Derivation (same category)","Clean",0.792419584626627
 "N:V","FastText","Polish","Derivation (different category)","Clean",0.423881486536075
 "N:V","FastText","Spanish","Derivation (different category)","Clean",0.44746667186109
-"N:V","Multilingual BERT","Polish","Derivation (different category)","Clean",0.910721739259729
-"N:V","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.935302566563899
 "N:V","Word2Vec","Polish","Derivation (different category)","Clean",0.311626512276497
 "N:V","Word2Vec","Spanish","Derivation (different category)","Clean",0.462874199187333
+"N:V","BERT","Polish","Derivation (different category)","Clean",0.775272373595601
+"N:V","BERT","Spanish","Derivation (different category)","Clean",0.766361750049727
 "V:ADJ","FastText","Polish","Derivation (different category)","Clean",0.452430749368866
 "V:ADJ","FastText","Spanish","Derivation (different category)","Clean",0.480583724548939
-"V:ADJ","Multilingual BERT","Polish","Derivation (different category)","Clean",0.922405786693069
-"V:ADJ","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.943148772334495
 "V:ADJ","Word2Vec","Polish","Derivation (different category)","Clean",0.341300224504926
 "V:ADJ","Word2Vec","Spanish","Derivation (different category)","Clean",0.47293696391661
+"V:ADJ","BERT","Polish","Derivation (different category)","Clean",0.747979730930693
+"V:ADJ","BERT","Spanish","Derivation (different category)","Clean",0.825732150437476
 "V:ADV","FastText","Polish","Derivation (different category)","Clean",0.0876262784290996
 "V:ADV","FastText","Spanish","Derivation (different category)","Clean",0.492193789121883
-"V:ADV","Multilingual BERT","Polish","Derivation (different category)","Clean",0.91305935
-"V:ADV","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.931015663409091
 "V:ADV","Word2Vec","Polish","Derivation (different category)","Clean",0.0984922968454972
 "V:ADV","Word2Vec","Spanish","Derivation (different category)","Clean",0.451748896630725
+"V:ADV","BERT","Polish","Derivation (different category)","Clean",0.6224686
+"V:ADV","BERT","Spanish","Derivation (different category)","Clean",0.837323881022727
 "V:N","FastText","Polish","Derivation (different category)","Clean",0.517517345392665
 "V:N","FastText","Spanish","Derivation (different category)","Clean",0.52365484992467
-"V:N","Multilingual BERT","Polish","Derivation (different category)","Clean",0.928952951968666
-"V:N","Multilingual BERT","Spanish","Derivation (different category)","Clean",0.939328481177668
 "V:N","Word2Vec","Polish","Derivation (different category)","Clean",0.406846706705402
 "V:N","Word2Vec","Spanish","Derivation (different category)","Clean",0.521615750971273
+"V:N","BERT","Polish","Derivation (different category)","Clean",0.807344879590343
+"V:N","BERT","Spanish","Derivation (different category)","Clean",0.828470056545507
 "V:V","FastText","Polish","Derivation (same category)","Clean",0.63317150226551
 "V:V","FastText","Spanish","Derivation (same category)","Clean",0.558418723853814
-"V:V","Multilingual BERT","Polish","Derivation (same category)","Clean",0.947752853478474
-"V:V","Multilingual BERT","Spanish","Derivation (same category)","Clean",0.93429577369281
 "V:V","Word2Vec","Polish","Derivation (same category)","Clean",0.495391155381311
 "V:V","Word2Vec","Spanish","Derivation (same category)","Clean",0.494298187744842
+"V:V","BERT","Polish","Derivation (same category)","Clean",0.759407788929448
+"V:V","BERT","Spanish","Derivation (same category)","Clean",0.855379826476035
 "V;FUT;1;PL","FastText","Polish","Inflection","Clean",0.398337111240907
-"V;FUT;1;PL","Multilingual BERT","Polish","Inflection","Clean",0.889482081540284
 "V;FUT;1;PL","Word2Vec","Polish","Inflection","Clean",0.514884262928568
+"V;FUT;1;PL","BERT","Polish","Inflection","Clean",0.743137288483412
 "V;FUT;1;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.315118686553865
-"V;FUT;1;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.881261007358491
+"V;FUT;1;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.735786781680961
 "V;FUT;1;SG","FastText","Polish","Inflection","Clean",0.58788206694772
-"V;FUT;1;SG","Multilingual BERT","Polish","Inflection","Clean",0.934295218429119
 "V;FUT;1;SG","Word2Vec","Polish","Inflection","Clean",0.496317661994394
+"V;FUT;1;SG","BERT","Polish","Inflection","Clean",0.798300181800766
 "V;FUT;1;SG;FEM","FastText","Polish","Inflection","Clean",0.394427481020681
-"V;FUT;1;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.892459305746141
+"V;FUT;1;SG;FEM","BERT","Polish","Inflection","Clean",0.719814654974271
 "V;FUT;1;SG;MASC","FastText","Polish","Inflection","Clean",0.392737354509109
-"V;FUT;1;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.898061622315609
+"V;FUT;1;SG;MASC","BERT","Polish","Inflection","Clean",0.733145326415094
 "V;FUT;2;PL","FastText","Polish","Inflection","Clean",0.398370574056469
-"V;FUT;2;PL","Multilingual BERT","Polish","Inflection","Clean",0.906779043376777
 "V;FUT;2;PL","Word2Vec","Polish","Inflection","Clean",0.436020039553259
+"V;FUT;2;PL","BERT","Polish","Inflection","Clean",0.747196918969194
 "V;FUT;2;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.33785148128271
-"V;FUT;2;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.901820035986278
+"V;FUT;2;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.749918477392796
 "V;FUT;2;SG","FastText","Polish","Inflection","Clean",0.569650261393184
-"V;FUT;2;SG","Multilingual BERT","Polish","Inflection","Clean",0.927111172030651
 "V;FUT;2;SG","Word2Vec","Polish","Inflection","Clean",0.481423575326719
+"V;FUT;2;SG","BERT","Polish","Inflection","Clean",0.773042260306513
 "V;FUT;2;SG;FEM","FastText","Polish","Inflection","Clean",0.352985968032474
-"V;FUT;2;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.886196030789022
+"V;FUT;2;SG;FEM","BERT","Polish","Inflection","Clean",0.710811986826758
 "V;FUT;2;SG;MASC","FastText","Polish","Inflection","Clean",0.353644281868525
-"V;FUT;2;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.890053495403087
+"V;FUT;2;SG;MASC","BERT","Polish","Inflection","Clean",0.721016300463122
 "V;FUT;3;PL","FastText","Polish","Inflection","Clean",0.439590370318081
-"V;FUT;3;PL","Multilingual BERT","Polish","Inflection","Clean",0.905696954810427
 "V;FUT;3;PL","Word2Vec","Polish","Inflection","Clean",0.524503143646952
+"V;FUT;3;PL","BERT","Polish","Inflection","Clean",0.722021882808057
 "V;FUT;3;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.365534394594826
-"V;FUT;3;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.899163456998285
+"V;FUT;3;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.721624887375643
 "V;FUT;3;SG","FastText","Polish","Inflection","Clean",0.634816037858959
-"V;FUT;3;SG","Multilingual BERT","Polish","Inflection","Clean",0.934708776934866
 "V;FUT;3;SG","Word2Vec","Polish","Inflection","Clean",0.556932142330453
+"V;FUT;3;SG","BERT","Polish","Inflection","Clean",0.823154732452107
 "V;FUT;3;SG;FEM","FastText","Polish","Inflection","Clean",0.3565037352055
-"V;FUT;3;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.864423448507719
+"V;FUT;3;SG;FEM","BERT","Polish","Inflection","Clean",0.706375980686106
 "V;FUT;3;SG;MASC","FastText","Polish","Inflection","Clean",0.36234299971789
-"V;FUT;3;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.868490150823328
+"V;FUT;3;SG;MASC","BERT","Polish","Inflection","Clean",0.717357450909091
 "V;FUT;3;SG;NEUT","FastText","Polish","Inflection","Clean",0.348988779537167
-"V;FUT;3;SG;NEUT","Multilingual BERT","Polish","Inflection","Clean",0.872707367958834
+"V;FUT;3;SG;NEUT","BERT","Polish","Inflection","Clean",0.681369682315609
 "V;IND;FUT;1;PL","FastText","Spanish","Inflection","Clean",0.56950005440752
-"V;IND;FUT;1;PL","Multilingual BERT","Spanish","Inflection","Clean",0.949860063427042
 "V;IND;FUT;1;PL","Word2Vec","Spanish","Inflection","Clean",0.479447101055511
+"V;IND;FUT;1;PL","BERT","Spanish","Inflection","Clean",0.861386742296594
 "V;IND;FUT;1;SG","FastText","Spanish","Inflection","Clean",0.571788011966874
-"V;IND;FUT;1;SG","Multilingual BERT","Spanish","Inflection","Clean",0.958154925490109
 "V;IND;FUT;1;SG","Word2Vec","Spanish","Inflection","Clean",0.446006869375847
+"V;IND;FUT;1;SG","BERT","Spanish","Inflection","Clean",0.889106036287372
 "V;IND;FUT;2;PL","FastText","Spanish","Inflection","Clean",0.502139788789894
-"V;IND;FUT;2;PL","Multilingual BERT","Spanish","Inflection","Clean",0.941609871070951
 "V;IND;FUT;2;PL","Word2Vec","Spanish","Inflection","Clean",0.417977793871325
+"V;IND;FUT;2;PL","BERT","Spanish","Inflection","Clean",0.869253222256433
 "V;IND;FUT;2;SG;INFM","FastText","Spanish","Inflection","Clean",0.527942024172588
-"V;IND;FUT;2;SG;INFM","Multilingual BERT","Spanish","Inflection","Clean",0.959527144923397
 "V;IND;FUT;2;SG;INFM","Word2Vec","Spanish","Inflection","Clean",0.428481399180043
+"V;IND;FUT;2;SG;INFM","BERT","Spanish","Inflection","Clean",0.893250429928603
 "V;IND;FUT;3;PL","FastText","Spanish","Inflection","Clean",0.569538211638568
-"V;IND;FUT;3;PL","Multilingual BERT","Spanish","Inflection","Clean",0.960536941267459
 "V;IND;FUT;3;PL","Word2Vec","Spanish","Inflection","Clean",0.520248856423099
+"V;IND;FUT;3;PL","BERT","Spanish","Inflection","Clean",0.863389714221397
 "V;IND;FUT;3;SG","FastText","Spanish","Inflection","Clean",0.599726504645886
-"V;IND;FUT;3;SG","Multilingual BERT","Spanish","Inflection","Clean",0.962142641324425
 "V;IND;FUT;3;SG","Word2Vec","Spanish","Inflection","Clean",0.547642930687302
+"V;IND;FUT;3;SG","BERT","Spanish","Inflection","Clean",0.859394757922791
 "V;IND;PRS;1;PL","FastText","Spanish","Inflection","Clean",0.585379682615805
-"V;IND;PRS;1;PL","Multilingual BERT","Spanish","Inflection","Clean",0.947264138953713
 "V;IND;PRS;1;PL","Word2Vec","Spanish","Inflection","Clean",0.487486557718155
+"V;IND;PRS;1;PL","BERT","Spanish","Inflection","Clean",0.849763756670636
 "V;IND;PRS;1;SG","FastText","Spanish","Inflection","Clean",0.548131482548844
-"V;IND;PRS;1;SG","Multilingual BERT","Spanish","Inflection","Clean",0.951028512158199
 "V;IND;PRS;1;SG","Word2Vec","Spanish","Inflection","Clean",0.484465460843946
+"V;IND;PRS;1;SG","BERT","Spanish","Inflection","Clean",0.823154475274774
 "V;IND;PRS;2;PL","FastText","Spanish","Inflection","Clean",0.456000357721964
-"V;IND;PRS;2;PL","Multilingual BERT","Spanish","Inflection","Clean",0.922684793886931
 "V;IND;PRS;2;PL","Word2Vec","Spanish","Inflection","Clean",0.413634530093304
+"V;IND;PRS;2;PL","BERT","Spanish","Inflection","Clean",0.824905279234465
 "V;IND;PRS;2;SG;INFM","FastText","Spanish","Inflection","Clean",0.544192754418628
-"V;IND;PRS;2;SG;INFM","Multilingual BERT","Spanish","Inflection","Clean",0.947689321303188
 "V;IND;PRS;2;SG;INFM","Word2Vec","Spanish","Inflection","Clean",0.417541192765391
+"V;IND;PRS;2;SG;INFM","BERT","Spanish","Inflection","Clean",0.833781705656041
 "V;IND;PRS;3;PL","FastText","Spanish","Inflection","Clean",0.635606549068105
-"V;IND;PRS;3;PL","Multilingual BERT","Spanish","Inflection","Clean",0.961463011468583
 "V;IND;PRS;3;PL","Word2Vec","Spanish","Inflection","Clean",0.581344515264989
+"V;IND;PRS;3;PL","BERT","Spanish","Inflection","Clean",0.863076698790753
 "V;IND;PRS;3;SG","FastText","Spanish","Inflection","Clean",0.650075767679101
-"V;IND;PRS;3;SG","Multilingual BERT","Spanish","Inflection","Clean",0.953020649936334
 "V;IND;PRS;3;SG","Word2Vec","Spanish","Inflection","Clean",0.587621188456787
+"V;IND;PRS;3;SG","BERT","Spanish","Inflection","Clean",0.836094477878294
 "V;IND;PST;IPFV;1;PL","FastText","Spanish","Inflection","Clean",0.447541723597294
-"V;IND;PST;IPFV;1;PL","Multilingual BERT","Spanish","Inflection","Clean",0.926834175846108
 "V;IND;PST;IPFV;1;PL","Word2Vec","Spanish","Inflection","Clean",0.457088329636075
+"V;IND;PST;IPFV;1;PL","BERT","Spanish","Inflection","Clean",0.817041812402143
 "V;IND;PST;IPFV;1;SG","FastText","Spanish","Inflection","Clean",0.580494219437484
-"V;IND;PST;IPFV;1;SG","Multilingual BERT","Spanish","Inflection","Clean",0.947981463037654
 "V;IND;PST;IPFV;1;SG","Word2Vec","Spanish","Inflection","Clean",0.559376880836609
+"V;IND;PST;IPFV;1;SG","BERT","Spanish","Inflection","Clean",0.838902896405715
 "V;IND;PST;IPFV;2;PL","FastText","Spanish","Inflection","Clean",0.481218886858186
-"V;IND;PST;IPFV;2;PL","Multilingual BERT","Spanish","Inflection","Clean",0.931947503028725
 "V;IND;PST;IPFV;2;PL","Word2Vec","Spanish","Inflection","Clean",0.447419346381651
+"V;IND;PST;IPFV;2;PL","BERT","Spanish","Inflection","Clean",0.803956411428784
 "V;IND;PST;IPFV;2;SG;INFM","FastText","Spanish","Inflection","Clean",0.502014454586478
-"V;IND;PST;IPFV;2;SG;INFM","Multilingual BERT","Spanish","Inflection","Clean",0.944920006161631
 "V;IND;PST;IPFV;2;SG;INFM","Word2Vec","Spanish","Inflection","Clean",0.430834652549643
+"V;IND;PST;IPFV;2;SG;INFM","BERT","Spanish","Inflection","Clean",0.81477812310314
 "V;IND;PST;IPFV;3;PL","FastText","Spanish","Inflection","Clean",0.544291165262092
-"V;IND;PST;IPFV;3;PL","Multilingual BERT","Spanish","Inflection","Clean",0.948287577136485
 "V;IND;PST;IPFV;3;PL","Word2Vec","Spanish","Inflection","Clean",0.533759723192722
+"V;IND;PST;IPFV;3;PL","BERT","Spanish","Inflection","Clean",0.826473440501041
 "V;IND;PST;IPFV;3;SG","FastText","Spanish","Inflection","Clean",0.580531820601661
-"V;IND;PST;IPFV;3;SG","Multilingual BERT","Spanish","Inflection","Clean",0.947962282342891
 "V;IND;PST;IPFV;3;SG","Word2Vec","Spanish","Inflection","Clean",0.559277465418478
+"V;IND;PST;IPFV;3;SG","BERT","Spanish","Inflection","Clean",0.838908797364433
 "V;PRS;1;PL","FastText","Polish","Inflection","Clean",0.555311527395808
-"V;PRS;1;PL","Multilingual BERT","Polish","Inflection","Clean",0.934727522075472
 "V;PRS;1;PL","Word2Vec","Polish","Inflection","Clean",0.506419781651387
+"V;PRS;1;PL","BERT","Polish","Inflection","Clean",0.804911203516295
 "V;PRS;1;SG","FastText","Polish","Inflection","Clean",0.568328585094517
-"V;PRS;1;SG","Multilingual BERT","Polish","Inflection","Clean",0.937074911972556
 "V;PRS;1;SG","Word2Vec","Polish","Inflection","Clean",0.49373218086716
+"V;PRS;1;SG","BERT","Polish","Inflection","Clean",0.807888323722127
 "V;PRS;2;PL","FastText","Polish","Inflection","Clean",0.490435402282616
-"V;PRS;2;PL","Multilingual BERT","Polish","Inflection","Clean",0.931938999502573
 "V;PRS;2;PL","Word2Vec","Polish","Inflection","Clean",0.444796387120506
+"V;PRS;2;PL","BERT","Polish","Inflection","Clean",0.789911850274443
 "V;PRS;2;SG","FastText","Polish","Inflection","Clean",0.533053661999423
-"V;PRS;2;SG","Multilingual BERT","Polish","Inflection","Clean",0.932210132692967
 "V;PRS;2;SG","Word2Vec","Polish","Inflection","Clean",0.468929905318712
+"V;PRS;2;SG","BERT","Polish","Inflection","Clean",0.790882634356775
 "V;PRS;3;PL","FastText","Polish","Inflection","Clean",0.592907490682366
-"V;PRS;3;PL","Multilingual BERT","Polish","Inflection","Clean",0.937524010617496
 "V;PRS;3;PL","Word2Vec","Polish","Inflection","Clean",0.549197617756038
+"V;PRS;3;PL","BERT","Polish","Inflection","Clean",0.826557736586621
 "V;PRS;3;SG","FastText","Polish","Inflection","Clean",0.612171693015597
-"V;PRS;3;SG","Multilingual BERT","Polish","Inflection","Clean",0.934454347581475
 "V;PRS;3;SG","Word2Vec","Polish","Inflection","Clean",0.539497095900911
+"V;PRS;3;SG","BERT","Polish","Inflection","Clean",0.834271322264151
 "V;PST;1;PL","FastText","Polish","Inflection","Clean",0.489696661227794
-"V;PST;1;PL","Multilingual BERT","Polish","Inflection","Clean",0.89640922313981
+"V;PST;1;PL","BERT","Polish","Inflection","Clean",0.728403432879147
 "V;PST;1;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.528838989844943
-"V;PST;1;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.911319079798578
+"V;PST;1;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.779614235983412
 "V;PST;1;SG;FEM","FastText","Polish","Inflection","Clean",0.553490836445343
-"V;PST;1;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.936424764253554
 "V;PST;1;SG;FEM","Word2Vec","Polish","Inflection","Clean",0.425936454263963
+"V;PST;1;SG;FEM","BERT","Polish","Inflection","Clean",0.786254445687204
 "V;PST;1;SG;MASC","FastText","Polish","Inflection","Clean",0.557236875382366
-"V;PST;1;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.92556710563981
 "V;PST;1;SG;MASC","Word2Vec","Polish","Inflection","Clean",0.382457951492187
+"V;PST;1;SG;MASC","BERT","Polish","Inflection","Clean",0.813833739597156
 "V;PST;2;PL","FastText","Polish","Inflection","Clean",0.458123439146924
-"V;PST;2;PL","Multilingual BERT","Polish","Inflection","Clean",0.913322143116114
+"V;PST;2;PL","BERT","Polish","Inflection","Clean",0.730130879609005
 "V;PST;2;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.496095383127205
-"V;PST;2;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.908445398637441
+"V;PST;2;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.777494416125592
 "V;PST;2;SG;FEM","FastText","Polish","Inflection","Clean",0.508251529366034
-"V;PST;2;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.92566152771327
+"V;PST;2;SG;FEM","BERT","Polish","Inflection","Clean",0.748356733661137
 "V;PST;2;SG;MASC","FastText","Polish","Inflection","Clean",0.510160468610505
-"V;PST;2;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.926411137452607
 "V;PST;2;SG;MASC","Word2Vec","Polish","Inflection","Clean",0.659981769861852
+"V;PST;2;SG;MASC","BERT","Polish","Inflection","Clean",0.774761010888626
 "V;PST;3;PL","FastText","Polish","Inflection","Clean",0.574404120651658
-"V;PST;3;PL","Multilingual BERT","Polish","Inflection","Clean",0.929015996516588
 "V;PST;3;PL","Word2Vec","Polish","Inflection","Clean",0.499552531879665
+"V;PST;3;PL","BERT","Polish","Inflection","Clean",0.783743531635071
 "V;PST;3;PL;MASC;HUM","FastText","Polish","Inflection","Clean",0.574166595054261
-"V;PST;3;PL;MASC;HUM","Multilingual BERT","Polish","Inflection","Clean",0.931429286777251
 "V;PST;3;PL;MASC;HUM","Word2Vec","Polish","Inflection","Clean",0.530372821276671
+"V;PST;3;PL;MASC;HUM","BERT","Polish","Inflection","Clean",0.820794719632701
 "V;PST;3;SG;FEM","FastText","Polish","Inflection","Clean",0.591442035809381
-"V;PST;3;SG;FEM","Multilingual BERT","Polish","Inflection","Clean",0.930356892677725
 "V;PST;3;SG;FEM","Word2Vec","Polish","Inflection","Clean",0.527611778521494
+"V;PST;3;SG;FEM","BERT","Polish","Inflection","Clean",0.820367738104265
 "V;PST;3;SG;MASC","FastText","Polish","Inflection","Clean",0.627099614436629
-"V;PST;3;SG;MASC","Multilingual BERT","Polish","Inflection","Clean",0.928651094407583
 "V;PST;3;SG;MASC","Word2Vec","Polish","Inflection","Clean",0.565081512843006
+"V;PST;3;SG;MASC","BERT","Polish","Inflection","Clean",0.844338186267772
 "V;PST;3;SG;NEUT","FastText","Polish","Inflection","Clean",0.567406937504657
-"V;PST;3;SG;NEUT","Multilingual BERT","Polish","Inflection","Clean",0.938879336646919
 "V;PST;3;SG;NEUT","Word2Vec","Polish","Inflection","Clean",0.488870242570147
+"V;PST;3;SG;NEUT","BERT","Polish","Inflection","Clean",0.781765067796209
