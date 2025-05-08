@@ -837,7 +837,7 @@ The previous baseline shuffled the whole data 10 times. In this case a better ba
 #| column: page
 #| echo: false
 #| fig-format: svg
-#| out-width: 100%
+#| out-width: 80%
 #| fig-width: 12
 #| fig-height: 12
 #| label: fig-baseline
@@ -848,7 +848,7 @@ baseline_data <- read.csv("results/random_baseline_v3.csv")
 baseline_data <- prepare_dataset(baseline_data)
 
 plot7 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type))+
-  geom_histogram(binwidth = 0.02, alpha = 0.5, position = "identity", color = 'black') +
+  geom_histogram(binwidth = 0.015, alpha = 0.7, position = "identity", color = 'black') +
   labs(x = "Mean similarity", y = "Count", fill = "Type") +
   theme_minimal() +
   theme(
@@ -882,7 +882,7 @@ plot7
 #| fig-cap: "Baseline faceted by model, language and type"
 
 plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
-  geom_histogram(binwidth = 0.02, alpha = 0.5, position = "identity", color = 'black') +
+  geom_histogram(binwidth = 0.015, alpha = 0.7, position = "identity", color = 'black') +
   labs(x = "Mean similarity", y = "Count", fill = "Type") +
   facet_grid(type ~ language ~ model) +
   theme_minimal() +
