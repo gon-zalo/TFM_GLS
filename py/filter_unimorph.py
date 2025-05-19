@@ -97,16 +97,21 @@ def filter_derivation(dataframe, language):
     filtered_dfs = {}
 
     for category in categories:
-        # filter the dataframe for each unique category
-        filtered_df = df[df['category'] == category].reset_index(drop=True)
-        # append the filtered dataframe to the dictionary
-        filtered_df.columns = ['pivot', 'derivation', 'category', 'affix']
-        filtered_dfs[category] = filtered_df
+        if category == "ADV:V": # removing this since there are only 5 instances of it in Spanish UniMorph
+            pass
+
+        else:
+            # filter the dataframe for each unique category
+            filtered_df = df[df['category'] == category].reset_index(drop=True)
+            # append the filtered dataframe to the dictionary
+            filtered_df.columns = ['pivot', 'derivation', 'category', 'affix']
+            filtered_dfs[category] = filtered_df
 
     # return a dictionary of 16 filtered dataframes
     return filtered_dfs
 
 # filter_derivation(spa_der, 'spa')
 # filter_derivation(pol_der, 'pol')
+
 # clean_inflection(spa_inf)
 # clean_inflection(pol_inf)
