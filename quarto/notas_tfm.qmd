@@ -99,8 +99,8 @@ In @fig-initial some weird outliers can be seen in FastText and Word2Vec. These 
 #| echo: false
 knitr::opts_knit$set(root.dir = normalizePath("../py"))
 
-# setwd("C:/PythonCode/TFM_GLS/py")
-# getwd()
+setwd("C:/PythonCode/TFM_GLS/py")
+getwd()
 ```
 
 ## Cleaning the datasets
@@ -367,7 +367,7 @@ plot_similarity <- function(data) {
     theme(
       axis.title.y = element_text(size = 14),
       plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+      axis.text.x = element_text(angle = -30, hjust = 0, vjust = 1, size = 10),
       axis.text.y = element_text(size = 14),
       strip.text = element_text(size = 14, face= "bold"),
     ) +
@@ -869,29 +869,32 @@ overall_mean_data <- clean_data %>%
 #| echo: false
 #| fig-format: svg
 #| out-width: 100%
-#| fig-width: 8
-#| fig-height: 14
+#| fig-width: 7
+#| fig-height: 10
 #| label: fig-baseline-faceted
 #| fig-cap: "Baseline faceted by model, language and type"
 
 plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
-  geom_histogram(binwidth = 0.01, alpha = 0.7, position = "identity", color = 'black') +
+  geom_histogram(binwidth = 0.00653, alpha = 0.7, position = "identity", color = 'black', size = 0.01) +
   labs(x = "Mean similarity", y = "Count", fill = "Type") +
   facet_grid(type ~ language ~ model) +
-  geom_vline(data = overall_mean_data, aes(xintercept = overall_mean, linetype = "Threshold"), color = "black", size = 0.5) +
-  scale_linetype_manual(name = "Mean similarity on the clean data", values = c("Threshold" = "dotted")) +
-  theme_minimal() +
+  geom_vline(data = overall_mean_data, aes(xintercept = overall_mean, linetype = "Threshold"), color = "black", linewidth = 0.5) +
+  scale_linetype_manual(values = c("Threshold" = "dotted")) + # name = ""
+  theme_classic() +
   theme(
     # axis.title.y = element_text(size = 30),
-    # legend.position = "none",
-    plot.margin = margin(t = 10, r = 0, b = 10, l = 160),
-    axis.text.x = element_text(size = 12),
-    axis.title.x = element_text(size = 11),
-    axis.text.y = element_text(size = 10),
-    axis.title.y = element_text(size = 11),
-    # legend.title = element_text(size = 16),
-    # legend.text = element_text(size = 14),
-    strip.text = element_text(size = 10, face = "bold")
+    legend.position = "none",
+    legend.title = element_text(size = 8, face = "bold"),
+    legend.text = element_text(size = 6, color = "gray20"),
+    legend.key.size = unit(0.4, "cm"),  # size of the boxes
+    legend.spacing.x = unit(0.2, "cm"),  # horizontal spacing between keys
+    plot.margin = margin(t = 0, r = 25, b = 0, l = 2),
+    axis.text.x = element_text(size = 8),
+    axis.title.x = element_text(size = 10),
+    axis.text.y = element_text(size = 8),
+    axis.title.y = element_text(size = 10),
+    strip.text = element_text(size = 6, face = "bold"),
+    strip.background = element_blank()
   ) +
   scale_fill_manual(values = c(
       "Derivation (same category)" = "#FFE45E",
@@ -901,7 +904,7 @@ plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
   
 plot8
 
-# ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 12, height = 10, units = "in")
+ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 6, height = 9, units = "in")
 ```
 
 ```{python}
