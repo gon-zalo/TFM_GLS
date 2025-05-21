@@ -99,8 +99,8 @@ In @fig-initial some weird outliers can be seen in FastText and Word2Vec. These 
 #| echo: false
 knitr::opts_knit$set(root.dir = normalizePath("../py"))
 
-setwd("C:/PythonCode/TFM_GLS/py")
-getwd()
+# setwd("C:/PythonCode/TFM_GLS/py")
+# getwd()
 ```
 
 ## Cleaning the datasets
@@ -344,13 +344,14 @@ compute_mean <- function(data) {
     summarise(mean_similarity = mean(similarity, na.rm = TRUE), .groups = "drop")
 }
 
+
 # plotting function
 plot_similarity <- function(data) {
   ggplot(data, aes(x = type, y = mean_similarity, fill = type)) +
     geom_dotplot(
       binaxis = "y", stackdir = "center", 
-      dotsize = 2.75, binwidth = 0.01, 
-      na.rm = TRUE, alpha = 0.8
+      dotsize = 3, binwidth = 0.01, 
+      na.rm = TRUE, alpha = 0.3
     ) +
     labs(x = "", y = "Mean similarity") +
     scale_y_continuous(
@@ -359,22 +360,24 @@ plot_similarity <- function(data) {
     ) +
     stat_summary(
       fun.data = "mean_cl_boot", 
-      color = "black", size = 0.4, alpha = 0.75,
+      color = "black", size = 0.4, alpha = 0.9,
       position = position_dodge(0.85)
     ) +
     facet_grid(language ~ model) +
-    theme_minimal() +
+    theme_classic() +
     theme(
-      axis.title.y = element_text(size = 14),
-      plot.margin = margin(t = 10, r = 20, b = 10, l = 40),
-      axis.text.x = element_text(angle = -30, hjust = 0, vjust = 1, size = 10),
-      axis.text.y = element_text(size = 14),
-      strip.text = element_text(size = 14, face= "bold"),
+      legend.position = "bottom",
+      axis.title.y = element_text(size = 10),
+      plot.margin = margin(t = 10, r = 20, b = 20, l = 10),
+      axis.text.x = element_text(angle = -30, hjust = 0, vjust = 1, size = 8),
+      axis.text.y = element_text(size = 8),
+      strip.text = element_text(size = 10, face= "bold"),
+      strip.background = element_blank()
     ) +
     scale_fill_manual(values = c(
       "Derivation (same category)" = "#FFE45E",
       "Derivation (different category)" = "#ff7f0e",
-      "Inflection" = "#2D93AD"
+      "Inflection" = "#2D93AD" 
     )) +
     guides(fill = "none")
 }
@@ -700,9 +703,9 @@ clean_data$model <- factor(clean_data$model, levels = c("FastText", "Word2Vec", 
 
 plot4 <- plot_similarity(clean_data)
 
-plot4
+# plot4
 
-# ggsave("plots/fig-clean.pdf", plot = plot4, width = 10, height = 8, units = "in")
+ggsave("plots/fig-clean.pdf", plot = plot4, width = 5, height = 6, units = "in")
 ```
 
 
@@ -904,7 +907,7 @@ plot8 <- ggplot(baseline_data, aes(x = mean_similarity, fill = type)) +
   
 plot8
 
-ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 6, height = 9, units = "in")
+# ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 6, height = 9, units = "in")
 ```
 
 ```{python}
