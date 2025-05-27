@@ -22,3 +22,4 @@ py/__pycache__/bert_embeddings.cpython-312.pyc
 /py/results/pol/buenos
 /py/results/spa/buenos
 /py/results/baseline
+py/main_biplets_bert.py
