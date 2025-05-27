@@ -49,6 +49,8 @@ pol_der_shuf = pd.read_csv("datasets/pol/pol_derivations_shuffled.txt", sep="\t"
 spa_der_subs = pd.read_csv("datasets/spa/spa_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 pol_der_subs = pd.read_csv("datasets/pol/pol_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
+perfectives = pd.read_csv("datasets/pol/perfectives.txt", sep="\t", header=None, names=["pivot", "perfective", "aspect"])
+
 
 # -----------------------------------------------------
 
@@ -91,6 +93,52 @@ def choose_embeddings(model_name, language):
 
     else:
         raise ValueError("Invalid model name.")
+
+def analyze_perfectives(model, model_name, language, data):
+
+    if language == "Polish":
+        language = "pol"
+
+    # Calculate cosine similarities between pivot and inflection
+    print("Calculating similarities...")
+    results = []
+
+    not_found = 0 # for Word2Vec embeddings
+    for _, row in data.iterrows():
+        pivot, perfective, aspect = row["pivot"], row["perfective"], row["aspect"]
+
+        if model_name == "FastText":
+            # print("Pivot", pivot)
+            pivot_embedding = model.get_word_vector(pivot) # vector of the pivot
+            # print("Perfective", perfective)
+            perfective_embedding = model.get_word_vector(perfective) # vector of the perfective
+
+        elif model_name == "Word2Vec":
+            if pivot in model and perfective in model: # need to check since w2v does not use subwords
+                pivot_embedding = model[pivot]
+                perfective_embedding = model[perfective]  # Vector of the perfective
+            else:
+                not_found += 1
+                continue
+
+        # calculate similarity between pivot and perfective
+        similarity = 1 - cosine(pivot_embedding, perfective_embedding) # need 1 - cosine because cosine alone just measures distance, not similarity
+
+        # append everything to the results list
+        results.append((pivot, perfective, similarity))
+
+    if model_name == "Word2Vec":
+        print(f"Number of words not found in Word2Vec model: {not_found}")
+
+    # create a dataFrame with the results
+    results_df = pd.DataFrame(results)
+    results_df.to_csv(f"results/{language}/{language}_{model_name.lower()}_perfectives_results.csv", index=False, header=["pivot", "perfective", "similarity"])
+    print("Results by row saved!")
+
+    # calculate and print the mean similarity
+    similarity_values = [r[2] for r in results]
+    print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
+    print(f"    MEAN SIMILARITY (PIVOT-PERFECTIVE): {np.mean(similarity_values):.2f}")
 
 def sim_inflection(model, model_name, language, data):
     if language == "Spanish":
@@ -307,6 +355,11 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
 
+model, model_name, language = choose_embeddings("fasttext", "pol") # POLISH
+analyze_perfectives(model, model_name, language, perfectives)
+
+model, model_name, language = choose_embeddings("word2vec", "pol") # POLISH
+analyze_perfectives(model, model_name, language, perfectives)
 
 ###### INFLECTION ######
 # # FASTTEXT
@@ -337,11 +390,6 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 
 # model, model_name, language = choose_embeddings("word2vec", "pol")
 # sim_derivation(model, model_name, language, pol_der_shuf)
-
-# # BERT (better in google colab)
-# # bert takes a really long time
-# model, model_name, language = choose_embeddings("bert", "spa") # SPANISH
-# sim_inflection(model, model_name, language, um_spa_small) # small dataset to test
 
 ####### BASELINE FUNCTIONS #######
 

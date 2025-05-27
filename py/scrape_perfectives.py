@@ -7,8 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
+from tqdm import tqdm
 
-# extracting imperfects list from unimorph annotated data
 pol_inf_an = pd.read_csv('datasets/pol/pol_inflections_an.txt', header=None, names=['pivot', 'inflection', 'category', 'aspect'], sep='\t')
 
 impfs_df = pol_inf_an[
@@ -22,14 +22,16 @@ impfs.sort()
 # MAIN LOOP
 loop = 0
 scraped_verbs = {}
-for imperfective in impfs[:100]:
+for imperfective in tqdm(impfs):
+
     loop += 1
-    print(f"\nImperfective: {imperfective}, loop #{loop}")
+    print(f"\nImperfective #{loop}: {imperfective}", end="\r")
+    
     response = requests.get(f"https://pl.wiktionary.org/wiki/{imperfective}")
     soup = BeautifulSoup(response.text, 'html.parser')
 
     spans = soup.find_all('span', {'data-mw': True})
-
+    pokrewne_span = ""
     for span in spans:
         data_mw = span.get("data-mw")
         if data_mw:
@@ -50,69 +52,69 @@ for imperfective in impfs[:100]:
                 continue
 
         # pokrewne_span = pokrewne_span['data-mw']
+    if pokrewne_span != "":
 
-    # if pokrewne_span:
-    # data processing, finding where the verbs in the span are
-    data = json.loads(pokrewne_span['data-mw'])
-    data = data['parts']
+        # data processing, finding where the verbs in the span are
+        data = json.loads(pokrewne_span['data-mw'])
+        data = data['parts']
 
-    for i, item in enumerate(data):
-        # Make sure the item is a dictionary
-        if isinstance(item, dict):
-            template = item.get('template', {})
-            target = template.get('target', {})
-            wt = target.get('wt')
+        for i, item in enumerate(data):
+            # Make sure the item is a dictionary
+            if isinstance(item, dict):
+                template = item.get('template', {})
+                target = template.get('target', {})
+                wt = target.get('wt')
 
-            # check if wt value is "czas" (czasownik = verb)
-            if wt == 'czas':
-                start_index = i
+                # check if wt value is "czas" (czasownik = verb)
+                if wt == 'czas':
+                    start_index = i
+                    break
+
+        # Slice the list from that point onward
+        data = data[start_index:]
+
+        # verbs code
+        start_index = 1
+        verbs = data[start_index:len(data):2]
+
+        verb_list = []
+        for verb in verbs:
+            if "\n" in verb:
                 break
+            else:
+                verb_list.append(verb)
 
-    # Slice the list from that point onward
-    data = data[start_index:]
+        verb_list = [item.strip(" ,[]") for item in verb_list]
 
-    # verbs code
-    start_index = 1
-    verbs = data[start_index:len(data):2]
+        # aspect tags code
+        aspects = data[2:len(data):2]
 
-    verb_list = []
-    for verb in verbs:
-        if "\n" in verb:
-            break
-        else:
-            verb_list.append(verb)
+        aspects = list(aspects)
 
-    verb_list = [item.strip(" ,[]") for item in verb_list]
+        aspect_list = []
+        for line in aspects:
+            found = False
+            # print(line)
+            if "ndk" in str(line) and found == False:
+                tag = "ndk"
+                found = True
+                aspect_list.append(tag)
+            elif "dk" in str(line) and found == False:
+                tag = "dk"
+                found = True
+                aspect_list.append(tag)
 
-    # aspect tags code
-    aspects = data[2:len(data):2]
+        annotated_verbs = list(zip(verb_list, aspect_list))
+        
+        perfectives_list = []
+        for verb, aspect in annotated_verbs:
+            if aspect == "ndk":
+                pass
+            else:
+                perfectives_list.append((verb, aspect))
 
-    aspects = list(aspects)
-
-    aspect_list = []
-    for line in aspects:
-        found = False
-        # print(line)
-        if "ndk" in str(line) and found == False:
-            tag = "ndk"
-            found = True
-            aspect_list.append(tag)
-        elif "dk" in str(line) and found == False:
-            tag = "dk"
-            found = True
-            aspect_list.append(tag)
-
-    annotated_verbs = list(zip(verb_list, aspect_list))
-    
-    perfectives_list = []
-    for verb, aspect in annotated_verbs:
-        if aspect == "ndk":
-            pass
-        else:
-            perfectives_list.append((verb, aspect))
-
-    if perfectives_list:
-        scraped_verbs[imperfective] = perfectives_list
+        if perfectives_list:
+            scraped_verbs[imperfective] = perfectives_list
 
 # print(scraped_verbs)
 rows = []
@@ -121,8 +123,8 @@ for pivot, perfectives in scraped_verbs.items():
     for perfective, aspect in perfectives:
         rows.append((pivot, perfective, aspect))
 
-df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"])
+df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"], index=False)
 
 print(df)
 
-df.to_csv("perfectives_dataset.csv", sep= "\t")
+# df.to_csv("perfectives_dataset.csv", sep= "\t")
