@@ -705,7 +705,7 @@ plot4 <- plot_similarity(clean_data)
 
 # plot4
 
-ggsave("plots/fig-clean.pdf", plot = plot4, width = 5, height = 6, units = "in")
+ggsave("plots/fig-clean.pdf", plot = plot4, width = 6, height = 5, units = "in")
 ```
 
 
@@ -909,6 +909,47 @@ plot8
 
 # ggsave("plots/fig-baseline-faceted.pdf", plot = plot8, width = 6, height = 9, units = "in")
 ```
+
+```{r}
+
+prf_ft <- read.csv("results/pol/pol_fasttext_perfectives_results.csv")
+prf_w2v <- read.csv("results/pol/pol_word2vec_perfectives_results.csv")
+
+prf_ft <- prf_ft %>%  
+  mutate(model = "FastText")
+
+prf_w2v <- prf_w2v %>%  
+  mutate(model = "Word2Vec")
+
+perfectives <- bind_rows(prf_ft, prf_w2v)
+
+perfectives <- perfectives %>%  
+  mutate(model = as.factor(model))
+
+perfectives_plot <- ggplot(perfectives, aes(y = similarity, fill = model, x = model)) +
+  geom_dotplot(
+      binaxis = "y", stackdir = "center", 
+      dotsize = 2, binwidth = 0.005, 
+      na.rm = TRUE, alpha = 0.5
+    ) +
+  stat_summary(
+      fun.data = "mean_cl_boot", 
+      color = "black", size = 0.6, alpha = 0.7,
+      position = position_dodge(0.85)
+    ) +
+  theme_classic() +
+  scale_fill_manual(values = c(
+      "FastText" = "#FFE45E",
+      "Word2Vec" = "#ff7f0e"
+    )) +
+  guides(fill = "none")
+
+perfectives_plot
+
+# ggsave("plots/perfectives_dotplot.pdf", plot = perfectives_plot, width = 15, height = 7, units = "in")
+
+```
+
 
 ```{python}
 # import pandas as pd
