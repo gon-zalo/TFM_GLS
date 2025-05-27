@@ -9,6 +9,8 @@ import json
 # data
 spa_inf = pd.read_csv("datasets/spa/spa_inflections.txt", header=None, names=['pivot', 'inflection', 'category'], sep='\t')
 pol_inf = pd.read_csv('datasets/pol/pol_inflections.txt', header=None, names=['pivot', 'inflection', 'category'], sep='\t')
+aspect_df = pd.read_csv('datasets/pol/pol', header=None, names=['pivot', 'inflection', 'category', 'aspect'], sep='\t')
+pol_inf_an = pd.read_csv('datasets/pol/pol_inflections_an.txt', header=None, names=['pivot', 'inflection', 'category', 'aspect'], sep='\t')
 
 spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", header=None, names=['pivot', 'derivation', 'category', 'affix'], sep='\t')
 pol_der = pd.read_csv('datasets/pol/pol_derivations.txt', header=None, names=['pivot', 'derivation', 'category', 'affix'], sep='\t')
@@ -43,7 +45,7 @@ def subset_inf(data, language):
     # subset df
     subset = data[data['pivot'].isin(most_freq)]
 
-    # subset.to_csv(f'datasets/{language}/{language}_inflections_subset.txt', index=False, header=None, sep='\t')
+    subset.to_csv(f'datasets/{language}/{language}_inflections_subset.txt', index=False, header=None, sep='\t')
 
 
 ### SUBSET DERIVATION ###
@@ -67,7 +69,8 @@ def shuffle(data, language):
         for number in range(1,11):
             data[["derivation", "category", "affix"]] = data[["derivation", "category", "affix"]].sample(frac=1, random_state=123).reset_index(drop=True)
             # data.to_csv(f'datasets/{language}/{language}_derivations_shuffled.txt', index= False, header=None, sep='\t')        
-    
+    2
+
 
 ### CALLING FUNCTIONS
 # language should be 'spa' or 'pol'
@@ -76,7 +79,7 @@ def shuffle(data, language):
 # subset_der(pol_der, 'pol') 
 
 # subset_inf(spa_inf, 'spa')
-# subset_inf(pol_inf, 'pol')
+subset_inf(pol_inf_an, 'pol')
 
 # shuffle(spa_der, 'spa')
 # shuffle(spa_inf, 'spa')
