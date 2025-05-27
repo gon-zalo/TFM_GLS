@@ -1,0 +1,128 @@
+# Makes the current directory the path of the .py file
+import os
+import sys
+os.chdir(sys.path[0])
+
+import requests
+from bs4 import BeautifulSoup
+import json
+import pandas as pd
+
+# extracting imperfects list from unimorph annotated data
+pol_inf_an = pd.read_csv('datasets/pol/pol_inflections_an.txt', header=None, names=['pivot', 'inflection', 'category', 'aspect'], sep='\t')
+
+impfs_df = pol_inf_an[
+    pol_inf_an["aspect"] == "IPFV"
+]
+
+impfs = list(set(impfs_df["pivot"]))
+
+impfs.sort()
+
+# MAIN LOOP
+loop = 0
+scraped_verbs = {}
+for imperfective in impfs[:100]:
+    loop += 1
+    print(f"\nImperfective: {imperfective}, loop #{loop}")
+    response = requests.get(f"https://pl.wiktionary.org/wiki/{imperfective}")
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    spans = soup.find_all('span', {'data-mw': True})
+
+    for span in spans:
+        data_mw = span.get("data-mw")
+        if data_mw:
+            try:
+                data = json.loads(data_mw)
+                parts = data.get('parts', [])
+                for i, part in enumerate(parts):
+                    if isinstance(part, dict):
+                        template = part.get('template', {})
+                        target = template.get('target', {})
+                        if target.get('wt') == 'czas':
+                            pokrewne_span = span
+                            break
+                else:
+                    continue  # only runs if inner loop did NOT break
+                break  # Break outer loop if inner loop broke (i.e., found 'czas')
+            except json.JSONDecodeError:
+                continue
+
+        # pokrewne_span = pokrewne_span['data-mw']
+
+    # if pokrewne_span:
+    # data processing, finding where the verbs in the span are
+    data = json.loads(pokrewne_span['data-mw'])
+    data = data['parts']
+
+    for i, item in enumerate(data):
+        # Make sure the item is a dictionary
+        if isinstance(item, dict):
+            template = item.get('template', {})
+            target = template.get('target', {})
+            wt = target.get('wt')
+
+            # check if wt value is "czas" (czasownik = verb)
+            if wt == 'czas':
+                start_index = i
+                break
+
+    # Slice the list from that point onward
+    data = data[start_index:]
+
+    # verbs code
+    start_index = 1
+    verbs = data[start_index:len(data):2]
+
+    verb_list = []
+    for verb in verbs:
+        if "\n" in verb:
+            break
+        else:
+            verb_list.append(verb)
+
+    verb_list = [item.strip(" ,[]") for item in verb_list]
+
+    # aspect tags code
+    aspects = data[2:len(data):2]
+
+    aspects = list(aspects)
+
+    aspect_list = []
+    for line in aspects:
+        found = False
+        # print(line)
+        if "ndk" in str(line) and found == False:
+            tag = "ndk"
+            found = True
+            aspect_list.append(tag)
+        elif "dk" in str(line) and found == False:
+            tag = "dk"
+            found = True
+            aspect_list.append(tag)
+
+    annotated_verbs = list(zip(verb_list, aspect_list))
+    
+    perfectives_list = []
+    for verb, aspect in annotated_verbs:
+        if aspect == "ndk":
+            pass
+        else:
+            perfectives_list.append((verb, aspect))
+
+    if perfectives_list:
+        scraped_verbs[imperfective] = perfectives_list
+
+# print(scraped_verbs)
+rows = []
+
+for pivot, perfectives in scraped_verbs.items():
+    for perfective, aspect in perfectives:
+        rows.append((pivot, perfective, aspect))
+
+df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"])
+
+print(df)
+
+df.to_csv("perfectives_dataset.csv", sep= "\t")
