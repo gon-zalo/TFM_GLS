@@ -30,36 +30,35 @@ for imperfective in tqdm(impfs):
     response = requests.get(f"https://pl.wiktionary.org/wiki/{imperfective}")
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    spans = soup.find_all('span', {'data-mw': True})
-    pokrewne_span = ""
+    spans = soup.find_all('span', {'data-mw': True}) # all spans that contain data-mw
+    pokrewne_span = "" # empty string to reset it to every loop so that forms that do not have any perfectives do not reuse the perfectives of the previous verb
+
     for span in spans:
-        data_mw = span.get("data-mw")
+        data_mw = span.get("data-mw") #accessing data-wm
         if data_mw:
             try:
-                data = json.loads(data_mw)
+                data = json.loads(data_mw) # loading it as a json
                 parts = data.get('parts', [])
                 for i, part in enumerate(parts):
-                    if isinstance(part, dict):
+                    if isinstance(part, dict): # we need to access a tag which contains "czas" (czasownik/verb) that is a couple levels in (wt inside target inside template)
                         template = part.get('template', {})
                         target = template.get('target', {})
                         if target.get('wt') == 'czas':
-                            pokrewne_span = span
+                            pokrewne_span = span # we are interested in the span that contains "czas"
                             break
                 else:
-                    continue  # only runs if inner loop did NOT break
-                break  # Break outer loop if inner loop broke (i.e., found 'czas')
+                    continue
+                break  # if found "czas" then break loop, this way we 
             except json.JSONDecodeError:
                 continue
 
-        # pokrewne_span = pokrewne_span['data-mw']
-    if pokrewne_span != "":
+    if pokrewne_span != "": # if there is a "czas" span, then we process it. Some verbs might not contain related (pokrewne) verbs
 
         # data processing, finding where the verbs in the span are
         data = json.loads(pokrewne_span['data-mw'])
         data = data['parts']
 
-        for i, item in enumerate(data):
-            # Make sure the item is a dictionary
+        for i, item in enumerate(data): # span data
             if isinstance(item, dict):
                 template = item.get('template', {})
                 target = template.get('target', {})
@@ -70,21 +69,20 @@ for imperfective in tqdm(impfs):
                     start_index = i
                     break
 
-        # Slice the list from that point onward
-        data = data[start_index:]
+        data = data[start_index:] # slicing the span data
 
         # verbs code
         start_index = 1
         verbs = data[start_index:len(data):2]
 
-        verb_list = []
+        verb_list = [] # empty list to store the verbs
         for verb in verbs:
             if "\n" in verb:
                 break
             else:
                 verb_list.append(verb)
 
-        verb_list = [item.strip(" ,[]") for item in verb_list]
+        verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
 
         # aspect tags code
         aspects = data[2:len(data):2]
@@ -106,22 +104,22 @@ for imperfective in tqdm(impfs):
 
         annotated_verbs = list(zip(verb_list, aspect_list))
         
-        perfectives_list = []
+        perfectives_list = [] # loop to obtain just the perfectives
         for verb, aspect in annotated_verbs:
             if aspect == "ndk":
                 pass
             else:
                 perfectives_list.append((verb, aspect))
 
-        if perfectives_list:
+        if perfectives_list: # assigning the perfectives to the values of the imperfective in the dictionary
             scraped_verbs[imperfective] = perfectives_list
 
 # print(scraped_verbs)
-rows = []
+rows = [] # empty list to store the imperfective and all the perfectives related to it from the dictionary scraped_verbs
 
-for pivot, perfectives in scraped_verbs.items():
-    for perfective, aspect in perfectives:
-        rows.append((pivot, perfective, aspect))
+for imperfective, values in scraped_verbs.items(): # unpacking the dictionary
+    for perfective, aspect in values:
+        rows.append((imperfective, perfective, aspect))
 
 df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"], index=False)
 
