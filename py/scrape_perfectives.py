@@ -22,7 +22,7 @@ impfs.sort()
 # MAIN LOOP
 loop = 0
 scraped_verbs = {}
-for imperfective in tqdm(impfs):
+for imperfective in impfs[:20]:
 
     loop += 1
     print(f"\nImperfective #{loop}: {imperfective}", end="\r")
@@ -45,6 +45,7 @@ for imperfective in tqdm(impfs):
                         target = template.get('target', {})
                         if target.get('wt') == 'czas':
                             pokrewne_span = span # we are interested in the span that contains "czas"
+                            slice_index = i # index to slice the data afterwards
                             break
                 else:
                     continue
@@ -58,18 +59,7 @@ for imperfective in tqdm(impfs):
         data = json.loads(pokrewne_span['data-mw'])
         data = data['parts']
 
-        for i, item in enumerate(data): # span data
-            if isinstance(item, dict):
-                template = item.get('template', {})
-                target = template.get('target', {})
-                wt = target.get('wt')
-
-                # check if wt value is "czas" (czasownik = verb)
-                if wt == 'czas':
-                    start_index = i
-                    break
-
-        data = data[start_index:] # slicing the span data
+        data = data[slice_index:] # slicing the span data
 
         # verbs code
         start_index = 1
@@ -77,12 +67,14 @@ for imperfective in tqdm(impfs):
 
         verb_list = [] # empty list to store the verbs
         for verb in verbs:
-            if "\n" in verb:
+            if verb == "\n ":
                 break
             else:
                 verb_list.append(verb)
 
         verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
+        verb_list = [item.strip("]]\n:") for item in verb_list]
+        verb_list = [item for item in verb_list if item.endswith('ć') or item.endswith('c')]
 
         # aspect tags code
         aspects = data[2:len(data):2]
@@ -102,6 +94,8 @@ for imperfective in tqdm(impfs):
                 found = True
                 aspect_list.append(tag)
 
+        if not aspect_list:
+            aspect_list = ['possibly:  dk']
         annotated_verbs = list(zip(verb_list, aspect_list))
         
         perfectives_list = [] # loop to obtain just the perfectives
@@ -113,7 +107,9 @@ for imperfective in tqdm(impfs):
 
         if perfectives_list: # assigning the perfectives to the values of the imperfective in the dictionary
             scraped_verbs[imperfective] = perfectives_list
-
+    else:
+        print("No pokrewne")
+    
 # print(scraped_verbs)
 rows = [] # empty list to store the imperfective and all the perfectives related to it from the dictionary scraped_verbs
 
@@ -121,8 +117,8 @@ for imperfective, values in scraped_verbs.items(): # unpacking the dictionary
     for perfective, aspect in values:
         rows.append((imperfective, perfective, aspect))
 
-df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"], index=False)
+df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"])
 
 print(df)
 
-# df.to_csv("perfectives_dataset.csv", sep= "\t")
+df.to_csv("perfectives_dataset.csv", sep= "\t", header=False, index=False)
