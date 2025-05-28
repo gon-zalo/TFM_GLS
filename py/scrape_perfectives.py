@@ -22,7 +22,7 @@ impfs.sort()
 # MAIN LOOP
 loop = 0
 scraped_verbs = {}
-for imperfective in impfs[:20]:
+for imperfective in impfs:
 
     loop += 1
     print(f"\nImperfective #{loop}: {imperfective}", end="\r")
@@ -72,9 +72,10 @@ for imperfective in impfs[:20]:
             else:
                 verb_list.append(verb)
 
-        verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
-        verb_list = [item.strip("]]\n:") for item in verb_list]
-        verb_list = [item for item in verb_list if item.endswith('ć') or item.endswith('c')]
+        # verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
+        # verb_list = [item.strip("]]\n:") for item in verb_list]
+        # verb_list = [verb for verb in verb_list if len(verb) < 20]
+        # verb_list = [item for item in verb_list if item.endswith('ć') or item.endswith('c')]
 
         # aspect tags code
         aspects = data[2:len(data):2]
@@ -99,11 +100,15 @@ for imperfective in impfs[:20]:
         annotated_verbs = list(zip(verb_list, aspect_list))
         
         perfectives_list = [] # loop to obtain just the perfectives
+        
         for verb, aspect in annotated_verbs:
             if aspect == "ndk":
                 pass
             else:
-                perfectives_list.append((verb, aspect))
+                verb = verb.strip(" ,[]")
+                verb.strip("]]\n:")
+                if len(verb) < 25 and verb.endswith("ć") or verb.endswith("c") or verb.endswith("się"):
+                    perfectives_list.append((verb, aspect))
 
         if perfectives_list: # assigning the perfectives to the values of the imperfective in the dictionary
             scraped_verbs[imperfective] = perfectives_list
@@ -121,4 +126,4 @@ df = pd.DataFrame(rows, columns= ["pivot", "perfective", "aspect"])
 
 print(df)
 
-df.to_csv("perfectives_dataset.csv", sep= "\t", header=False, index=False)
+df.to_csv("datasets/pol/perfectives_v3.txt", sep= "\t", header=False, index=False)

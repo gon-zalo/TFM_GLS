@@ -1,0 +1,747 @@
+abonować	zaabonować	dk
+absorbować	adsorbować	possibly:  dk
+analizować	przeanalizować	dk
+bankrutować	zbankrutować	dk
+betonować	zabetonować	dk
+betonować	wybetonować	dk
+bełtać	zabełtać	dk
+biegać	pobiegać	dk
+brudzić	pobrudzić	dk
+brudzić	ubrudzić	dk
+brudzić	wybrudzić	dk
+brudzić	nabrudzić	dk
+buchać	buchnąć	dk
+budzić	dobudzić	dk
+budzić	obudzić	dk
+budzić	pobudzić	dk
+budzić	poprzebudzać	dk
+budzić	przebudzić	dk
+budzić	rozbudzić	dk
+budzić	wybudzić	dk
+budzić	wzbudzić	dk
+budzić	zbudzić	dk
+burzyć	zburzyć	dk
+całować	pocałować	dk
+całować	ucałować	dk
+cedzić	przecedzić	dk
+chcieć	zechcieć	dk
+chować	przechować	dk
+chować	schować	dk
+chować	pochować	dk
+chować	wychować	dk
+chować	odchować	dk
+chować	podchować	dk
+chować	uchować	dk
+chować	dochować	dk
+chronić	ochraniać	possibly:  dk
+chrzcić	ochrzcić	dk
+chrzcić	przechrzcić	dk
+chłeptać	wychłeptać	dk
+cofać	wycofywać]], [[wycofywać się	dk
+cytować	zacytować	dk
+czekać	zaczekać	dk
+czekać	poczekać	dk
+czekać	odczekać	dk
+czekać	doczekać	dk
+czerpać	zaczerpnąć	dk
+czerpać	wyczerpać	dk
+czesać	uczesać	dk
+czesać	poczesać	dk
+czesać	przeczesać	dk
+czesać	rozczesać	dk
+czesać	wyczesać	dk
+czesać	sczesać	dk
+czeznąć	sczeznąć	dk
+czuć	poczuć	dk
+czuć	uczuć	dk
+czuć	poczuwać	dk
+czuć	odczuć	dk
+czuć	wyczuć	dk
+czuć	przeczuć	dk
+czytać	odczytać	dk
+czytać	przeczytać	dk
+czytać	rozczytać	dk
+czytać	wyczytać	dk
+czytać	zaczytać	dk
+dbać	zadbać	dk
+dedykować	zadedykować	dk
+dementować	zdementować	dk
+demontować	zdemontować	dk
+diagnozować	zdiagnozować	dk
+dmuchać	dmuchnąć	dk
+doceniać	docenić	dk
+dochodzić	dojść	dk
+doić	wydoić	dk
+doić	udoić	dk
+doprowadzać	doprowadzić	dk
+dostarczać	dostarczyć	dk
+dostawać	postawić]], [[dostać	dk
+dotykać	dotknąć	dk
+drażnić	podrażnić	dk
+drażnić	zadrażnić	dk
+drgać	drgnąć	dk
+drgać	wzdrygnąć się	dk
+drylować	wydrylować	dk
+drzemać	zdrzemnąć się	dk
+drżeć	zadrżeć	possibly:  dk
+dupczyć	dupnąć	possibly:  dk
+dymać	wydymać	dk
+dymić	zadymiać	possibly:  dk
+dyszeć	wydyszeć	dk
+działać	zadziałać	dk
+działać	zdziałać	dk
+dzierżyć	dzierżeć]], [[zdzierżyć	dk
+dziwić	zadziwić	dk
+dziwić	zdziwić	dk
+edytować	wyedytować	dk
+egzaminować	przeegzaminować	dk
+esemesować	odesemesować	dk
+fruwać	frunąć	dk
+gadać	dogadać	dk
+gadać	obgadać	dk
+gadać	pogadać	dk
+gadać	przegadać	dk
+gadać	rozgadać	dk
+gadać	ugadać	dk
+gadać	wygadać	dk
+gadać	zagadać	dk
+gadać	zgadać	dk
+gadać	zgadnąć	dk
+gasić	dogasić	dk
+gasić	pogasić	dk
+gasić	wygasić	dk
+gasić	zagasić	dk
+gasić	zgasić	dk
+gorzeć	zagorzeć	possibly:  dk
+gotować	ugotować	dk
+gotować	zagotować	dk
+graniczyć	ograniczyć	dk
+grozić	zagrozić	dk
+grozić	pogrozić	dk
+gryźć	pogryźć	dk
+gryźć	ugryźć	dk
+gryźć	zagryźć	dk
+gryźć	zgryźć	dk
+grzebać	pogrześć	dk
+grzebać	pogrzebać	dk
+grzebać	rozgrzebać	dk
+grzebać	zagrzebać	dk
+grzebać	przegrzebać	dk
+grzmieć	odegrzmieć	dk
+grzmieć	odgrzmieć	dk
+grzmieć	przegrzmieć	dk
+grzmieć	rozgrzmieć	dk
+grzmieć	zagrzmieć	dk
+grzęznąć	ugrzęznąć	dk
+gwizdać	wygwizdać	dk
+gwizdać	gwizdnąć	dk
+gęgać	gęgnąć	dk
+gęgać	zagęgać	dk
+głosować	przegłosować	dk
+głosować	zagłosować	dk
+haftować	wyhaftować	dk
+haftować	zhaftować	dk
+hamować	zahamować	dk
+hamować	wyhamować	dk
+identyfikować	zidentyfikować	dk
+imponować	zaimponować	dk
+jadać	objeść	dk
+jadać	podjeść	dk
+jadać	wyjeść	dk
+jadać	zjeść	dk
+jawić się	zjawić się	possibly:  dk
+jonizować	zjonizować	dk
+jąkać	zająknąć	dk
+karać	pokarać	dk
+karać	skarać	dk
+karać	ukarać	dk
+kicać	kicnąć	dk
+kichać	kichnąć	dk
+kichać	przekichać	dk
+kierować się	nakierować	dk
+kierować się	wykierować	dk
+kierować się	przekierować	dk
+kierować się	skierować	dk
+kimać	kimnąć	possibly:  dk
+klikać	kliknąć	possibly:  dk
+klękać	uklęknąć	dk
+klękać	przyklęknąć	dk
+kochać	odkochać się	dk
+kochać	zakochać się	dk
+kochać	pokochać	dk
+koić	ukoić	possibly:  dk
+kontrolować	skontrolować	dk
+kopać	wykopać	dk
+kopać	przekopać	dk
+kopać	zakopać	dk
+kopać	odkopać	dk
+kopać	okopać	dk
+kopiować	skopiować	dk
+kosić	skosić	dk
+kosić	zakosić	dk
+krakać	zakrakać]], [[wykrakać	possibly:  dk
+kraść	okraść	dk
+kraść	wkraść się	dk
+kraść	zakraść się	dk
+kraść	ukraść	dk
+kraść	skraść	dk
+kroić	dokroić	dk
+kroić	nadkroić	dk
+kroić	okroić	dk
+kroić	pokroić	dk
+kroić	przekroić	dk
+kroić	przykroić	dk
+kroić	rozkroić	dk
+kroić	ukroić	dk
+kroić	wkroić	dk
+krzyczeć	krzyknąć	dk
+krzyczeć	pokrzyczeć	dk
+krzyczeć	nakrzyczeć	dk
+krzyczeć	skrzyknąć	dk
+krzyczeć	wykrzyknąć	dk
+kukać	kuknąć	dk
+kukać	zakukać	dk
+kukać	wykukać	dk
+kukać	okukać	dk
+kumać	pokumać	dk
+kumać	skumać się	dk
+kupować	kupić	dk
+kusić	podkusić	dk
+kwestionować	zakwestionować	possibly:  dk
+kłamać	skłamać	dk
+kłamać	okłamać	dk
+kłusować	pokłusować	dk
+kłuć	ukłuć	dk
+kłuć	nakłuć	dk
+kłuć	przekłuć	dk
+kłuć	wykłuć	dk
+kłuć	zakłuć	dk
+lansować	wylansować	dk
+latać	wylecieć	dk
+latać	polecieć	dk
+latać	nadlecieć	dk
+latać	przylecieć	dk
+latać	oblecieć	dk
+latać	dolecieć	dk
+latać	przelecieć	dk
+leczyć	podleczyć	dk
+leczyć	uleczyć	dk
+leczyć	wyleczyć	dk
+leczyć	zaleczyć	dk
+lepić	nalepić	dk
+lepić	przylepić	dk
+lepić	ulepić	dk
+lepić	zalepić	dk
+lutować	dolutować	dk
+lutować	oblutować	dk
+lutować	odlutować	dk
+lutować	polutować	dk
+lutować	przylutować	dk
+lutować	rozlutować	dk
+lutować	wlutować	dk
+lutować	wylutować	dk
+lutować	zalutować	dk
+lutować	zlutować	dk
+machać	machnąć	dk
+machać	namachać	dk
+machać	odmachać	dk
+machać	odmachnąć	dk
+machać	pomachać	dk
+machać	powymachiwać	dk
+machać	rozmachać	dk
+machać	rozmachnąć	dk
+machać	wymachnąć	dk
+machać	zamachać	dk
+machać	zamachnąć się	dk
+machać	zmachać się	dk
+marnować	zmarnować	dk
+marudzić	pomarudzić	dk
+marudzić	zamarudzić	dk
+marzyć	rozmarzyć	dk
+marzyć	wymarzyć	dk
+marzyć	zamarzyć	dk
+maszerować	pomaszerować	dk
+maszerować	przemaszerować	dk
+maszerować	wmaszerować	dk
+miauczeć	miauknąć	dk
+mierzić	zmierzić	dk
+mierzyć	zmierzyć	dk
+mieszać	wymieszać	dk
+mieszać	rozmieszać	dk
+mieszać	namieszać	dk
+mieszać	przemieszać	dk
+mieszać	wmieszać	dk
+mieszać	pomieszać	dk
+mieszać	zmieszać	dk
+mieszkać	pomieszkać	dk
+mieszkać	zamieszkać	dk
+mieszkać	omieszkać	dk
+mijać	pominąć	dk
+milczeć	zmilczeć	dk
+mięknąć	zmiękczać	possibly:  dk
+mordować	zamordować	dk
+mordować	wymordować	dk
+mordować	pomordować	dk
+mruczeć	zamruczeć	dk
+mruczeć	pomruczeć	dk
+mrugać	mrugnąć	dk
+mrzeć	zemrzeć	dk
+mrzeć	pomrzeć	dk
+mrzeć	umrzeć	dk
+mrzeć	wymrzeć	dk
+myć	umyć	dk
+myć	zmyć	dk
+myć	domyć	dk
+myć	obmyć	dk
+myć się	umyć	dk
+myć się	zmyć	dk
+myć się	domyć	dk
+myć się	obmyć	dk
+męczyć	zmęczyć	possibly:  dk
+nadchodzić	nadejść	dk
+nadużywać	nadużyć	dk
+nalewać	olać]], [[nalać	dk
+namawiać	namówić	dk
+napierdalać	zapierdolić	dk
+napierdalać	napierdolić	dk
+nazywać	pozwać	dk
+nazywać	wyzwać	dk
+niszczyć	zniszczyć	dk
+nosić	donieść	dk
+notować	zanotować	dk
+notować	wynotować	dk
+notować	odnotować	dk
+obalać	obalić	dk
+obrażać	obrazić	possibly:  dk
+oceniać	cenić]], [[ocenić	dk
+odbijać	odbić	dk
+odbijać	bijać	dk
+odchodzić	odejść	dk
+oddawać	dać]], [[oddać	dk
+oddychać	odetchnąć	dk
+odkrywać	odkryć	possibly:  dk
+odpoczywać	odpocząć	dk
+odpoczywać	począć	dk
+odraczać	odroczyć	dk
+odwiedzać	zwiedzić]], [[odwiedzić	possibly:  dk
+ogarniać	ogarnąć	dk
+opisywać	opisać	dk
+opowiadać	opowiedzieć	dk
+opowiadać	poopowiadać	dk
+opowiadać	powiedzieć	dk
+opuszczać	opuścić	dk
+organizować	zorganizować	dk
+ostrzegać	ostrzec	dk
+oszukiwać	oszukać	dk
+otrzymywać	trzymać	possibly:  dk
+pachnieć	zapachnieć	dk
+padać	paść	dk
+palić	dopalić	dk
+palić	nadpalić	dk
+palić	napalić	dk
+palić	odpalić	dk
+palić	opalić	dk
+palić	podopalać	dk
+palić	podpalić	dk
+palić	ponadpalać	dk
+palić	ponapalać	dk
+palić	poopalać	dk
+palić	popalić	dk
+palić	poprzepalać	dk
+palić	porozpalać	dk
+palić	powypalać	dk
+palić	pozapalać	dk
+palić	przepalić	dk
+palić	przypalić	dk
+palić	rozpalić	dk
+palić	spalić	dk
+palić	upalić	dk
+palić	wypalić	dk
+palić	zapalić	dk
+pamiętać	zapamiętać	dk
+pamiętać	popamiętać	dk
+panować	zapanować	dk
+panować	opanować	dk
+pełzać	wypełznąć	dk
+pieprzyć	dopieprzyć	dk
+pieprzyć	napieprzyć	dk
+pieprzyć	odpieprzyć	dk
+pieprzyć	opieprzyć	dk
+pieprzyć	pieprznąć	dk
+pieprzyć	podpieprzyć	dk
+pieprzyć	popieprzyć	dk
+pieprzyć	przypieprzyć	dk
+pieprzyć	rozpieprzyć	dk
+pieprzyć	spieprzyć	dk
+pieprzyć	upieprzyć	dk
+pieprzyć	wpieprzyć	dk
+pieprzyć	wypieprzyć	dk
+pieprzyć	zapieprzyć	dk
+pierdzieć	pierdnąć	dk
+pisać	napisać	dk
+pisać	dopisać	dk
+pisać	opisać	dk
+pisać	przepisać	dk
+pisać	zapisać	dk
+pluć	wypluć	dk
+pluć	opluć	dk
+pluć	splunąć	dk
+pluć	zapluć	dk
+podchodzić	podejść	dk
+podkradać	podkraść	dk
+podlewać	polać	dk
+podlewać	dolać	dk
+podlewać	ulać	dk
+podlewać	zalać	dk
+podlewać	pozalewać	dk
+podlewać	oblać	dk
+podlewać	olać	dk
+podziwiać	zdziwić	possibly:  dk
+pojmować	pojąć	possibly:  dk
+pokazywać	pokazać	possibly:  dk
+polecać	polecić	dk
+pomagać	pomóc	dk
+pomagać	wspomóc	dk
+poprawiać	poprawić	dk
+posiadać	siadać]], [[posiąść	dk
+powtarzać	powtórzyć	dk
+połykać	przełknąć	dk
+pożyczać	pożyczyć	dk
+pożyczać	wypożyczyć	dk
+prać	wyprać	dk
+prać	sprać	dk
+prać	uprać	dk
+prać	naprać	dk
+prać	przeprać	dk
+prać	doprać	dk
+prać	poprać	dk
+produkować	wyprodukować	dk
+przepraszać	przeprosić	dk
+przesadzać	przesadzić	dk
+przesadzać	poprzesadzać	dk
+przypominać	zapominać	dk
+przypuszczać	puszczać]], [[przypuścić	dk
+próbować	spróbować	dk
+próbować	wypróbować	dk
+próbować	popróbować	dk
+puszczać	popuszczać]], [[puścić	dk
+puszczać	dopuścić	dk
+puszczać	napuścić	dk
+puszczać	odpuścić	dk
+puszczać	przepuścić	dk
+puszczać	przypuścić	dk
+puszczać	spuścić	dk
+puszczać	upuścić	dk
+puszczać	wpuścić	dk
+puszczać	wypuścić	dk
+puszczać	zapuścić	dk
+pytać	spytać	dk
+pytać	wypytać	dk
+pytać	zapytać	dk
+pędzić	popędzić	dk
+pędzić	wypędzić	dk
+pędzić	dopędzić	dk
+pędzić	zapędzić	dk
+pędzić	przepędzić	dk
+pędzić	odpędzić	dk
+pękać	spękać]], [[pęknąć	dk
+radzić	doradzić	dk
+radzić	odradzić	dk
+radzić	poradzić	dk
+ratować	uratować]], [[odratować	dk
+ratować	poratować	dk
+razić	zrazić	dk
+razić	wrazić	dk
+refować	orefować	dk
+robić	dorobić	dk
+robić	nadrobić	dk
+robić	odrobić	dk
+robić	podrobić	dk
+robić	przerobić	dk
+robić	urobić	dk
+robić	wyrobić	dk
+robić	zarobić	dk
+rozróżniać	rozróżnić	dk
+rozważać	wyważyć]], [[rozważyć	dk
+ruchać	ruchnąć	dk
+ruchać	wyruchać	dk
+ruchać	przeruchać	dk
+ruchać	ruszyć	dk
+ruszać	ruchać]], [[ruszyć	dk
+ruszać	poruszyć	dk
+ruszać	wyruszyć	dk
+ryczeć	ryknąć	dk
+ryczeć	zaryczeć	dk
+ryczeć	wyryczeć	dk
+rzec	orzec	dk
+rzec	odrzec	dk
+rzec	wyrzec	dk
+rzucać	rzucić]], [[podrzucić	dk
+rzucać	wyrzucić	dk
+rzygać	porzygiwać]], [[rzygnąć	dk
+rzygać	wyrzygać	dk
+rzygać	obrzygać	dk
+rzygać	narzygać	dk
+rzygać	zarzygać	dk
+rzygać	urzygać	dk
+rzygać	zrzygać się	dk
+rąbać	przerąbać	dk
+rąbać	wrąbać	dk
+rąbać	wyrąbać	dk
+rąbać	rozrąbać	dk
+rżeć	zarżeć	dk
+sapać	sapnąć	dk
+sarkać	sarknąć	dk
+siadać	dosiedzieć	dk
+siadać	nasiedzieć	dk
+siadać	obsiąść	dk
+siadać	odsiedzieć	dk
+siadać	osiąść	dk
+siadać	podsiąść	dk
+siadać	poobsiadać	dk
+siadać	poosiadać	dk
+siadać	poprzysiadać	dk
+siadać	porozsiadać się	dk
+siadać	posiąść	dk
+siadać	posiedzieć	dk
+siadać	powsiadać	dk
+siadać	powsiąść	dk
+siadać	powysiadać	dk
+siadać	pozasiadać	dk
+siadać	pozsiadać	dk
+siadać	przesiąść	dk
+siadać	przesiedzieć	dk
+siadać	przysiąść	dk
+siadać	rozsiąść się	dk
+siadać	usiedzieć	dk
+siadać	wsiąść	dk
+siadać	współsiedzieć	dk
+siadać	wysiąść	dk
+siadać	wysiedzieć	dk
+siadać	zasiadać	dk
+siadać	zsiąść	dk
+siać	przesiać]], [[posiać	dk
+siać	rozsiać	dk
+siać	zasiać	dk
+siedzieć	wsiadać]], [[zasiedzieć się	dk
+siedzieć	usiąść	dk
+siedzieć	usiedzieć	dk
+siedzieć	posiedzieć	dk
+siedzieć	wysiedzieć	dk
+siedzieć	przesiąść się	dk
+siedzieć	usiedzieć	dk
+siedzieć	odsiedzieć	dk
+siedzieć	przysiąść	dk
+siedzieć	podsiąść	dk
+siedzieć	dosiąść się	dk
+sikać	zsikać się	dk
+sikać	zasikać	dk
+sikać	posikać się	dk
+sikać	nasikać	dk
+sikać	wysikać	dk
+sikać	obsikać	dk
+sikać	osikać	dk
+siusiać	sikać	possibly:  dk
+skracać	skrócić	dk
+skrzypieć	skrzypać]], [[skrzypnąć	dk
+smażyć	podsmażyć	dk
+smażyć	wysmażyć	dk
+smażyć	obsmażyć	dk
+smażyć	zasmażyć	dk
+smażyć	odsmażyć	dk
+spać	zaspać	dk
+spać	uśpić	dk
+spać	wyspać się	dk
+spać	odespać	dk
+spać	zasnąć	dk
+spieprzać	pieprzyć]], [[spieprzyć	dk
+sprawiać	sprawić	dk
+srać	dosrać	dk
+srać	nasrać	dk
+srać	obesrać	dk
+srać	obsrać	dk
+srać	osrać	dk
+srać	podesrać	dk
+srać	posrać się	dk
+srać	przesrać	dk
+srać	przysrać	dk
+srać	usrać się	dk
+srać	wysrać	dk
+srać	zasrać	dk
+srać	zesrać się	dk
+strzelać	strzelić]], [[ostrzelać	dk
+strzelać	postrzelić	dk
+strzelać	rozstrzelać	dk
+strzelać	ustrzelić	dk
+strzelać	wystrzelić	dk
+strzelać	zastrzelić	dk
+suszyć	wysuszyć	possibly:  dk
+szaleć	oszaleć	dk
+szaleć	zaszaleć	dk
+szanować	uszanować	possibly:  dk
+szantażować	zaszantażować	dk
+szczać	obszczać	dk
+szczać	zeszczać się	dk
+szczać	poszczać się	dk
+szczać	naszczać	dk
+szczać	wyszczać się	dk
+szczać	oszczać	dk
+szczać	zaszczać	dk
+szczekać	rozszczekać się	dk
+szczuć	poszczuć	dk
+szczuć	zaszczuć	dk
+szukać	poszukać	dk
+szukać	przeszukać	dk
+szukać	wyszukać	dk
+szukać	odszukać	dk
+sądzić	odsądzić	dk
+sądzić	osądzić	dk
+sądzić	posądzić	dk
+sądzić	przesądzić	dk
+sądzić	przysądzić	dk
+sądzić	rozsądzić	dk
+sądzić	wysądzić	dk
+sądzić	zasądzić	dk
+tańczyć	obtańcować	dk
+tańczyć	przetańczyć	dk
+tańczyć	wytańczyć	dk
+tańczyć	zatańczyć	dk
+tonąć	utonąć	dk
+tonąć	zatonąć	dk
+trzaskać	trzasnąć	dk
+trzebić	przetrzebić	dk
+trzebić	wytrzebić	dk
+trzymać	dotrzymać	dk
+trzymać	otrzymać	dk
+trzymać	podtrzymać	dk
+trzymać	pootrzymywać	dk
+trzymać	potrzymać	dk
+trzymać	powstrzymać	dk
+trzymać	pozatrzymywać	dk
+trzymać	przetrzymać	dk
+trzymać	przytrzymać	dk
+trzymać	utrzymać	dk
+trzymać	wstrzymać	dk
+trzymać	wytrzymać	dk
+trzymać	zatrzymać	dk
+tworzyć	stworzyć	dk
+tęsknić	zatęsknić	dk
+tęsknić	potęsknić	dk
+tęsknić	stęsknić się	dk
+tłumaczyć	wytłumaczyć	dk
+tłumaczyć	przetłumaczyć	dk
+uciekać	uciec	possibly:  dk
+uczyć	nauczyć	dk
+uczyć	oduczyć	dk
+uczyć	wyuczyć	dk
+uczyć	douczyć	dk
+uczyć	przeuczyć	dk
+uderzać	uderzyć	dk
+ufać	zaufać	dk
+ukrywać	ukryć	dk
+umierać	umrzeć	dk
+uprawiać	uprawić	dk
+uważać	zauważać]]/[[zauważyć	possibly:  dk
+uwielbiać	uwielbić	dk
+używać	użyć	dk
+warczeć	warknąć]], [[warkotać	possibly:  dk
+wiać	nawiewać]], [[powiać	dk
+wierzyć	uwierzyć	dk
+więdnąć	uwiędnąć]], [[zwiędnąć	possibly:  dk
+więznąć	uwięznąć	dk
+wkurwiać	kurwować]], [[wkurwić	dk
+wonieć	zawonieć	dk
+wołać	przywołać	dk
+wpływać	wpłynąć	possibly:  dk
+wracać	wrócić	dk
+wspominać	wspomnieć	dk
+wstawać	postawić	dk
+wybuchać	wybuchnąć	dk
+wyglądać	wyjrzeć	possibly:  dk
+wyjaśniać	wyjaśnić	possibly:  dk
+wykorzystywać	skorzystać	dk
+wymiotować	zwymiotować	dk
+wystarczać	wystarczyć	dk
+wyświetlać	wyświetlić	possibly:  dk
+wąchać	dowąchać	dk
+wąchać	nawąchać	dk
+wąchać	obwąchać	dk
+wąchać	powąchać	dk
+wąchać	przewąchać	dk
+wąchać	wywąchać	dk
+wąchać	zwąchać	dk
+wędrować	przywędrować	possibly:  dk
+włączać	przyłączyć]], [[łączyć	dk
+zachodzić	zajść	dk
+zaczynać	zacząć	dk
+zakładać	założyć	dk
+zamykać	zamknąć	dk
+zapierdalać	pierdolnąć	dk
+zapierdalać	odpierdolić	dk
+zapierdalać	opierdolić	dk
+zapierdalać	podpierdolić	dk
+zapierdalać	popierdolić	dk
+zapierdalać	porozpierdalać	dk
+zapierdalać	przepierdolić	dk
+zapierdalać	przypierdolić	dk
+zapierdalać	rozpierdolić	dk
+zapierdalać	spierdolić	dk
+zapierdalać	upierdolić	dk
+zapierdalać	wpierdolić	dk
+zapierdalać	wypierdolić	dk
+zapierdalać	upierdolić	dk
+zapierdalać	zapierdolić	dk
+zapominać	zapomnieć	dk
+zapominać	zapomnieć się	dk
+zarabiać	zarobić	dk
+zasługiwać	służyć]], [[zasłużyć	dk
+zdobić	ozdobić	dk
+zdobić	przyozdobić	dk
+zerkać	zerknąć	dk
+zimować	przezimować	dk
+zmartwychwstawać	zmartwychwstać	dk
+zmieniać	zmienić	dk
+znajdować	znaleźć	dk
+znać	poznać	dk
+znać	zaznać	dk
+znać	uznać	dk
+znikać	zniknąć	possibly:  dk
+znosić	donieść	dk
+ćpać	ćpnąć	dk
+ćpać	naćpać się	dk
+ćpać	oćpać się	dk
+ćpać	wyćpnąć	dk
+ćpać	zaćpać	dk
+ćwiczyć	wyćwiczyć	dk
+ćwiczyć	wyćwiczyć|wyćwiczyć się	dk
+ładować	doładować	dk
+ładować	naładować	dk
+ładować	obładować	dk
+ładować	odładować	dk
+ładować	podładować	dk
+ładować	powyładowywać	dk
+ładować	pozaładowywać	dk
+ładować	przeładować	dk
+ładować	przyładować	dk
+ładować	rozładować	dk
+ładować	turbodoładować	dk
+ładować	władować	dk
+ładować	wyładować	dk
+ładować	załadować	dk
+ładować	zładować	dk
+łamać	złamać]], [[wyłamywać	possibly:  dk
+łapać	przyłapywać	possibly:  dk
+ściągać	ściągnąć	dk
+śledzić	wyśledzić	dk
+śledzić	prześledzić	dk
+śmierdzieć	zaśmierdzieć	dk
+śpieszyć	pośpieszyć	dk
+śpieszyć	pospieszyć	dk
+śpiewać	zaśpiewać	dk
+śpiewać	odśpiewać	dk
+śpiewać	wyśpiewać	dk
+śpiewać	dośpiewać	dk
+żałować	pożałować	dk
+żyć	przeżyć	dk
+żyć	wyżyć]], [[ożyć	dk
+żyć	odżyć	dk
