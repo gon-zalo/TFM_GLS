@@ -25,3 +25,4 @@ py/__pycache__/bert_embeddings.cpython-312.pyc
 py/main_biplets_bert.py
 /py/plots/old
 /py/results/old
+/py/results/pol/old_bert
