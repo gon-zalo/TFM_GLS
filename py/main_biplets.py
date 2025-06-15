@@ -29,12 +29,12 @@ spa_inf = pd.read_csv("datasets/spa/spa_inflections.txt", sep="\t", header=None,
 pol_inf = pd.read_csv("datasets/pol/pol_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
     # SHUFFLED INFLECTION
-spa_inf_shuf = pd.read_csv("datasets/spa/spa_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-pol_inf_shuf = pd.read_csv("datasets/pol/pol_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+# spa_inf_shuf = pd.read_csv("datasets/spa/spa_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+# pol_inf_shuf = pd.read_csv("datasets/pol/pol_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
         # SUBSET INFLECTION
-spa_inf_subs = pd.read_csv("datasets/spa/spa_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-pol_inf_subs = pd.read_csv("datasets/pol/pol_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+# spa_inf_subs = pd.read_csv("datasets/spa/spa_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
+# pol_inf_subs = pd.read_csv("datasets/pol/pol_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
 
     # DERIVATION
@@ -42,13 +42,14 @@ spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None,
 pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
     # SHUFFLED DERIVATION
-spa_der_shuf = pd.read_csv("datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-pol_der_shuf = pd.read_csv("datasets/pol/pol_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+# spa_der_shuf = pd.read_csv("datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+# pol_der_shuf = pd.read_csv("datasets/pol/pol_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
         # SUBSET DERIVATION
-spa_der_subs = pd.read_csv("datasets/spa/spa_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-pol_der_subs = pd.read_csv("datasets/pol/pol_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+# spa_der_subs = pd.read_csv("datasets/spa/spa_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
+# pol_der_subs = pd.read_csv("datasets/pol/pol_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
+# POLISH ASPECT DATAFRAME
 aspect_df = pd.read_csv("datasets/pol/verbs_sgjp_expanded.txt", sep="\t")
 
 # -----------------------------------------------------
@@ -184,8 +185,8 @@ def sim_inflection(model, model_name, language, data):
     print(f"\n{model_name.upper()} EMBEDDINGS IN {language.upper()}")
     print(f"    MEAN SIMILARITY (PIVOT-INFLECTION): {np.mean(similarity_values):.2f}")
 
-# function to shuffle inflections and extract the mean similarity of each loop
 def shuffle_inflection(model, model_name, language, data, tense):
+    # function to shuffle inflections and extract the mean similarity of each loop
     if language == "Spanish":
         language = "Spanish"
         lang = "spa"
@@ -286,7 +287,7 @@ def sim_derivation(model, model_name, language, data):
     print(f"    MEAN SIMILARITY (PIVOT-DERIVATION): {np.mean(similarity_values):.2f}")
 
 def shuffle_derivation(model, model_name, language, data, name):
-     # same as shuffle_inflection but for derivation dataset
+     # same as shuffle_inflection but for derivational data
     if language == "Spanish":
         language = "Spanish"
         lang = "spa"
@@ -353,15 +354,6 @@ choose_embeddings takes an argument of the model name (fasttext, word2vec or ber
 
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
 '''
-
-
-
-
-# model, model_name, language = choose_embeddings("fasttext", "pol") # POLISH
-# sim_aspect(model, model_name, language, aspect_df)
-
-model, model_name, language = choose_embeddings("word2vec", "pol") # POLISH
-sim_aspect(model, model_name, language, aspect_df)
 
 ###### INFLECTION ######
 # # FASTTEXT
@@ -441,3 +433,10 @@ sim_aspect(model, model_name, language, aspect_df)
 # shuffle_inflection(model, model_name, language, present_df, "present")
 # shuffle_inflection(model, model_name, language, past_df, 'past')
 # shuffle_inflection(model, model_name, language, future_df, 'future')
+
+# # ASPECT FUNCTIONS
+# model, model_name, language = choose_embeddings("fasttext", "pol") # POLISH
+# sim_aspect(model, model_name, language, aspect_df)
+
+# model, model_name, language = choose_embeddings("word2vec", "pol") # POLISH
+# sim_aspect(model, model_name, language, aspect_df)
