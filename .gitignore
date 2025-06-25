@@ -26,3 +26,4 @@ py/main_biplets_bert.py
 /py/plots/old
 /py/results/old
 /py/results/pol/old_bert
+/py/main_triplets.py
