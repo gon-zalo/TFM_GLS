@@ -20,24 +20,24 @@ extracted = []
 for item in data:
     extracted.append((item["entry"], item["genders"], item["id"]))
 
-clear_verbs = []
+imperfective_verbs = []
 
 for (verb, aspect, id) in extracted:
-    if aspect == "dk" or aspect == "ndk" and verb.endswith("ć") or verb.endswith("c"):
-        clear_verbs.append((verb, aspect, id))
+    if aspect == "ndk" and (verb.endswith("ć") or verb.endswith("c")):
+        imperfective_verbs.append((verb, aspect, id))
     else:
         pass
         
 
-print(f"Removed {len(extracted)-len(clear_verbs)} biaspectual verbs")
-print("Total verbs:", len(clear_verbs))
+print("Total imperfective verbs:", len(imperfective_verbs))
 
 verb_data = []
 
 
-for (verb, aspect, id) in tqdm.tqdm(clear_verbs):
-    print(f"Fetching pair of... {verb}")
+for (verb, aspect, id) in tqdm.tqdm(imperfective_verbs):
+    print(f"Fetching pair(s) of... {verb}")
 
+    odpowiedniki = [] # list in case there are more than 1 empty prefixed verb
     url = f"http://sgjp.pl/edycja/ajax/inflection-tables/?lexeme_id={id}&variant=2"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
@@ -48,15 +48,22 @@ for (verb, aspect, id) in tqdm.tqdm(clear_verbs):
         tr = trs[1]
         
         if tr:
-            span = tr.find("span")
+            spans = tr.find_all("span")
 
-            if span:
-                odpowiednik = span.string
-                id_tag = span.get("id")
+            if spans:
+                for span in spans:
 
-                if odpowiednik and id_tag:
-                    odpowiednik_id = "".join([character for character in id_tag if character.isdigit()])
-                    odpowiednik_id = int(odpowiednik_id)
+                    odpowiednik = span.string
+                    id_tag = span.get("id")
+
+                    if odpowiednik and id_tag:
+
+                        if odpowiednik.endswith("ć") or odpowiednik.endswith("c"):
+
+                            odpowiednik_id = "".join([character for character in id_tag if character.isdigit()])
+                            odpowiednik_id = int(odpowiednik_id)
+
+                            odpowiedniki.append(odpowiednik)
         else:
             pass
 
@@ -66,10 +73,13 @@ for (verb, aspect, id) in tqdm.tqdm(clear_verbs):
         odpowiednik_aspect = "ndk"
 
     # pair.append((odpowiednik, odpowiednik_id))
-    if odpowiednik:
+    if len(odpowiedniki) > 1:
+        for odpowiednik in odpowiedniki:
+            verb_data.append((verb, aspect, id, odpowiednik, odpowiednik_aspect, odpowiednik_id))
+    else:
         verb_data.append((verb, aspect, id, odpowiednik, odpowiednik_aspect, odpowiednik_id))
-
 
 df = pd.DataFrame(verb_data, columns=["verb", "aspect", "id", "pair", "pair_aspect", "pair_id"])
 
-df.to_csv("datasets/pol/verbs_sgjp.txt", sep="\t", index=False, columns=["verb", "aspect", "id", "pair", "pair_aspect", "pair_id"])
+
+# df.to_csv("datasets/pol/verbs_sgjp_fixed.txt", sep="\t", index=False, columns=["verb", "aspect", "id", "pair", "pair_aspect", "pair_id"])

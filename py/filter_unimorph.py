@@ -97,7 +97,7 @@ def filter_derivation(dataframe, language):
     filtered_dfs = {}
 
     for category in categories:
-        if category == "ADV:V": # removing this since there are only 5 instances of it in Spanish UniMorph
+        if category != "ADV:V": # removing this since there are only 9 instances of it in Spanish UniMorph
             pass
 
         else:
@@ -110,8 +110,8 @@ def filter_derivation(dataframe, language):
     # return a dictionary of 16 filtered dataframes
     return filtered_dfs
 
-# filter_derivation(spa_der, 'spa')
-# filter_derivation(pol_der, 'pol')
+print(filter_derivation(spa_der, 'spa'))
+# print(filter_derivation(pol_der, 'pol'))
 
 # clean_inflection(spa_inf)
 # clean_inflection(pol_inf)

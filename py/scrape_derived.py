@@ -7,24 +7,30 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import pandas as pd
-from tqdm import tqdm
 
-pol_inf_an = pd.read_csv('datasets/pol/pol_inflections_an.txt', header=None, names=['pivot', 'inflection', 'category', 'aspect'], sep='\t')
 
-df_sgjp = pd.read_csv("datasets/pol/verbs_sgjp.txt", sep="\t")
+def annotate_pair_type(row):
+    verb = row['verb']
+    pair = row['pair']
 
-# impfs_df = pol_inf_an[
-#     pol_inf_an["aspect"] == "IPFV"
-# ]
+    if pair[:2] == verb[:2]:
+        return "suffixed"
+    if pair[-3:] != verb[-3:]:
+        return "suppletion"
+    if pair[:2] != verb[:2]:
+        return "empty"
+    
+# df["pair_type"] = df.apply(annotate_pair_type, axis=1)
 
-# impfs = list(set(impfs_df["pivot"]))
 
-# impfs.sort()
+df_sgjp = pd.read_csv("datasets/pol/verbs_sgjp.txt", sep="\t") # verb file
 
-impfs = df_sgjp['verb']
+impfs = df_sgjp['verb'] # list of imperfectives to pass into the scraping script
 
 # MAIN LOOP
-def get_derived_from_list(list): # initial function for testing purposes, takes one list of words (verbs) as an argument. Returns a dataframe
+def get_derived_from_list(list): 
+    
+    '''initial function for testing purposes, takes one list of words (verbs) as an argument. Returns a dataframe'''
 
     loop = 0
     scraped_verbs = {}
@@ -135,7 +141,9 @@ def get_derived_from_list(list): # initial function for testing purposes, takes 
 
     return df
 
-def get_derived(word): # get derived verbs, use with a previously made dataframe. Takes a word from a column as argument. Returns a list of derived/perfective verbs to be appended later on to the initial dataframe
+def get_derived(word): 
+    
+    '''get derived verbs from wikislownik, use with a previously made dataframe. Takes a word from a column as argument. Returns a list of derived verbs to be appended later on to the initial dataframe. It is a rough script which introduces formatting errors that need to be manually checked, but works well enough'''
     
     print(f"\nImperfective: {word}")
     
@@ -227,8 +235,7 @@ def get_derived(word): # get derived verbs, use with a previously made dataframe
     else:
         print("No pokrewne")
 
-
-
+# the code is appending rows to the dataframe that is being passed to get_derived, for testing purposes use get_derived_from_list
 rows = [] # empty list to store the rows to be appended to the dataframe
 
 for _,row in df_sgjp.iterrows():
@@ -255,6 +262,7 @@ for _,row in df_sgjp.iterrows():
         
 
 print("dataframe created")
+
 expanded_df = pd.DataFrame(rows).reset_index(drop=True)
 print()
 print(expanded_df.head())

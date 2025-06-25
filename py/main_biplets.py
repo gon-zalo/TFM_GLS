@@ -15,11 +15,11 @@ from filter_unimorph import filter_inflection, filter_derivation
 # -----------------------------------------------------
 
 # EMBEDDINGS/MODELS
-# FASTTEXT
+    # FASTTEXT
 spa_ft = "embeddings/spa/cc.es.300.bin" # spanish
 pol_ft = "embeddings/pol/cc.pl.300.bin" # polish
 
-# WORD2VEC
+    # WORD2VEC
 spa_w2v = "embeddings/spa/sbw_vectors.bin" # spanish (SBW)
 pol_w2v = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 
@@ -28,26 +28,9 @@ pol_w2v = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin" # polish
 spa_inf = pd.read_csv("datasets/spa/spa_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 pol_inf = pd.read_csv("datasets/pol/pol_inflections.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
 
-    # SHUFFLED INFLECTION
-# spa_inf_shuf = pd.read_csv("datasets/spa/spa_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-# pol_inf_shuf = pd.read_csv("datasets/pol/pol_inflections_shuffled.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-
-        # SUBSET INFLECTION
-# spa_inf_subs = pd.read_csv("datasets/spa/spa_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-# pol_inf_subs = pd.read_csv("datasets/pol/pol_inflections_subset.txt", sep="\t", header=None, names=["pivot", "inflection", "category"])
-
-
     # DERIVATION
 spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-
-    # SHUFFLED DERIVATION
-# spa_der_shuf = pd.read_csv("datasets/spa/spa_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-# pol_der_shuf = pd.read_csv("datasets/pol/pol_derivations_shuffled.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-
-        # SUBSET DERIVATION
-# spa_der_subs = pd.read_csv("datasets/spa/spa_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
-# pol_der_subs = pd.read_csv("datasets/pol/pol_derivations_subset.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 # POLISH ASPECT DATAFRAME
 aspect_df = pd.read_csv("datasets/pol/verbs_sgjp_expanded.txt", sep="\t")
@@ -387,16 +370,16 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 
 ####### BASELINE FUNCTIONS #######
 
-# # DERIVATION
-# # spanish
-# filtered_dfs = filter_derivation(spa_der, 'spa')
-# model, model_name, language = choose_embeddings("fasttext", "spa")
-# for name, dataframe in filtered_dfs.items():
-#     shuffle_derivation(model, model_name, language, dataframe, name)
+# DERIVATION
+# spanish
+filtered_dfs = filter_derivation(spa_der, 'spa')
+model, model_name, language = choose_embeddings("fasttext", "spa")
+for name, dataframe in filtered_dfs.items():
+    shuffle_derivation(model, model_name, language, dataframe, name)
 
-# model, model_name, language = choose_embeddings("word2vec", "spa")
-# for name, dataframe in filtered_dfs.items():
-#     shuffle_derivation(model, model_name, language, dataframe, name)
+model, model_name, language = choose_embeddings("word2vec", "spa")
+for name, dataframe in filtered_dfs.items():
+    shuffle_derivation(model, model_name, language, dataframe, name)
 
 # # polish
 # filtered_dfs = filter_derivation(pol_der, 'pol')
