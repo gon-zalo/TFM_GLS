@@ -8,9 +8,8 @@ import fasttext.util
 import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cosine
-from torch.nn.functional import normalize
 from gensim.models import  KeyedVectors
-from filter_unimorph import filter_inflection, filter_derivation
+from filter_unimorph import filter_derivation
 
 # -----------------------------------------------------
 
@@ -372,14 +371,14 @@ calculate_sims takes what choose_embeddings outputs and an argument of the file 
 
 # DERIVATION
 # spanish
-filtered_dfs = filter_derivation(spa_der, 'spa')
-model, model_name, language = choose_embeddings("fasttext", "spa")
-for name, dataframe in filtered_dfs.items():
-    shuffle_derivation(model, model_name, language, dataframe, name)
+# filtered_dfs = filter_derivation(spa_der, 'spa')
+# model, model_name, language = choose_embeddings("fasttext", "spa")
+# for name, dataframe in filtered_dfs.items():
+#     shuffle_derivation(model, model_name, language, dataframe, name)
 
-model, model_name, language = choose_embeddings("word2vec", "spa")
-for name, dataframe in filtered_dfs.items():
-    shuffle_derivation(model, model_name, language, dataframe, name)
+# model, model_name, language = choose_embeddings("word2vec", "spa")
+# for name, dataframe in filtered_dfs.items():
+#     shuffle_derivation(model, model_name, language, dataframe, name)
 
 # # polish
 # filtered_dfs = filter_derivation(pol_der, 'pol')
@@ -417,7 +416,7 @@ for name, dataframe in filtered_dfs.items():
 # shuffle_inflection(model, model_name, language, past_df, 'past')
 # shuffle_inflection(model, model_name, language, future_df, 'future')
 
-# # ASPECT FUNCTIONS
+# # ASPECT STUDY FUNCTIONS
 # model, model_name, language = choose_embeddings("fasttext", "pol") # POLISH
 # sim_aspect(model, model_name, language, aspect_df)
 

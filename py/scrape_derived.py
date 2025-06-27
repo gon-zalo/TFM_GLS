@@ -30,7 +30,7 @@ impfs = df_sgjp['verb'] # list of imperfectives to pass into the scraping script
 # MAIN LOOP
 def get_derived_from_list(list): 
     
-    '''initial function for testing purposes, takes one list of words (verbs) as an argument. Returns a dataframe'''
+    '''USE WITH A LIST! Initial function for testing purposes, takes one list of words (verbs) as an argument. Returns a dataframe.'''
 
     loop = 0
     scraped_verbs = {}
@@ -83,11 +83,6 @@ def get_derived_from_list(list):
                     break
                 else:
                     verb_list.append(verb)
-
-            # verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
-            # verb_list = [item.strip("]]\n:") for item in verb_list]
-            # verb_list = [verb for verb in verb_list if len(verb) < 20]
-            # verb_list = [item for item in verb_list if item.endswith('ć') or item.endswith('c')]
 
             # aspect tags code
             aspects = data[2:len(data):2]
@@ -143,7 +138,7 @@ def get_derived_from_list(list):
 
 def get_derived(word): 
     
-    '''get derived verbs from wikislownik, use with a previously made dataframe. Takes a word from a column as argument. Returns a list of derived verbs to be appended later on to the initial dataframe. It is a rough script which introduces formatting errors that need to be manually checked, but works well enough'''
+    '''get derived verbs from wikislownik, USE WITH A PREVIOUSLY MADE DATAFRAME. Takes a word from a column as argument. Returns a list of derived verbs to be appended later on to the initial dataframe. It is a rough script which introduces formatting errors that need to be manually checked, but works well enough'''
     
     print(f"\nImperfective: {word}")
     
@@ -191,11 +186,6 @@ def get_derived(word):
                 break
             else:
                 verb_list.append(verb)
-
-        # verb_list = [item.strip(" ,[]") for item in verb_list] # the verb is formatted as [[verb]]
-        # verb_list = [item.strip("]]\n:") for item in verb_list]
-        # verb_list = [verb for verb in verb_list if len(verb) < 20]
-        # verb_list = [item for item in verb_list if item.endswith('ć') or item.endswith('c')]
 
         # aspect tags code
         aspects = data[2:len(data):2]

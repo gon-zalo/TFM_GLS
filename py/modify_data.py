@@ -69,17 +69,17 @@ def shuffle(data, language):
         for number in range(1,11):
             data[["derivation", "category", "affix"]] = data[["derivation", "category", "affix"]].sample(frac=1, random_state=123).reset_index(drop=True)
             # data.to_csv(f'datasets/{language}/{language}_derivations_shuffled.txt', index= False, header=None, sep='\t')        
-    2
 
 
 ### CALLING FUNCTIONS
+
 # language should be 'spa' or 'pol'
 
 # subset_der(spa_der, 'spa')
 # subset_der(pol_der, 'pol') 
 
 # subset_inf(spa_inf, 'spa')
-subset_inf(pol_inf_an, 'pol')
+# subset_inf(pol_inf_an, 'pol')
 
 # shuffle(spa_der, 'spa')
 # shuffle(spa_inf, 'spa')
