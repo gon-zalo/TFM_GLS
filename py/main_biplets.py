@@ -48,13 +48,6 @@ ipipan_embeddings = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.txt"
 
 # -----------------------------------------------------
 
-# # Load vectors from the .txt file
-# model = KeyedVectors.load_word2vec_format(txt_path, binary=False)
-
-# # Save in binary (.bin) format
-# model.save_word2vec_format("embeddings.bin", binary=True)
-
-
 def choose_embeddings(model_name, language):
     embeddings_dict = {
         "spa": {
@@ -142,24 +135,36 @@ def choose_embeddings(model_name, language):
 
     # FASTTEXT
     if model_name.lower() == "fasttext":
-        print(f'\nLoading {language} FastText embeddings...')
-        # check if they exist, if they don't, download them
-        if not os.path.exists(embeddings):
-            print("FastText embeddings not found!")
-            print(f"Downloading {language} FastText embeddings to {embeddings}...")
-            if language == "spa":
+        if language == "Spanish":
+        
+            if not os.path.exists(spa_ft):
+                print("Spanish FastText embeddings not found!")
+                print(f"Downloading {language} FastText embeddings...")
+                print("Embeddings need to be extracted once they download")
                 fasttext.util.download_model('es')
-                os.rename("cc.es.300.bin", embeddings)
-            else:
+                os.rename("cc.es.300.bin", spa_ft)
+                os.remove("cc.es.300.bin.gz")
+                print("Embeddings downloaded!")   
+
+        if language == "Polish":
+
+            if not os.path.exists(pol_ft):
+                print("Polish FastText embeddings not found!")
+                print(f"Downloading {language} FastText embeddings...")
+                print("Embeddings need to be extracted once they download")
                 fasttext.util.download_model('pl')
-                os.rename("cc.pl.300.bin", embeddings)              
+                os.rename("cc.pl.300.bin", pol_ft)
+                os.remove("cc.pl.300.bin.gz")
+                print("Embeddings downloaded!")                
+
+        print(f'\nLoading {language} FastText embeddings...')            
         model = fasttext.load_model(embeddings)
         return model, "FastText", language
 
     else:
         raise ValueError("Invalid model name.")
 
-print(choose_embeddings('word2vec', 'pol'))
+print(choose_embeddings('fasttext', 'spa'))
 
 def sim_aspect(model, model_name, language, data):
 
@@ -417,6 +422,7 @@ def shuffle_derivation(model, model_name, language, data, name):
 # where functions are called
 
 '''
+EMBEDDINGS WILL DOWNLOAD AUTOMATICALLY IF THEY ARE NOT IN THE DIRECTORY
 choose_embeddings takes an argument of the model name (fasttext, word2vec or bert) and a language argument (spa or pol), it outputs the model, the model name and the language (to be used in the results file name and file path).
 
 calculate_sims takes what choose_embeddings outputs and an argument of the file to be used.
