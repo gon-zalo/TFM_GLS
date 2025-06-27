@@ -110,7 +110,7 @@ def filter_derivation(dataframe, language):
     # return a dictionary of 16 filtered dataframes
     return filtered_dfs
 
-print(filter_derivation(spa_der, 'spa'))
+# print(filter_derivation(spa_der, 'spa'))
 # print(filter_derivation(pol_der, 'pol'))
 
 # clean_inflection(spa_inf)
