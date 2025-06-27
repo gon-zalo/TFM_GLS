@@ -9,7 +9,10 @@ import numpy as np
 import pandas as pd
 from scipy.spatial.distance import cosine
 from gensim.models import  KeyedVectors
-from filter_unimorph import filter_derivation
+from filter_unimorph import filter_derivation, filter_inflection
+import requests
+import gzip
+import shutil
 
 # -----------------------------------------------------
 
@@ -32,9 +35,25 @@ spa_der = pd.read_csv("datasets/spa/spa_derivations.txt", sep="\t", header=None,
 pol_der = pd.read_csv("datasets/pol/pol_derivations.txt", sep="\t", header=None, names=["pivot", "derivation", "category", "affix"])
 
 # POLISH ASPECT DATAFRAME
-aspect_df = pd.read_csv("datasets/pol/verbs_sgjp_expanded.txt", sep="\t")
+aspect_df = pd.read_csv("datasets/pol/verbs_sgjp_with_derived.txt", sep="\t")
+
+# data for to download and extract word2vec embeddings
+sbw_embeddings_url = 'https://cs.famaf.unc.edu.ar/~ccardellino/SBWCE/SBW-vectors-300-min5.bin.gz'
+sbw_gz_file = 'embeddings/spa/SBW-vectors-300-min5.bin.gz'
+sbw_embeddings = "embeddings/spa/sbw_vectors.bin"
+
+ipipan_embeddings_url = 'http://dsmodels.nlp.ipipan.waw.pl/dsmodels/nkjp+wiki-forms-all-300-skipg-ns.txt.gz'
+ipipan_gz_file = 'embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.txt.gz'
+ipipan_embeddings = "embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.txt"
 
 # -----------------------------------------------------
+
+# # Load vectors from the .txt file
+# model = KeyedVectors.load_word2vec_format(txt_path, binary=False)
+
+# # Save in binary (.bin) format
+# model.save_word2vec_format("embeddings.bin", binary=True)
+
 
 def choose_embeddings(model_name, language):
     embeddings_dict = {
@@ -57,8 +76,67 @@ def choose_embeddings(model_name, language):
 
     #  WORD2VEC
     if model_name.lower() == "word2vec":
+
+        if language == "Polish":
+            # check if embeddings file exists
+            if not os.path.exists(pol_w2v):
+                print(f"{pol_w2v} not found. Downloading, extracting and converting to .bin...")
+
+                # download .gz file if it doesn't exist
+                if not os.path.exists(ipipan_gz_file):
+                    print(f"Downloading {ipipan_gz_file} from {ipipan_embeddings_url}...")
+                    response = requests.get(ipipan_embeddings_url, stream=True)
+                    with open(ipipan_gz_file, "wb") as f:
+                        for chunk in response.iter_content(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+                    print(f"Download of {ipipan_gz_file} completed.")
+
+                print(f"Extracting {ipipan_gz_file} to {ipipan_embeddings}...")
+                with gzip.open(ipipan_gz_file, 'rb') as f_in:
+                    with open(ipipan_embeddings, 'wb') as f_out:
+                        shutil.copyfileobj(f_in, f_out)
+                print(f"Extraction completed, saved as {ipipan_embeddings}.")
+
+                print("Converting Polish embeddings to .bin")
+                # converted .txt embeddings file into .bin for faster performance
+                model_to_convert = KeyedVectors.load_word2vec_format(ipipan_embeddings, binary=False)
+                model_to_convert.save_word2vec_format("embeddings/pol/nkjp+wiki-forms-all-300-skipg-ns.bin", binary=True)
+                print("Polish embeddings succesfully converted to .bin!")
+                os.remove(ipipan_embeddings)
+                os.remove(ipipan_gz_file)
+                print("Polish .txt file embeddings and .gz file removed!")
+
+            else:
+                print(f"{pol_w2v} found!")
+
+        if language == "Spanish":
+            if not os.path.exists(spa_w2v):
+                print(f"{spa_w2v} not found. Downloading and extracting...")
+
+                # download .gz file if it doesn't exist
+                if not os.path.exists(sbw_gz_file):
+                    print(f"Downloading {sbw_gz_file} from {sbw_embeddings_url}...")
+                    response = requests.get(sbw_embeddings_url, stream=True)
+                    with open(sbw_gz_file, "wb") as f:
+                        for chunk in response.iter_content(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+                    print(f"Download of {sbw_gz_file} completed.")
+            
+                print(f"Extracting {sbw_gz_file} to {spa_w2v}...")
+                with gzip.open(sbw_gz_file, 'rb') as f_in:
+                    with open(spa_w2v, 'wb') as f_out:
+                        shutil.copyfileobj(f_in, f_out)
+                print(f"Extraction completed, saved as {spa_w2v}.")
+                os.remove(sbw_gz_file)
+                print("Spanish .gz file removed!")
+
+            else:
+                print(f"{spa_w2v} found!")
+
         print(f'\nLoading {language} Word2Vec embeddings...')
-        # load the SBW embeddings
+        # load the w2v embeddings
         model = KeyedVectors.load_word2vec_format(embeddings, binary=True)
         return model, "Word2Vec", language
 
@@ -67,14 +145,21 @@ def choose_embeddings(model_name, language):
         print(f'\nLoading {language} FastText embeddings...')
         # check if they exist, if they don't, download them
         if not os.path.exists(embeddings):
+            print("FastText embeddings not found!")
             print(f"Downloading {language} FastText embeddings to {embeddings}...")
-            fasttext.util.download_model('es')
-            os.rename("cc.es.300.bin", embeddings)  # Move the downloaded file to the desired location
+            if language == "spa":
+                fasttext.util.download_model('es')
+                os.rename("cc.es.300.bin", embeddings)
+            else:
+                fasttext.util.download_model('pl')
+                os.rename("cc.pl.300.bin", embeddings)              
         model = fasttext.load_model(embeddings)
         return model, "FastText", language
 
     else:
         raise ValueError("Invalid model name.")
+
+print(choose_embeddings('word2vec', 'pol'))
 
 def sim_aspect(model, model_name, language, data):
 
