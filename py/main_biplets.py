@@ -164,8 +164,6 @@ def choose_embeddings(model_name, language):
     else:
         raise ValueError("Invalid model name.")
 
-print(choose_embeddings('fasttext', 'spa'))
-
 def sim_aspect(model, model_name, language, data):
 
     if language == "Polish":
